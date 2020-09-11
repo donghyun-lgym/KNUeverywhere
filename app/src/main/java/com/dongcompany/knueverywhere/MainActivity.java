@@ -21,7 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
-
+    //커밋테스트
     private AppBarConfiguration mAppBarConfiguration;
 
 

@@ -1,4 +1,4 @@
-package com.dongcompany.knueverywhere.ui.gallery;
+package com.dongcompany.knueverywhere.ui.Gallery;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

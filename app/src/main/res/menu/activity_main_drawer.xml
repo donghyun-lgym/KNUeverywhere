@@ -5,16 +5,16 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:id="@+id/nav_Map"
+            android:icon="@drawable/menu1_map_icon"
+            android:title="경북대학교 탐방하기" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:id="@+id/nav_Gallery"
+            android:icon="@drawable/menu2_gallery_icon"
+            android:title="갤러리" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_Awards"
+            android:icon="@drawable/menu3_award_icon"
+            android:title="명예의 전당" />
     </group>
 </menu>

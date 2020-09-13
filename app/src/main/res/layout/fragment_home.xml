@@ -9,5 +9,8 @@
     <com.naver.maps.map.MapView
         android:id="@+id/map_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-53dp"
+        tools:layout_editor_absoluteY="44dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,10 @@
 package com.dongcompany.knueverywhere;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -12,6 +14,7 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -20,12 +23,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
-    //커밋테스트
+public class MainActivity extends AppCompatActivity  {
     private AppBarConfiguration mAppBarConfiguration;
-
-
-    private MapView mapView;
 
 
     @Override
@@ -42,9 +41,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         .setAction("Action", null).show();
             }
         });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
 
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
@@ -54,11 +53,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        //지도 객체
-        mapView = findViewById(R.id.map_view);
-        mapView.onCreate(savedInstanceState);
 
-        mapView.getMapAsync(this);
+        //네이게이션뷰 아이템 셀렉트
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId())
+                {
+                    case R.id.nav_home:
+                        Toast.makeText(getApplicationContext(), "SelectedItem nav_home", Toast.LENGTH_SHORT).show();
+                    case R.id.nav_gallery:
+                        Toast.makeText(getApplicationContext(), "SelectedItem nav_gallery", Toast.LENGTH_SHORT).show();
+                    case R.id.nav_slideshow:
+                        Toast.makeText(getApplicationContext(), "SelectedItem nav_slideshow", Toast.LENGTH_SHORT).show();
+                }
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
+
+
     }
 
     @Override
@@ -75,8 +89,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 || super.onSupportNavigateUp();
     }
 
-    @Override
-    public void onMapReady(@NonNull NaverMap naverMap) {
 
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "590361231529",
+    "firebase_url": "https://knu-everywhere.firebaseio.com",
+    "project_id": "knu-everywhere",
+    "storage_bucket": "knu-everywhere.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590361231529:android:16b0ef57b471c174a229b8",
+        "android_client_info": {
+          "package_name": "com.dongcompany.knueverywhere"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590361231529-o8u8uolvhki7csd46d0n0hqs50jfjruu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUIeXMjTAw8dVfvQwHwpN5EUS8oFcnXPs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590361231529-o8u8uolvhki7csd46d0n0hqs50jfjruu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

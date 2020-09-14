@@ -11,13 +11,27 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="wrap_content" >
+            <Button
+                android:id="@+id/appBar_MenuButton"
+                android:background="@drawable/menu_icon"
+                android:layout_width="42dp"
+                android:layout_height="47dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="8dp"/>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+        </LinearLayout>
+
 
     </com.google.android.material.appbar.AppBarLayout>
 

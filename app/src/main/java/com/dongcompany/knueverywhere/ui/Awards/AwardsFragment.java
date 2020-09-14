@@ -1,5 +1,7 @@
 package com.dongcompany.knueverywhere.ui.Awards;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,12 @@ import androidx.lifecycle.ViewModelProviders;
 import com.dongcompany.knueverywhere.R;
 
 public class AwardsFragment extends Fragment {
+
+    private Activity activity;
+
+    public AwardsFragment(Context context) {
+        activity = (Activity) context;
+    }
 
     private AwardsViewModel slideshowViewModel;
 

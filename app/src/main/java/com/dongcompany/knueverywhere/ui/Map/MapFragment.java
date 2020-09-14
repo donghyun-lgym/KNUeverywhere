@@ -2,6 +2,7 @@ package com.dongcompany.knueverywhere.ui.Map;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,11 @@ import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.util.FusedLocationSource;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
+    private Activity activity;
+
+    public MapFragment(Context context) {
+        activity = (Activity) context;
+    }
 
     private MapViewModel homeViewModel;
     private MapView mapView;
@@ -40,6 +46,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
 
+    //다이얼로그를 통해 받아온 코스 체크들 여부, 이거에 따라 마킹을 하면 됨.
+    public void MapMarking(Boolean course0, Boolean course1, Boolean course2, Boolean course3) {
+
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -52,8 +63,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapView.getMapAsync(this);
 
         //위치 추적
-       locationSource =
-                new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+       locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
 
        //코스 선택 버튼
         root.findViewById(R.id.MapFragment_SelectButton).setOnClickListener(new View.OnClickListener() {

@@ -8,34 +8,35 @@ import android.widget.Toast;
 
 import com.dongcompany.knueverywhere.ui.Awards.AwardsFragment;
 import com.dongcompany.knueverywhere.ui.Gallery.GalleryFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.dongcompany.knueverywhere.ui.Map.MapFragment;
 import com.google.android.material.navigation.NavigationView;
-import com.naver.maps.map.MapFragment;
-import com.naver.maps.map.MapView;
-import com.naver.maps.map.NaverMap;
-import com.naver.maps.map.OnMapReadyCallback;
+
+import java.lang.reflect.Array;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity  {
-    private AppBarConfiguration mAppBarConfiguration;
+//로그인 처음 할 시 서버에서 데이터를 받아와서 SharedPreferenceUtil 초기화해주기
 
+public class MainActivity extends AppCompatActivity  {
     private SharedPreferenceUtil util;
+
+    private MapFragment fg1;
+    private GalleryFragment fg2;
+    private AwardsFragment fg3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
 //        FloatingActionButton fab = findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -48,32 +49,48 @@ public class MainActivity extends AppCompatActivity  {
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_Map, R.id.nav_Gallery, R.id.nav_Awards)
-                .setDrawerLayout(drawer)
-                .build();
-        final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        findViewById(R.id.appBar_MenuButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(GravityCompat.START);
+            }
+        });
 
 
         //네이게이션뷰 아이템 셀렉트
         //프래그먼트를 교체시켜주는 곳
+        fg1 = new MapFragment(this);
+        fg2 = new GalleryFragment(this);
+        fg3 = new AwardsFragment(this);
+
+        getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg1).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg2).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg3).commit();
+        getSupportFragmentManager().beginTransaction().show(fg1).commit();
+        getSupportFragmentManager().beginTransaction().hide(fg2).commit();
+        getSupportFragmentManager().beginTransaction().hide(fg3).commit();
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId())
                 {
                     case R.id.nav_Map:
-                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.nav_Map);
+                        getSupportFragmentManager().beginTransaction().hide(fg2).commit();
+                        getSupportFragmentManager().beginTransaction().hide(fg3).commit();
+                        getSupportFragmentManager().beginTransaction().show(fg1).commit();
                         Toast.makeText(getApplicationContext(), "맵 프래그먼트 선택됨.", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_Gallery:
-                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.nav_Gallery);
+                        getSupportFragmentManager().beginTransaction().hide(fg1).commit();
+                        getSupportFragmentManager().beginTransaction().hide(fg3).commit();
+                        getSupportFragmentManager().beginTransaction().show(fg2).commit();
                         Toast.makeText(getApplicationContext(), "사진첩 프래그먼트 선택됨.", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_Awards:
-                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.nav_Awards);
+                        getSupportFragmentManager().beginTransaction().hide(fg2).commit();
+                        getSupportFragmentManager().beginTransaction().hide(fg1).commit();
+                        getSupportFragmentManager().beginTransaction().show(fg3).commit();
                         Toast.makeText(getApplicationContext(), "명예의전당 프래그먼트 선택됨.", Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -85,20 +102,15 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
+    public void setCourse_MapMarking(Boolean course0, Boolean course1, Boolean course2, Boolean course3) {
+        fg1.MapMarking(course0, course1, course2, course3);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
-
 
     @Override
     public void onBackPressed() {

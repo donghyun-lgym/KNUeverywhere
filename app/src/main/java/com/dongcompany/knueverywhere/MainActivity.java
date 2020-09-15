@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity  {
     private GalleryFragment fg2;
     private AwardsFragment fg3;
 
+    // 마지막으로 뒤로가기 버튼을 눌렀던 시간 저장
+    private long backKeyPressedTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,8 +120,12 @@ public class MainActivity extends AppCompatActivity  {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        }
+        if(System.currentTimeMillis()-backKeyPressedTime>=2000){
+            backKeyPressedTime=System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(),"뒤로 버튼을 한번 더 누르면 종료합니다.",Toast.LENGTH_SHORT).show();
+        }else if(System.currentTimeMillis()-backKeyPressedTime<2000){
+            finish();
         }
     }
 }

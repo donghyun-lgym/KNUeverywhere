@@ -23,9 +23,9 @@ class SharedPreferenceUtil(context: Context) {
     fun getName(): String = prefs.getString("Name", "null").toString()
 
     //자동로그인
-    fun getLogin(): Boolean = prefs.getBoolean("AutoLogin", false)
+    fun getAutoLogin(): Boolean = prefs.getBoolean("AutoLogin", false)
 
-    fun setLogin(value: Boolean) = prefs.edit().putBoolean("AutoLogin", value).apply()
+    fun setAutoLogin(value: Boolean) = prefs.edit().putBoolean("AutoLogin", value).apply()
 
 
     //탐방 정보들(탐방 중인 정보들)

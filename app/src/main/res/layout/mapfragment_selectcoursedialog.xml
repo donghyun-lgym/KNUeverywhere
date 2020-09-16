@@ -31,7 +31,7 @@
         android:id="@+id/MapDialog_CheckBox3_Facility"
         android:layout_marginVertical="5dp"
         android:layout_marginHorizontal="50dp"
-        android:text="경북대학교의 주요 지점"
+        android:text="경북대학교의 주요 장소"
         android:textSize="15dp"
         android:gravity="center"
         android:layout_width="match_parent"

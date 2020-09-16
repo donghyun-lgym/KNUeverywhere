@@ -15,7 +15,7 @@ class SplashActivity : AppCompatActivity() {
         var util = SharedPreferenceUtil(this)
         Handler().postDelayed(
             {
-                if(util.getLogin() == false) {
+                if(util.getAutoLogin() == false) {
                     startActivity(Intent(this, LoginActivity::class.java))
                 }
                 else {

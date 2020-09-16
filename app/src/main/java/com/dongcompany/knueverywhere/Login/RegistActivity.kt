@@ -147,7 +147,38 @@ class RegistActivity : AppCompatActivity() {
                 }
 
                 //db 탐방정보 등록(all 비탐방)
-
+                //경북대학교의 문
+                val gateway = hashMapOf(
+                        "CLEAR" to false,
+                        "북문" to false, "농장문" to false, "테크노문" to false, "동문" to false, "정문" to false, "수의대문" to false
+                        , "쪽문" to false, "조은문" to false, "솔로문" to false, "서문" to false, "수영장문" to false
+                )
+                db.collection("users").document(IDeditText.text.toString()).collection("경북대학교의 문")
+                        .document("경북대학교의 문").set(gateway)
+                //경북대학교의 식당
+                val restaurent = hashMapOf(
+                        "CLEAR" to false,
+                        "경대리아" to false, "복현회관" to false, "복지관" to false, "종합정보센터" to false, "공대식당" to false
+                )
+                db.collection("users").document(IDeditText.text.toString()).collection("경북대학교의 식당")
+                        .document("경북대학교의 식당").set(restaurent)
+                //경북대학교의 주요 장소
+                val landmark = hashMapOf(
+                        "CLEAR" to false,
+                        "대운동장" to false, "백호관" to false, "일청담" to false, "도서관" to false, "본관" to false, "백양로" to false
+                        , "박물관" to false, "미술관" to false, "대강당" to false, "글로벌플라자" to false, "센트럴파크" to false
+                )
+                db.collection("users").document(IDeditText.text.toString()).collection("경북대학교의 주요 장소")
+                        .document("경북대학교의 주요 장소").set(landmark)
+                //경북대학교의 단과 대학
+                val collage = hashMapOf(
+                        "CLEAR" to false,
+                        "공과대학 1호관" to false, "농업생명과학대학 1호관" to false, "IT대학 1호관" to false, "자연과학대학" to false, "수의과대학" to false
+                        , "사회과학대학" to false, "경상대학" to false, "인문대학" to false, "사범대학" to false, "생활과학대학" to false
+                        , "예술대학" to false, "약학대학" to false
+                )
+                db.collection("users").document(IDeditText.text.toString()).collection("경북대학교의 단과 대학")
+                        .document("경북대학교의 단과 대학").set(collage)
             }
         })
     }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,12 @@ import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
+import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
+import com.naver.maps.map.util.MarkerIcons;
+
+import java.lang.reflect.Array;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     private Activity activity;
@@ -34,7 +40,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private MapViewModel homeViewModel;
     private MapView mapView;
 
-    private NaverMap naverMap;
+    private NaverMap mNaverMap;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
     private FusedLocationSource locationSource;
 
@@ -47,8 +53,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     };
 
     //다이얼로그를 통해 받아온 코스 체크들 여부, 이거에 따라 마킹을 하면 됨.
-    public void MapMarking(Boolean course0, Boolean course1, Boolean course2, Boolean course3) {
+    //0 : 문, 1 : 식당, 2 : 주요 장소, 3 : 단과대학
+    Marker[] marker1 = new Marker[5];
 
+    public void MapMarking(Boolean course0, Boolean course1, Boolean course2, Boolean course3) {
+        DeleteMarker();
+        if(course0) {
+
+        }
+        if(course1) {
+            for(int i = 0; i < 5; i++) {
+                marker1[i].setMap(mNaverMap);
+            }
+        }
+        if(course2) {
+
+        }
+        if(course3) {
+
+        }
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -81,12 +104,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
             }
         });
+        //마커 초기화
+        MarkerInit();
         return root;
     }
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
-        naverMap = naverMap;
+        mNaverMap = naverMap;
         UiSettings uiSettings = naverMap.getUiSettings();
         uiSettings.setCompassEnabled(true); // 기본값 : true
         uiSettings.setScaleBarEnabled(true); // 기본값 : true
@@ -120,9 +145,27 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         if (locationSource.onRequestPermissionsResult(requestCode, permissions, grantResults))
         {
             if (!locationSource.isActivated()) { // 권한 거부됨
-                naverMap.setLocationTrackingMode(LocationTrackingMode.None);
+                mNaverMap.setLocationTrackingMode(LocationTrackingMode.None);
             }
             return;
+        }
+    }
+
+    public void MarkerInit() {
+        for(int i = 0; i < 5; i++) marker1[i] = new Marker();
+        marker1[0].setPosition(new LatLng(35.888428, 128.609947));
+        marker1[1].setPosition(new LatLng(35.890687, 128.607073));
+        marker1[2].setPosition(new LatLng(35.891451, 128.612727));
+        marker1[3].setPosition(new LatLng(35.892290, 128.613229));
+        marker1[4].setPosition(new LatLng(35.888990, 128.614498));
+        for(int i = 0; i < 5; i++) {
+            marker1[i].setWidth(50); marker1[i].setHeight(80);
+            marker1[i].setIcon(MarkerIcons.LIGHTBLUE);
+        }
+    }
+    public void DeleteMarker() {
+        for(int i = 0; i < 5; i++) {
+            marker1[i].setMap(null);
         }
     }
 }

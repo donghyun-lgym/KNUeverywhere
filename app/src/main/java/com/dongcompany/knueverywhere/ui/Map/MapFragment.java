@@ -15,7 +15,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.dongcompany.knueverywhere.MainActivity;
 import com.dongcompany.knueverywhere.R;
+import com.dongcompany.knueverywhere.SharedPreferenceUtil;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
@@ -31,10 +33,10 @@ import com.naver.maps.map.util.MarkerIcons;
 import java.lang.reflect.Array;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
-    private Activity activity;
+    private MainActivity activity;
 
     public MapFragment(Context context) {
-        activity = (Activity) context;
+        activity = (MainActivity) context;
     }
 
     private MapViewModel homeViewModel;
@@ -54,12 +56,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     //다이얼로그를 통해 받아온 코스 체크들 여부, 이거에 따라 마킹을 하면 됨.
     //0 : 문, 1 : 식당, 2 : 주요 장소, 3 : 단과대학
+    Marker[] marker0 = new Marker[11];
     Marker[] marker1 = new Marker[5];
+    Marker[] marker2 = new Marker[11];
+    Marker[] marker3 = new Marker[12];
 
     public void MapMarking(Boolean course0, Boolean course1, Boolean course2, Boolean course3) {
         DeleteMarker();
         if(course0) {
-
+            for(int i = 0; i < 11; i++) {
+                marker0[i].setMap(mNaverMap);
+            }
         }
         if(course1) {
             for(int i = 0; i < 5; i++) {
@@ -67,10 +74,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         }
         if(course2) {
-
+            for(int i = 0; i < 11; i++) {
+                marker2[i].setMap(mNaverMap);
+            }
         }
         if(course3) {
-
+            for(int i = 0; i < 12; i++) {
+                marker3[i].setMap(mNaverMap);
+            }
         }
     }
 
@@ -112,6 +123,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         mNaverMap = naverMap;
+
+        SharedPreferenceUtil util = new SharedPreferenceUtil(activity);
+        activity.setCourse_MapMarking(util.getCourseCheckBox(0), util.getCourseCheckBox(1), util.getCourseCheckBox(2), util.getCourseCheckBox(3));
+
         UiSettings uiSettings = naverMap.getUiSettings();
         uiSettings.setCompassEnabled(true); // 기본값 : true
         uiSettings.setScaleBarEnabled(true); // 기본값 : true
@@ -151,21 +166,85 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    public void MarkerInit() {
+    private void MarkerInit() {
+        for(int i = 0; i < 11; i++) marker0[i] = new Marker();
+        marker0[0].setPosition(new LatLng(35.892351, 128.609357));//북문
+        marker0[1].setPosition(new LatLng(35.894980, 128.612260));//농장문
+        marker0[2].setPosition(new LatLng(35.892572, 128.614822));//텍문
+        marker0[3].setPosition(new LatLng(35.888089, 128.616282));//동문
+        marker0[4].setPosition(new LatLng(35.885227, 128.614624));//정문
+        marker0[5].setPosition(new LatLng(35.886163, 128.612994));//수의대문
+        marker0[6].setPosition(new LatLng(35.885970, 128.609932));//쪽문
+        marker0[7].setPosition(new LatLng(35.886463, 128.607211));//조은문
+        marker0[8].setPosition(new LatLng(35.886634, 128.605560));//솔로문
+        marker0[9].setPosition(new LatLng(35.888444, 128.603911));//서문
+        marker0[10].setPosition(new LatLng(35.890359, 128.605476));//수영장문
+
+        for(int i = 0; i < 11; i++) {
+            marker0[i].setWidth(50); marker0[i].setHeight(80);
+            marker0[i].setIcon(MarkerIcons.RED);
+        }
+
         for(int i = 0; i < 5; i++) marker1[i] = new Marker();
-        marker1[0].setPosition(new LatLng(35.888428, 128.609947));
-        marker1[1].setPosition(new LatLng(35.890687, 128.607073));
-        marker1[2].setPosition(new LatLng(35.891451, 128.612727));
-        marker1[3].setPosition(new LatLng(35.892290, 128.613229));
-        marker1[4].setPosition(new LatLng(35.888990, 128.614498));
+        marker1[0].setPosition(new LatLng(35.888428, 128.609947));//공식
+        marker1[1].setPosition(new LatLng(35.890687, 128.607073));//복현회관
+        marker1[2].setPosition(new LatLng(35.891451, 128.612727));//경대리아
+        marker1[3].setPosition(new LatLng(35.892290, 128.613229));//종합정보센터
+        marker1[4].setPosition(new LatLng(35.888990, 128.614498));//복지관
         for(int i = 0; i < 5; i++) {
             marker1[i].setWidth(50); marker1[i].setHeight(80);
             marker1[i].setIcon(MarkerIcons.LIGHTBLUE);
         }
+
+        for(int i = 0; i < 11; i++) marker2[i] = new Marker();
+        marker2[0].setPosition(new LatLng(35.888077, 128.605188));//대운동장
+        marker2[1].setPosition(new LatLng(35.888351, 128.604190));//백호관
+        marker2[2].setPosition(new LatLng(35.888668, 128.612124));//일청담
+        marker2[3].setPosition(new LatLng(35.891808, 128.612018));//도서관
+        marker2[4].setPosition(new LatLng(35.890426, 128.612018));//본관
+        marker2[5].setPosition(new LatLng(35.888707, 128.610525));//백양로
+        marker2[6].setPosition(new LatLng(35.888680, 128.613758));//박물관
+        marker2[7].setPosition(new LatLng(35.892499, 128.609829));//미술관
+        marker2[8].setPosition(new LatLng(35.892862, 128.610721));//대강당
+        marker2[9].setPosition(new LatLng(35.891860, 128.611268));//글플
+        marker2[10].setPosition(new LatLng(35.886325, 128.614835));//센팍
+
+        for(int i = 0; i < 11; i++) {
+            marker2[i].setWidth(50); marker2[i].setHeight(80);
+            marker2[i].setIcon(MarkerIcons.GREEN);
+        }
+
+        for(int i = 0; i < 12; i++) marker3[i] = new Marker();
+        marker3[0].setPosition(new LatLng(35.887586, 128.608531));//공대1호관
+        marker3[1].setPosition(new LatLng(35.887463, 128.612745));//it1호관
+        marker3[2].setPosition(new LatLng(35.888429, 128.615433));//사과대
+        marker3[3].setPosition(new LatLng(35.889158, 128.615752));//경상대
+        marker3[4].setPosition(new LatLng(35.889905, 128.615859));//생과대
+        marker3[5].setPosition(new LatLng(35.890284, 128.606660));//자연대
+        marker3[6].setPosition(new LatLng(35.891253, 128.609530));//농대1호관
+        marker3[7].setPosition(new LatLng(35.891214, 128.610689));//인문대
+        marker3[8].setPosition(new LatLng(35.890296, 128.613778));//사대
+        marker3[9].setPosition(new LatLng(35.893543, 128.611129));//예대
+        marker3[10].setPosition(new LatLng(35.892625, 128.612392));//약대
+        marker3[11].setPosition(new LatLng(35.886761, 128.613228));//수의대
+
+        for(int i = 0; i < 12; i++) {
+            marker3[i].setWidth(50); marker3[i].setHeight(80);
+            marker3[i].setIcon(MarkerIcons.YELLOW);
+        }
     }
-    public void DeleteMarker() {
+    private void DeleteMarker() {
+        for(int i = 0; i < 11; i++) {
+            marker0[i].setMap(null);
+        }
         for(int i = 0; i < 5; i++) {
             marker1[i].setMap(null);
+        }
+        for(int i = 0; i < 11; i++) {
+            marker2[i].setMap(null);
+        }
+        for(int i = 0; i < 12; i++) {
+            marker3[i].setMap(null);
         }
     }
 }

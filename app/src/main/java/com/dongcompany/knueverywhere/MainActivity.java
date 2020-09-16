@@ -1,6 +1,7 @@
 package com.dongcompany.knueverywhere;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -60,12 +61,12 @@ public class MainActivity extends AppCompatActivity  {
         });
 
 
+        util = new SharedPreferenceUtil(this);
         //네이게이션뷰 아이템 셀렉트
         //프래그먼트를 교체시켜주는 곳
         fg1 = new MapFragment(this);
         fg2 = new GalleryFragment(this);
         fg3 = new AwardsFragment(this);
-
         getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg1).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg2).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg3).commit();
@@ -101,7 +102,6 @@ public class MainActivity extends AppCompatActivity  {
                 return true;
             }
         });
-
 
     }
 

@@ -53,7 +53,6 @@ class MapFragment_SelectCourseDialog(context: Context) : Dialog(context) {
             val util = SharedPreferenceUtil(activity)
             for(i in 0..3) {
                 util.setCourseCheckBox(i, checkBoxArray[i].isChecked)
-                Toast.makeText(activity, "$i 코스 : " + checkBoxArray[i].isChecked.toString(), Toast.LENGTH_SHORT).show()
             }
             activity.setCourse_MapMarking(checkBoxArray[0].isChecked, checkBoxArray[1].isChecked,
                     checkBoxArray[2].isChecked, checkBoxArray[3].isChecked)

@@ -3,6 +3,7 @@ package com.dongcompany.knueverywhere.ui.Map;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
 import com.naver.maps.map.util.MarkerIcons;
@@ -234,16 +236,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
     private void DeleteMarker() {
-        for(int i = 0; i < 11; i++) {
+        for (int i = 0; i < 11; i++) {
             marker0[i].setMap(null);
         }
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             marker1[i].setMap(null);
         }
-        for(int i = 0; i < 11; i++) {
+        for (int i = 0; i < 11; i++) {
             marker2[i].setMap(null);
         }
-        for(int i = 0; i < 12; i++) {
+        for (int i = 0; i < 12; i++) {
             marker3[i].setMap(null);
         }
     }

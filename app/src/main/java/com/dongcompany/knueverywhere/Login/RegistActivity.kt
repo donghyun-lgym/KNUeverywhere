@@ -128,7 +128,12 @@ class RegistActivity : AppCompatActivity() {
                         "권한" to false,
                         "연락처" to phoneeditText.text.toString(),
                         "이름" to NameeditText.text.toString(),
-                        "학번" to stdnumeditText.text.toString()
+                        "학번" to stdnumeditText.text.toString(),
+                        "체크박스_코스0" to false,
+                        "체크박스_코스1" to false,
+                        "체크박스_코스2" to false,
+                        "체크박스_코스3" to false
+
                 )
                 db.collection("users").document(IDeditText.text.toString()).set(a)
                 Toast.makeText(this, "등록되었습니다.", Toast.LENGTH_LONG).show()

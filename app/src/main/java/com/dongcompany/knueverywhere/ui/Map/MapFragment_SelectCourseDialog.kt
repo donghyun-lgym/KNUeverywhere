@@ -11,6 +11,7 @@ import android.widget.*
 import com.dongcompany.knueverywhere.MainActivity
 import com.dongcompany.knueverywhere.R
 import com.dongcompany.knueverywhere.SharedPreferenceUtil
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MapFragment_SelectCourseDialog(context: Context) : Dialog(context) {
 
@@ -51,8 +52,18 @@ class MapFragment_SelectCourseDialog(context: Context) : Dialog(context) {
         //완료(등록) 버튼
         findViewById<Button>(R.id.MapDialog_Btn).setOnClickListener(View.OnClickListener {
             val util = SharedPreferenceUtil(activity)
+            val db = FirebaseFirestore.getInstance()
+
             for(i in 0..3) {
                 util.setCourseCheckBox(i, checkBoxArray[i].isChecked)
+
+                val a = hashMapOf(
+                        "체크박스_코스0" to checkBoxArray[0].isChecked,
+                        "체크박스_코스1" to checkBoxArray[1].isChecked,
+                        "체크박스_코스2" to checkBoxArray[2].isChecked,
+                        "체크박스_코스3" to checkBoxArray[3].isChecked
+                )
+                db.collection("users").document(util.getID()).update(a as Map<String, Any>)
             }
             activity.setCourse_MapMarking(checkBoxArray[0].isChecked, checkBoxArray[1].isChecked,
                     checkBoxArray[2].isChecked, checkBoxArray[3].isChecked)

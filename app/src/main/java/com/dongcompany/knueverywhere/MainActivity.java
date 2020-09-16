@@ -1,12 +1,15 @@
 package com.dongcompany.knueverywhere;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dongcompany.knueverywhere.Login.LoginActivity;
 import com.dongcompany.knueverywhere.ui.Awards.AwardsFragment;
 import com.dongcompany.knueverywhere.ui.Gallery.GalleryFragment;
 import com.dongcompany.knueverywhere.ui.Map.MapFragment;
@@ -39,8 +42,6 @@ public class MainActivity extends AppCompatActivity  {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
 //        FloatingActionButton fab = findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -60,8 +61,14 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
 
-
         util = new SharedPreferenceUtil(this);
+        //네비게이션 헤더 초기화 및 수정
+        View nav_Header = navigationView.getHeaderView(0);
+        TextView nameTextView = nav_Header.findViewById(R.id.nav_header_nameTextView);
+        nameTextView.setText(util.getName());
+        TextView stdnumTextView = nav_Header.findViewById(R.id.nav_header_stdnumTextView);
+        stdnumTextView.setText(util.getStdNum());
+
         //네이게이션뷰 아이템 셀렉트
         //프래그먼트를 교체시켜주는 곳
         fg1 = new MapFragment(this);
@@ -113,6 +120,24 @@ public class MainActivity extends AppCompatActivity  {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        SharedPreferenceUtil util = new SharedPreferenceUtil(MainActivity.this);
+
+        switch (item.getItemId()) {
+            case R.id.action_Logout:
+                util.setID("null"); util.setName("null"); util.setPhone("null"); util.setAutoLogin(false);
+                util.setCourseCheckBox(0, false); util.setCourseCheckBox(1, false);
+                util.setCourseCheckBox(2, false); util.setCourseCheckBox(3, false);
+                util.setStdNum("null");
+                Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

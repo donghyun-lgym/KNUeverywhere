@@ -22,6 +22,12 @@ class SharedPreferenceUtil(context: Context) {
 
     fun getName(): String = prefs.getString("Name", "null").toString()
 
+    //연락처
+
+    //이름
+    fun setPhone(value: String) = prefs.edit().putString("Phone", value).apply()
+
+    fun getPhone(): String = prefs.getString("Phone", "null").toString()
     //자동로그인
     fun getAutoLogin(): Boolean = prefs.getBoolean("AutoLogin", false)
 

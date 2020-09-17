@@ -17,6 +17,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 
 public class MarkerDetail extends AppCompatActivity {
 
@@ -40,10 +42,10 @@ public class MarkerDetail extends AppCompatActivity {
         storage=FirebaseStorage.getInstance("");
         StorageReference storageRef = storage.getReference().child(index);
 
-        //Glide.with(MarkerDetail.this)
-        //        .using(new FirebaseImageLoader())
-        //        .load(storageRef)
-        //        .into(imageView);
+        Glide.with(MarkerDetail.this)
+                .using(new FirebaseImageLoader())
+                .load(storageRef)
+                .into(imageView);
 
         mDatabase=FirebaseDatabase.getInstance();
         mReference=mDatabase.getReference();

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -182,9 +183,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         marker0[9].setPosition(new LatLng(35.888444, 128.603911));//서문
         marker0[10].setPosition(new LatLng(35.890359, 128.605476));//수영장문
 
+        String[] c0arr = {"북문", "농장문", "테크노문", "동문", "정문", "수의대문", "쪽문", "조은문", "솔로문", "서문", "수영장문"};
         for(int i = 0; i < 11; i++) {
+            marker0[i].setCaptionText(c0arr[i]);
             marker0[i].setWidth(50); marker0[i].setHeight(80);
             marker0[i].setIcon(MarkerIcons.RED);
+            marker0[i].setCaptionMinZoom(15);
+            marker0[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
         }
 
         for(int i = 0; i < 5; i++) marker1[i] = new Marker();
@@ -193,9 +198,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         marker1[2].setPosition(new LatLng(35.891451, 128.612727));//경대리아
         marker1[3].setPosition(new LatLng(35.892290, 128.613229));//종합정보센터
         marker1[4].setPosition(new LatLng(35.888990, 128.614498));//복지관
+
+        String[] c1arr = {"공대식당", "복현회관", "경대리아", "종합정보센터", "복지관"};
+
         for(int i = 0; i < 5; i++) {
+            marker1[i].setCaptionText(c1arr[i]);
             marker1[i].setWidth(50); marker1[i].setHeight(80);
             marker1[i].setIcon(MarkerIcons.LIGHTBLUE);
+            marker1[i].setCaptionMinZoom(15);
+            marker1[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
         }
 
         for(int i = 0; i < 11; i++) marker2[i] = new Marker();
@@ -211,9 +222,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         marker2[9].setPosition(new LatLng(35.891860, 128.611268));//글플
         marker2[10].setPosition(new LatLng(35.886325, 128.614835));//센팍
 
+        String[] c2arr = {"대운동장", "백호관", "일청담", "도서관", "본관", "백양로", "박물관", "미술관", "대강당", "글로벌플라자", "센트롤파크"};
         for(int i = 0; i < 11; i++) {
+            marker2[i].setCaptionText(c2arr[i]);
             marker2[i].setWidth(50); marker2[i].setHeight(80);
             marker2[i].setIcon(MarkerIcons.GREEN);
+            marker2[i].setCaptionMinZoom(15);
+            marker2[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
         }
 
         for(int i = 0; i < 12; i++) marker3[i] = new Marker();
@@ -230,9 +245,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         marker3[10].setPosition(new LatLng(35.892625, 128.612392));//약대
         marker3[11].setPosition(new LatLng(35.886761, 128.613228));//수의대
 
-        for(int i = 0; i < 12; i++) {
-            marker3[i].setWidth(50); marker3[i].setHeight(80);
-            marker3[i].setIcon(MarkerIcons.YELLOW);
+        String[] c3arr = {"공과대학 1호관", "IT대학 1호관", "사회과학대학", "경상대학", "생활과학대학", "자연과학대학", "농업생명과학대학"
+                            , "인문대학", "사범대학", "예술대학", "약학대학", "수의과대학"};
+
+       for(int i = 0; i < 12; i++) {
+           marker3[i].setCaptionText(c3arr[i]);
+           marker3[i].setWidth(50); marker3[i].setHeight(80);
+           marker3[i].setIcon(MarkerIcons.YELLOW);
+           marker3[i].setCaptionMinZoom(15);
+           marker3[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
         }
     }
     private void DeleteMarker() {

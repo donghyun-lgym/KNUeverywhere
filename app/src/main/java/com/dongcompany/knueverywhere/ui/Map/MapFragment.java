@@ -185,6 +185,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         String[] c0arr = {"북문", "농장문", "테크노문", "동문", "정문", "수의대문", "쪽문", "조은문", "솔로문", "서문", "수영장문"};
         for(int i = 0; i < 11; i++) {
+            marker0[i].setCaptionColor(Color.BLUE);
+            marker0[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
             marker0[i].setCaptionText(c0arr[i]);
             marker0[i].setWidth(50); marker0[i].setHeight(80);
             marker0[i].setIcon(MarkerIcons.RED);
@@ -202,6 +204,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         String[] c1arr = {"공대식당", "복현회관", "경대리아", "종합정보센터", "복지관"};
 
         for(int i = 0; i < 5; i++) {
+            marker1[i].setCaptionColor(Color.BLUE);
+            marker1[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
             marker1[i].setCaptionText(c1arr[i]);
             marker1[i].setWidth(50); marker1[i].setHeight(80);
             marker1[i].setIcon(MarkerIcons.LIGHTBLUE);
@@ -210,20 +214,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
 
         for(int i = 0; i < 11; i++) marker2[i] = new Marker();
-        marker2[0].setPosition(new LatLng(35.888077, 128.605188));//대운동장
+        marker2[0].setPosition(new LatLng(35.887980, 128.606653));//대운동장
         marker2[1].setPosition(new LatLng(35.888351, 128.604190));//백호관
         marker2[2].setPosition(new LatLng(35.888668, 128.612124));//일청담
         marker2[3].setPosition(new LatLng(35.891808, 128.612018));//도서관
         marker2[4].setPosition(new LatLng(35.890426, 128.612018));//본관
         marker2[5].setPosition(new LatLng(35.888707, 128.610525));//백양로
         marker2[6].setPosition(new LatLng(35.888680, 128.613758));//박물관
-        marker2[7].setPosition(new LatLng(35.892499, 128.609829));//미술관
+        marker2[7].setPosition(new LatLng(35.892575, 128.609793));//미술관
         marker2[8].setPosition(new LatLng(35.892862, 128.610721));//대강당
         marker2[9].setPosition(new LatLng(35.891860, 128.611268));//글플
         marker2[10].setPosition(new LatLng(35.886325, 128.614835));//센팍
 
         String[] c2arr = {"대운동장", "백호관", "일청담", "도서관", "본관", "백양로", "박물관", "미술관", "대강당", "글로벌플라자", "센트롤파크"};
         for(int i = 0; i < 11; i++) {
+            marker2[i].setCaptionColor(Color.BLUE);
+            marker2[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
             marker2[i].setCaptionText(c2arr[i]);
             marker2[i].setWidth(50); marker2[i].setHeight(80);
             marker2[i].setIcon(MarkerIcons.GREEN);
@@ -249,6 +255,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             , "인문대학", "사범대학", "예술대학", "약학대학", "수의과대학"};
 
        for(int i = 0; i < 12; i++) {
+           marker3[i].setCaptionColor(Color.BLUE);
+           marker3[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
            marker3[i].setCaptionText(c3arr[i]);
            marker3[i].setWidth(50); marker3[i].setHeight(80);
            marker3[i].setIcon(MarkerIcons.YELLOW);

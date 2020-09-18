@@ -83,5 +83,13 @@ class LoginActivity : AppCompatActivity() {
         findViewById<Button>(R.id.LoginActivity_registButton).setOnClickListener(View.OnClickListener {
             startActivity(Intent(this, RegistActivity::class.java))
         })
+        //아이디 찾기 버튼
+        findViewById<Button>(R.id.LoginActivity_findIDButton).setOnClickListener(View.OnClickListener {
+            startActivity(Intent(this, FindIDActivity::class.java))
+        })
+        //비밀번호 찾기 버튼
+        findViewById<Button>(R.id.LoginActivity_findPWButton).setOnClickListener(View.OnClickListener {
+            startActivity(Intent(this, FindPWActivity::class.java))
+        })
     }
 }

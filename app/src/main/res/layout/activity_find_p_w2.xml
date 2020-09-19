@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="25dp"
+    android:paddingVertical="15dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호 찾기"
+        android:textColor="#f000"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_marginTop="50dp"
+        android:id="@+id/FindPW2Activity_qusTextView"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:textColor="@android:color/black"
+        android:text="질문질문질문?"
+        android:textSize="25sp" />
+
+
+    <EditText
+        android:layout_marginTop="3dp"
+        android:id="@+id/FindPW2Activity_ansEditText"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@null"
+        android:hint="답변"
+        android:textSize="15sp"
+        android:inputType="textPersonName" />
+
+    <LinearLayout
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:id="@+id/FindPW2Activity_HomeButton"
+            android:layout_width="0dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/design_button2"
+            android:padding="10dp"
+            android:text="홈"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center"
+            android:textSize="20sp" />
+        <Button
+            android:id="@+id/FindPW2Activity_CompleteButton"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/design_button2"
+            android:padding="10dp"
+            android:text="확   인"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

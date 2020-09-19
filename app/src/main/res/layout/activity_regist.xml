@@ -12,7 +12,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:text="회원가입"
         android:textColor="#f000"
         android:textSize="30sp"
@@ -28,18 +27,16 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:layout_marginTop="3dp"
         android:id="@+id/RegistActivity_StdNumEditText"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@null"
         android:hint="학번"
         android:textSize="15sp"
-        android:inputType="textPersonName" />
+        android:inputType="number" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_marginTop="3dp"
         android:layout_height="wrap_content" >
         <EditText
             android:id="@+id/RegistActivity_IDEditText"
@@ -62,7 +59,6 @@
     </LinearLayout>
 
     <EditText
-        android:layout_marginTop="3dp"
         android:id="@+id/RegistActivity_PWEditText"
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -72,7 +68,6 @@
         android:inputType="textPassword" />
 
     <EditText
-        android:layout_marginTop="3dp"
         android:id="@+id/RegistActivity_PWCheckEditText"
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -82,8 +77,6 @@
         android:inputType="textPassword" />
 
     <EditText
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="3dp"
         android:id="@+id/RegistActivity_PhoneEditText"
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -91,7 +84,24 @@
         android:textSize="15sp"
         android:hint="전화번호 ( ' - ' 제외 )"
         android:inputType="number" />
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Spinner
+            android:id="@+id/RegistActivity_Spinner"
+            android:layout_weight="5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/RegistActivity_AnsEditText"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:background="@null"
+            android:textSize="15sp"
+            android:hint="답변"
+            android:inputType="textPersonName" />
+    </LinearLayout>
     <ImageView
         android:layout_marginVertical="10dp"
         android:id="@+id/RegistActivity_ImageView"

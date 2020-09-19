@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/design_dialog"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+        android:layout_width="370dp"
+        android:layout_height="340dp"
+        android:id="@+id/Floatingicon_Dialog_ImageView"/>
+
+
+    <Button
+        android:id="@+id/Floatingicon_Dialog_Btn"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="3dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/design_button"
+        android:text="확  인"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+</LinearLayout>

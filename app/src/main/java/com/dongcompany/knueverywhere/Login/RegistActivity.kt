@@ -9,10 +9,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.NonNull
 import com.dongcompany.knueverywhere.R
 import com.google.android.gms.tasks.OnFailureListener
@@ -84,6 +81,13 @@ class RegistActivity : AppCompatActivity() {
         var pweditText = findViewById<EditText>(R.id.RegistActivity_PWEditText)
         var pwchkeditText = findViewById<EditText>(R.id.RegistActivity_PWCheckEditText)
         var phoneeditText = findViewById<EditText>(R.id.RegistActivity_PhoneEditText)
+        //스피너 -> 비밀번호 찾는 질답
+        var spinner : Spinner = findViewById(R.id.RegistActivity_Spinner)
+        val questions = arrayOf("비밀번호 찾기 질답","나의 보물 1호는?","어머니 성함은?","아버지 성함은?",
+            "나의 어릴적 별명은?","출신 초등학교 이름은?","내가 태어난 지역은?","첫 사랑 이름은?")
+        val adapter : ArrayAdapter<String> = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, questions)
+        spinner.setAdapter(adapter);
+        var ansEditText : EditText = findViewById(R.id.RegistActivity_AnsEditText)
 
         //이미지 클릭 시 로컬 저장소로 가서 사진 가져오기
         imageView = findViewById(R.id.RegistActivity_ImageView)
@@ -116,6 +120,13 @@ class RegistActivity : AppCompatActivity() {
                 Toast.makeText(this, "전화번호를 입력 해 주세요.", Toast.LENGTH_SHORT).show()
                 return@OnClickListener
             }
+
+            if(spinner.getSelectedItem().toString().equals("비밀번호 찾기 질답") || ansEditText.text.toString().equals(""))
+            {
+                Toast.makeText(this, "비밀번호 찾기 질문, 답변을 해 주세요.", Toast.LENGTH_SHORT).show()
+                return@OnClickListener
+            }
+
             if(!imageUploaded) {
                 Toast.makeText(this, "학생증을 업로드 해 주세요.", Toast.LENGTH_SHORT).show()
                 return@OnClickListener
@@ -129,6 +140,8 @@ class RegistActivity : AppCompatActivity() {
                         "연락처" to phoneeditText.text.toString(),
                         "이름" to NameeditText.text.toString(),
                         "학번" to stdnumeditText.text.toString(),
+                        "비밀번호 질문" to spinner.selectedItem.toString(),
+                        "비밀번호 답변" to ansEditText.text.toString(),
                         "체크박스_코스0" to false,
                         "체크박스_코스1" to false,
                         "체크박스_코스2" to false,

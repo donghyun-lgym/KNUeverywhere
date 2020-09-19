@@ -20,6 +20,8 @@ import androidx.lifecycle.ViewModelProviders;
 import com.dongcompany.knueverywhere.MainActivity;
 import com.dongcompany.knueverywhere.R;
 import com.dongcompany.knueverywhere.SharedPreferenceUtil;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
@@ -116,6 +118,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+        //플로팅 버튼
+        root.findViewById(R.id.MapFragment_FloatingButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MapFragment_FloatingDialog dialog = new MapFragment_FloatingDialog(getContext());
+                dialog.show();
+                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             }
         });
         //마커 초기화

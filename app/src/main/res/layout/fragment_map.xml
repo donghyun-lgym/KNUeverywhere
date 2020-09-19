@@ -15,33 +15,45 @@
         tools:layout_editor_absoluteX="-59dp" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:id="@+id/MapFragment_LinearLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
-            android:layout_margin="10dp"
+            android:id="@+id/MapFragment_SelectButton"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/design_button"
             android:text="코스 선택하기"
             android:textColor="@android:color/black"
-            android:textStyle="bold"
             android:textSize="20dp"
-            android:background="@drawable/design_button"
-            android:id="@+id/MapFragment_SelectButton"/>
+            android:textStyle="bold" />
+
         <Button
-            android:layout_margin="10dp"
+            android:id="@+id/MapFragment_StartButton"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/design_button"
             android:text="탐방 시작하기"
             android:textColor="@android:color/black"
-            android:textStyle="bold"
             android:textSize="20dp"
-            android:background="@drawable/design_button"
-            android:id="@+id/MapFragment_StartButton"/>
+            android:textStyle="bold" />
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/MapFragment_FloatingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_margin="15dp"
+        app:srcCompat="@android:drawable/ic_dialog_map" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

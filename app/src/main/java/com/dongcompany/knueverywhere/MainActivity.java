@@ -1,11 +1,17 @@
 package com.dongcompany.knueverywhere;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,7 +19,10 @@ import com.dongcompany.knueverywhere.Login.LoginActivity;
 import com.dongcompany.knueverywhere.ui.Awards.AwardsFragment;
 import com.dongcompany.knueverywhere.ui.Gallery.GalleryFragment;
 import com.dongcompany.knueverywhere.ui.Map.MapFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.lang.reflect.Array;
 

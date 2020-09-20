@@ -19,6 +19,9 @@ class MapFragment_SelectCourseDialog(context: Context) : Dialog(context) {
 
     private lateinit var checkBoxArray : Array<CheckBox>;
 
+    private val timeArray = arrayOf(180, 60, 120, 120)
+    private var time = 0;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mapfragment_selectcoursedialog)
@@ -40,14 +43,41 @@ class MapFragment_SelectCourseDialog(context: Context) : Dialog(context) {
         this.window?.attributes = params as WindowManager.LayoutParams
         this.window?.setBackgroundDrawableResource(R.color.TRANSPARENT)
 
+        val timeTextView : TextView = findViewById(R.id.MapDialog_timeTextView)
         //체크박스 초기화
         checkBoxArray = arrayOf(findViewById(R.id.MapDialog_CheckBox1_Door), findViewById(R.id.MapDialog_CheckBox2_Restaurent)
                                 , findViewById(R.id.MapDialog_CheckBox3_Facility), findViewById(R.id.MapDialog_CheckBox4_Collage))
 
         for(i in 0..3) {
             val util = SharedPreferenceUtil(activity)
-            checkBoxArray[i].isChecked = util.getCourseCheckBox(i)
+            if(util.getCourseInfo(i, "CLEAR") == true) {
+                checkBoxArray[i].isChecked = false
+                checkBoxArray[i].isEnabled = false
+                val string = checkBoxArray[i].text
+                checkBoxArray[i].setText(string.toString() + "  (완료)")
+            }
+            else {
+                val chk = util.getCourseCheckBox(i)
+                if(chk){
+                    checkBoxArray[i].isChecked = true
+                    time += timeArray[i]
+                }
+                else checkBoxArray[i].isChecked = false
+            }
+            checkBoxArray[i].setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+                if(isChecked) {
+                    time += timeArray[i]
+                    timeTextView.setText(time.toString() + "분")
+                }
+                else {
+                    time -= timeArray[i]
+                    timeTextView.setText(time.toString() + "분")
+                }
+            })
         }
+
+        //선택 코스만큼 탐방 시간 변경
+        timeTextView.setText(time.toString() + "분")
 
         //완료(등록) 버튼
         findViewById<Button>(R.id.MapDialog_Btn).setOnClickListener(View.OnClickListener {

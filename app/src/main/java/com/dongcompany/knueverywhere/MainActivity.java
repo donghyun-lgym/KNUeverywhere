@@ -19,12 +19,16 @@ import com.dongcompany.knueverywhere.Login.LoginActivity;
 import com.dongcompany.knueverywhere.ui.Awards.AwardsFragment;
 import com.dongcompany.knueverywhere.ui.Gallery.GalleryFragment;
 import com.dongcompany.knueverywhere.ui.Map.MapFragment;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.lang.reflect.Array;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
@@ -71,6 +75,53 @@ public class MainActivity extends AppCompatActivity  {
         });
 
         util = new SharedPreferenceUtil(this);
+        //탐방정보 초기화
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String id = util.getID();
+        db.collection("users").document(id).collection("경북대학교의 단과 대학").document("경북대학교의 단과 대학")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Map map = documentSnapshot.getData();
+                        for(Object key : map.keySet()) {
+                            util.setCourseInfo(3, key.toString(), (Boolean) map.get(key));
+                        }
+                    }
+                });
+        db.collection("users").document(id).collection("경북대학교의 문").document("경북대학교의 문")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Map map = documentSnapshot.getData();
+                        for(Object key : map.keySet()) {
+                            util.setCourseInfo(0, key.toString(), (Boolean) map.get(key));
+                        }
+                    }
+                });
+        db.collection("users").document(id).collection("경북대학교의 식당").document("경북대학교의 식당")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Map map = documentSnapshot.getData();
+                        for(Object key : map.keySet()) {
+                            util.setCourseInfo(1, key.toString(), (Boolean) map.get(key));
+                        }
+                    }
+                });
+        db.collection("users").document(id).collection("경북대학교의 주요 장소").document("경북대학교의 주요 장소")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Map map = documentSnapshot.getData();
+                        for(Object key : map.keySet()) {
+                            util.setCourseInfo(2, key.toString(), (Boolean) map.get(key));
+                        }
+                    }
+                });
         //네비게이션 헤더 초기화 및 수정
         View nav_Header = navigationView.getHeaderView(0);
         TextView nameTextView = nav_Header.findViewById(R.id.nav_header_nameTextView);

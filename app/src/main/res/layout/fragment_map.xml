@@ -52,8 +52,17 @@
         android:id="@+id/MapFragment_FloatingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
         android:layout_margin="15dp"
         app:srcCompat="@android:drawable/ic_dialog_map" />
+
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/MapFragment_FloatingButton"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        android:id="@+id/MapFragment_RefreshButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="15dp"-->
+<!--        android:backgroundTint="@android:color/holo_orange_light"-->
+<!--        app:srcCompat="@drawable/refresh_icon" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

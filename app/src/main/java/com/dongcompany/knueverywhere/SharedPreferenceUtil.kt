@@ -35,6 +35,8 @@ class SharedPreferenceUtil(context: Context) {
 
 
     //탐방 정보들(탐방 중인 정보들)
+    fun setCourseInfo(index : Int, area:String, value:Boolean) = prefs.edit().putBoolean("Course" + index.toString() + area, value).apply()
+    fun getCourseInfo(index:Int, area:String) = prefs.getBoolean("Course" + index.toString() + area, false)
 
     //코스 선택 체크박스 저장 (0~3)
     fun setCourseCheckBox(index : Int, value:Boolean) = prefs.edit().putBoolean("Course" + index.toString(), value).apply()

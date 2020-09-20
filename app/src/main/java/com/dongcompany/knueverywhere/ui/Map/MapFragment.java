@@ -117,10 +117,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         root.findViewById(R.id.MapFragment_StartButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MapFragment_StartButtonDialog dialog = new MapFragment_StartButtonDialog(getContext());
+                dialog.show();
+                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             }
         });
-        //플로팅 버튼
+        //플로팅 버튼 (지도 이미지 보기)
         root.findViewById(R.id.MapFragment_FloatingButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,6 +131,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             }
         });
+//        //플로팅 버튼 (새로고침)
+//        root.findViewById(R.id.MapFragment_RefreshButton).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
         //마커 초기화
         MarkerInit();
         return root;

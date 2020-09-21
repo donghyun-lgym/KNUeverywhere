@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -88,6 +89,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void startTimer(int time) { //time : 분단위
         util.setTravelState(true);
         startButton.setText("탐방 중지하기");
+        selectCourseButton.setPaintFlags(selectCourseButton.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         timerLayout.setVisibility(View.VISIBLE);
 
         long conversionTime = (time / 60) * 1000 * 3600 + (time % 60) * 60 * 1000; // 밀리초로 변환
@@ -95,7 +97,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         if(timer == null) {
             makeTimer(conversionTime);
         }
-
     }
     private void makeTimer(long conversionTime) {
         timer =  new CountDownTimer(conversionTime, 1000) {
@@ -129,11 +130,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 //탐방 코스의 무효화
                 activity.invalidityTravel();
                 startButton.setText("탐방 시작하기");
+                selectCourseButton.setPaintFlags(0);
                 timerLayout.setVisibility(View.INVISIBLE);
-
-
-                // TODO : 타이머가 모두 종료될때 어떤 이벤트를 진행할지
-
             }
         };
         timer.start();
@@ -176,25 +174,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         timerLayout.bringToFront();
         timerLayout.setVisibility(View.INVISIBLE);
         timerTextView = root.findViewById(R.id.MapFragment_timerTextView);
-
-        //탐방상태가 true일 시 타이머 활성화 (앱 종료 등의 이유로 다시 켰을 때 상황)
-        if(util.getTravelState() == true) {
-
-//            //시간차이로 인해 무효처리
-//
-//            //시간 남아서 타이머 활성화
-//            db.collection("users").document(util.getID()).get()
-//                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                        @Override
-//                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                            Map map = documentSnapshot.getData();
-//                            if((Boolean) map.get("탐방상태") == true) {
-//                                String dbTime = (String) map.get("탐방시작시간");
-//
-//                            }
-//                       }
-//                    });
-        }
 
         //지도 객체
         mapView = root.findViewById(R.id.map_view);

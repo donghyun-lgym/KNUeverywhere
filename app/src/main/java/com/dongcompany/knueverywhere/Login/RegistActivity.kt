@@ -145,7 +145,8 @@ class RegistActivity : AppCompatActivity() {
                         "체크박스_코스0" to false,
                         "체크박스_코스1" to false,
                         "체크박스_코스2" to false,
-                        "체크박스_코스3" to false
+                        "체크박스_코스3" to false,
+                        "탐방상태" to false
 
                 )
                 db.collection("users").document(IDeditText.text.toString()).set(a)

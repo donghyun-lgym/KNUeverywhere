@@ -6,11 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -20,8 +25,11 @@ import androidx.lifecycle.ViewModelProviders;
 import com.dongcompany.knueverywhere.MainActivity;
 import com.dongcompany.knueverywhere.R;
 import com.dongcompany.knueverywhere.SharedPreferenceUtil;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
@@ -36,6 +44,8 @@ import com.naver.maps.map.util.FusedLocationSource;
 import com.naver.maps.map.util.MarkerIcons;
 
 import java.lang.reflect.Array;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     private MainActivity activity;
@@ -44,7 +54,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         activity = (MainActivity) context;
     }
 
-    private MapViewModel homeViewModel;
     private MapView mapView;
 
     private NaverMap mNaverMap;
@@ -59,6 +68,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
 
+    private Button selectCourseButton;
+    private Button startButton;
+    private SharedPreferenceUtil util;
     //다이얼로그를 통해 받아온 코스 체크들 여부, 이거에 따라 마킹을 하면 됨.
     //0 : 문, 1 : 식당, 2 : 주요 장소, 3 : 단과대학
     Marker[] marker0 = new Marker[11];
@@ -66,35 +78,123 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     Marker[] marker2 = new Marker[11];
     Marker[] marker3 = new Marker[12];
 
+
+    //탐방 시작 시 타이머 가동
+    //[코스 선택하기] 불가능하게, [탐방 중지]버튼으로 바꾸기
+    private LinearLayout timerLayout;
+    private TextView timerTextView;
+    private FirebaseFirestore db;
+    private CountDownTimer timer = null;
+    public void startTimer(int time) { //time : 분단위
+        util.setTravelState(true);
+        startButton.setText("탐방 중지하기");
+        timerLayout.setVisibility(View.VISIBLE);
+
+        long conversionTime = (time / 60) * 1000 * 3600 + (time % 60) * 60 * 1000; // 밀리초로 변환
+
+        if(timer == null) {
+            makeTimer(conversionTime);
+        }
+
+    }
+    private void makeTimer(long conversionTime) {
+        timer =  new CountDownTimer(conversionTime, 1000) {
+            public void onTick(long millisUntilFinished) {
+                // 시간단위
+                String hour = String.valueOf(millisUntilFinished / (60 * 60 * 1000));
+                // 분단위
+                long getMin = millisUntilFinished - (millisUntilFinished / (60 * 60 * 1000)) ;
+                String min = String.valueOf(getMin / (60 * 1000)); // 몫
+                min = String.valueOf(Integer.parseInt(min) % 60);
+                // 초단위
+                String second = String.valueOf((getMin % (60 * 1000)) / 1000); // 나머지
+                // 시간이 한자리면 0을 붙인다
+                if (hour.length() == 1) {
+                    hour = "0" + hour;
+                }
+                // 분이 한자리면 0을 붙인다
+                if (min.length() == 1) {
+                    min = "0" + min;
+                }
+                // 초가 한자리면 0을 붙인다
+                if (second.length() == 1) {
+                    second = "0" + second;
+                }
+                timerTextView.setText(hour + ":" + min + ":" + second);
+            }
+
+            // 제한시간 종료시
+            public void onFinish() {
+                Toast.makeText(activity, "해당 코스가 무효 처리 되었습니다. 다시 도전하세요!", Toast.LENGTH_SHORT).show();
+                //탐방 코스의 무효화
+                activity.invalidityTravel();
+                startButton.setText("탐방 시작하기");
+                timerLayout.setVisibility(View.INVISIBLE);
+
+
+                // TODO : 타이머가 모두 종료될때 어떤 이벤트를 진행할지
+
+            }
+        };
+        timer.start();
+    }
     public void MapMarking(Boolean course0, Boolean course1, Boolean course2, Boolean course3) {
         DeleteMarker();
-        if(course0) {
-            for(int i = 0; i < 11; i++) {
+        if (course0) {
+            for (int i = 0; i < 11; i++) {
                 marker0[i].setMap(mNaverMap);
             }
         }
-        if(course1) {
-            for(int i = 0; i < 5; i++) {
+        if (course1) {
+            for (int i = 0; i < 5; i++) {
                 marker1[i].setMap(mNaverMap);
             }
         }
-        if(course2) {
-            for(int i = 0; i < 11; i++) {
+        if (course2) {
+            for (int i = 0; i < 11; i++) {
                 marker2[i].setMap(mNaverMap);
             }
         }
-        if(course3) {
-            for(int i = 0; i < 12; i++) {
+        if (course3) {
+            for (int i = 0; i < 12; i++) {
                 marker3[i].setMap(mNaverMap);
             }
         }
     }
+    public void cancelTravel() {
+        timer.onFinish();
+        timer = null;
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(MapViewModel.class);
         root = inflater.inflate(R.layout.fragment_map, container, false);
+        util = new SharedPreferenceUtil(activity);
+        db = FirebaseFirestore.getInstance();
+        //타이머 관련 객체들
+        timerLayout = root.findViewById(R.id.MapFragment_timerLayout);
+        timerLayout.bringToFront();
+        timerLayout.setVisibility(View.INVISIBLE);
+        timerTextView = root.findViewById(R.id.MapFragment_timerTextView);
+
+        //탐방상태가 true일 시 타이머 활성화 (앱 종료 등의 이유로 다시 켰을 때 상황)
+        if(util.getTravelState() == true) {
+
+//            //시간차이로 인해 무효처리
+//
+//            //시간 남아서 타이머 활성화
+//            db.collection("users").document(util.getID()).get()
+//                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                        @Override
+//                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                            Map map = documentSnapshot.getData();
+//                            if((Boolean) map.get("탐방상태") == true) {
+//                                String dbTime = (String) map.get("탐방시작시간");
+//
+//                            }
+//                       }
+//                    });
+        }
 
         //지도 객체
         mapView = root.findViewById(R.id.map_view);
@@ -102,24 +202,40 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapView.getMapAsync(this);
 
         //위치 추적
-       locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+        locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
 
-       //코스 선택 버튼
-        root.findViewById(R.id.MapFragment_SelectButton).setOnClickListener(new View.OnClickListener() {
+        //코스 선택 버튼
+        selectCourseButton = root.findViewById(R.id.MapFragment_SelectButton);
+        selectCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MapFragment_SelectCourseDialog dialog = new MapFragment_SelectCourseDialog(getContext());
-                dialog.show();
-                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                if (util.getTravelState() == false) {
+                    MapFragment_SelectCourseDialog dialog = new MapFragment_SelectCourseDialog(getContext());
+                    dialog.show();
+                    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+                }
+                else Toast.makeText(activity, "탐방 중에는 코스 선택이 불가능합니다.", Toast.LENGTH_SHORT).show();
             }
         });
         //탐방 시작 버튼
-        root.findViewById(R.id.MapFragment_StartButton).setOnClickListener(new View.OnClickListener() {
+        startButton = root.findViewById(R.id.MapFragment_StartButton);
+        startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MapFragment_StartButtonDialog dialog = new MapFragment_StartButtonDialog(getContext());
-                dialog.show();
-                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                if(startButton.getText().equals("탐방 시작하기")) {
+                    MapFragment_StartButtonDialog dialog = new MapFragment_StartButtonDialog(getContext());
+                    dialog.show();
+                    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                }
+                else {
+                    //탐방 중지하기
+                    if(timer != null){
+                        timer.onFinish();
+                        timer.cancel();
+                        timer = null;
+                    }
+                }
             }
         });
         //플로팅 버튼 (지도 이미지 보기)
@@ -180,8 +296,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (locationSource.onRequestPermissionsResult(requestCode, permissions, grantResults))
-        {
+        if (locationSource.onRequestPermissionsResult(requestCode, permissions, grantResults)) {
             if (!locationSource.isActivated()) { // 권한 거부됨
                 mNaverMap.setLocationTrackingMode(LocationTrackingMode.None);
             }
@@ -190,7 +305,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void MarkerInit() {
-        for(int i = 0; i < 11; i++) marker0[i] = new Marker();
+        for (int i = 0; i < 11; i++) marker0[i] = new Marker();
         marker0[0].setPosition(new LatLng(35.892351, 128.609357));//북문
         marker0[1].setPosition(new LatLng(35.894980, 128.612260));//농장문
         marker0[2].setPosition(new LatLng(35.892572, 128.614822));//텍문
@@ -204,17 +319,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         marker0[10].setPosition(new LatLng(35.890359, 128.605476));//수영장문
 
         String[] c0arr = {"북문", "농장문", "테크노문", "동문", "정문", "수의대문", "쪽문", "조은문", "솔로문", "서문", "수영장문"};
-        for(int i = 0; i < 11; i++) {
+        for (int i = 0; i < 11; i++) {
             marker0[i].setCaptionColor(Color.BLUE);
             marker0[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
             marker0[i].setCaptionText(c0arr[i]);
-            marker0[i].setWidth(50); marker0[i].setHeight(80);
+            marker0[i].setWidth(50);
+            marker0[i].setHeight(80);
             marker0[i].setIcon(MarkerIcons.RED);
             marker0[i].setCaptionMinZoom(15);
             marker0[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
         }
 
-        for(int i = 0; i < 5; i++) marker1[i] = new Marker();
+        for (int i = 0; i < 5; i++) marker1[i] = new Marker();
         marker1[0].setPosition(new LatLng(35.888428, 128.609947));//공식
         marker1[1].setPosition(new LatLng(35.890687, 128.607073));//복현회관
         marker1[2].setPosition(new LatLng(35.891451, 128.612727));//경대리아
@@ -223,17 +339,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         String[] c1arr = {"공대식당", "복현회관", "경대리아", "종합정보센터", "복지관"};
 
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             marker1[i].setCaptionColor(Color.BLUE);
             marker1[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
             marker1[i].setCaptionText(c1arr[i]);
-            marker1[i].setWidth(50); marker1[i].setHeight(80);
+            marker1[i].setWidth(50);
+            marker1[i].setHeight(80);
             marker1[i].setIcon(MarkerIcons.LIGHTBLUE);
             marker1[i].setCaptionMinZoom(15);
             marker1[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
         }
 
-        for(int i = 0; i < 11; i++) marker2[i] = new Marker();
+        for (int i = 0; i < 11; i++) marker2[i] = new Marker();
         marker2[0].setPosition(new LatLng(35.887980, 128.606653));//대운동장
         marker2[1].setPosition(new LatLng(35.888351, 128.604190));//백호관
         marker2[2].setPosition(new LatLng(35.888668, 128.612124));//일청담
@@ -247,17 +364,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         marker2[10].setPosition(new LatLng(35.886325, 128.614835));//센팍
 
         String[] c2arr = {"대운동장", "백호관", "일청담", "도서관", "본관", "백양로", "박물관", "미술관", "대강당", "글로벌플라자", "센트롤파크"};
-        for(int i = 0; i < 11; i++) {
+        for (int i = 0; i < 11; i++) {
             marker2[i].setCaptionColor(Color.BLUE);
             marker2[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
             marker2[i].setCaptionText(c2arr[i]);
-            marker2[i].setWidth(50); marker2[i].setHeight(80);
+            marker2[i].setWidth(50);
+            marker2[i].setHeight(80);
             marker2[i].setIcon(MarkerIcons.GREEN);
             marker2[i].setCaptionMinZoom(15);
             marker2[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
         }
 
-        for(int i = 0; i < 12; i++) marker3[i] = new Marker();
+        for (int i = 0; i < 12; i++) marker3[i] = new Marker();
         marker3[0].setPosition(new LatLng(35.887586, 128.608531));//공대1호관
         marker3[1].setPosition(new LatLng(35.887463, 128.612745));//it1호관
         marker3[2].setPosition(new LatLng(35.888429, 128.615433));//사과대
@@ -272,18 +390,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         marker3[11].setPosition(new LatLng(35.886761, 128.613228));//수의대
 
         String[] c3arr = {"공과대학 1호관", "IT대학 1호관", "사회과학대학", "경상대학", "생활과학대학", "자연과학대학", "농업생명과학대학"
-                            , "인문대학", "사범대학", "예술대학", "약학대학", "수의과대학"};
+                , "인문대학", "사범대학", "예술대학", "약학대학", "수의과대학"};
 
-       for(int i = 0; i < 12; i++) {
-           marker3[i].setCaptionColor(Color.BLUE);
-           marker3[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
-           marker3[i].setCaptionText(c3arr[i]);
-           marker3[i].setWidth(50); marker3[i].setHeight(80);
-           marker3[i].setIcon(MarkerIcons.YELLOW);
-           marker3[i].setCaptionMinZoom(15);
-           marker3[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
+        for (int i = 0; i < 12; i++) {
+            marker3[i].setCaptionColor(Color.BLUE);
+            marker3[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
+            marker3[i].setCaptionText(c3arr[i]);
+            marker3[i].setWidth(50);
+            marker3[i].setHeight(80);
+            marker3[i].setIcon(MarkerIcons.YELLOW);
+            marker3[i].setCaptionMinZoom(15);
+            marker3[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
         }
     }
+
     private void DeleteMarker() {
         for (int i = 0; i < 11; i++) {
             marker0[i].setMap(null);

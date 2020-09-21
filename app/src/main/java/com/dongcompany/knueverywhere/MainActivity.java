@@ -28,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.lang.reflect.Array;
+import java.util.HashMap;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity  {
     private MapFragment fg1;
     private GalleryFragment fg2;
     private AwardsFragment fg3;
+
+    private FirebaseFirestore db;
 
     // 마지막으로 뒤로가기 버튼을 눌렀던 시간 저장
     private long backKeyPressedTime = 0;
@@ -75,53 +78,27 @@ public class MainActivity extends AppCompatActivity  {
         });
 
         util = new SharedPreferenceUtil(this);
-        //탐방정보 초기화
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db = FirebaseFirestore.getInstance();
         String id = util.getID();
-        db.collection("users").document(id).collection("경북대학교의 단과 대학").document("경북대학교의 단과 대학")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Map map = documentSnapshot.getData();
-                        for(Object key : map.keySet()) {
-                            util.setCourseInfo(3, key.toString(), (Boolean) map.get(key));
+
+        //탐방정보 초기화
+        final String[] aaa = {"경북대학교의 문", "경북대학교의 식당", "경북대학교의 주요 장소", "경북대학교의 단과 대학"};
+        for(int i = 0; i < 4; i++) {
+            final int finalI = i;
+            db.collection("users").document(id).collection(aaa[i]).document(aaa[i])
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            Map map = documentSnapshot.getData();
+                            for(Object key : map.keySet()) {
+                                util.setCourseInfo(finalI, key.toString(), (Boolean) map.get(key));
+                            }
                         }
-                    }
-                });
-        db.collection("users").document(id).collection("경북대학교의 문").document("경북대학교의 문")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Map map = documentSnapshot.getData();
-                        for(Object key : map.keySet()) {
-                            util.setCourseInfo(0, key.toString(), (Boolean) map.get(key));
-                        }
-                    }
-                });
-        db.collection("users").document(id).collection("경북대학교의 식당").document("경북대학교의 식당")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Map map = documentSnapshot.getData();
-                        for(Object key : map.keySet()) {
-                            util.setCourseInfo(1, key.toString(), (Boolean) map.get(key));
-                        }
-                    }
-                });
-        db.collection("users").document(id).collection("경북대학교의 주요 장소").document("경북대학교의 주요 장소")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Map map = documentSnapshot.getData();
-                        for(Object key : map.keySet()) {
-                            util.setCourseInfo(2, key.toString(), (Boolean) map.get(key));
-                        }
-                    }
-                });
+                    });
+        }
+
         //네비게이션 헤더 초기화 및 수정
         View nav_Header = navigationView.getHeaderView(0);
         TextView nameTextView = nav_Header.findViewById(R.id.nav_header_nameTextView);
@@ -169,13 +146,67 @@ public class MainActivity extends AppCompatActivity  {
                 return true;
             }
         });
+        //탐방 중인 상태 초기화
+        db.collection("users").document(id)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Boolean rst = (Boolean) documentSnapshot.getData().get("탐방상태");
 
+                        Long now = System.currentTimeMillis();
+                        Long end = Long.parseLong(documentSnapshot.getData().get("탐방종료시간").toString());
+                        if(rst) {
+                            if(end >= now) { // 탐방종료시간이 지나지 않음
+                                util.setTravelState(rst);
+                                fg1.startTimer((int) ((end - now) / 60000));
+                            }
+                            else { // 타임오버
+                                util.setTravelState(false);
+                                Toast.makeText(MainActivity.this, "탐방 유효 시간이 지났습니다. 다시 시도하세요!", Toast.LENGTH_SHORT).show();
+                                invalidityTravel();
+                            }
+                        }
+
+                    }
+                });
     }
 
+    public void startTimer(int time) {
+        fg1.startTimer(time);
+    }
     public void setCourse_MapMarking(Boolean course0, Boolean course1, Boolean course2, Boolean course3) {
         fg1.MapMarking(course0, course1, course2, course3);
     }
-
+    public void cancelTravel() {
+        fg1.cancelTravel();
+    }
+    public void invalidityTravel() {
+        final HashMap b = new HashMap();
+        b.put("탐방상태", false);
+        final String[] aaa = {"경북대학교의 문", "경북대학교의 식당", "경북대학교의 주요 장소", "경북대학교의 단과 대학"};
+        for(int i = 0; i < 4; i++) {
+            if(util.getCourseCheckBox(i) == true) {
+                final int finalI = i;
+                db.collection("users").document(util.getID()).collection(aaa[finalI]).document(aaa[finalI])
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                Map map = documentSnapshot.getData();
+                                HashMap t = new HashMap();
+                                for(Object key : map.keySet()) {
+                                    t.put((String) key, false);
+                                }
+                                db.collection("users").document(util.getID())
+                                        .collection(aaa[finalI]).document(aaa[finalI]).update(t);
+                            }
+                        });
+            }
+        }
+        db.collection("users").document(util.getID()).update(b);
+        util.setTravelState(false);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);

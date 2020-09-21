@@ -34,6 +34,10 @@ class SharedPreferenceUtil(context: Context) {
     fun setAutoLogin(value: Boolean) = prefs.edit().putBoolean("AutoLogin", value).apply()
 
 
+    //현재 상태(탐방 중인지 여부)
+    fun setTravelState(value:Boolean) = prefs.edit().putBoolean("TravelState", value).apply()
+    fun getTravelState() = prefs.getBoolean("TravelState", false)
+
     //탐방 정보들(탐방 중인 정보들)
     fun setCourseInfo(index : Int, area:String, value:Boolean) = prefs.edit().putBoolean("Course" + index.toString() + area, value).apply()
     fun getCourseInfo(index:Int, area:String) = prefs.getBoolean("Course" + index.toString() + area, false)

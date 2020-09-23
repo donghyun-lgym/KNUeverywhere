@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login.FindPW3Activity"></activity>
+        <activity android:name=".QRcertificationActivity"></activity>
+        <activity android:name=".TestActivity" />
+        <activity android:name=".Login.FindPW3Activity" />
         <activity android:name=".Login.FindPW2Activity" />
         <activity android:name=".Login.FindID2Activity" />
         <activity android:name=".Login.FindPWActivity" />
@@ -35,6 +37,20 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="t1"
+                    android:scheme="tt111://" />
             </intent-filter>
         </activity>
     </application>

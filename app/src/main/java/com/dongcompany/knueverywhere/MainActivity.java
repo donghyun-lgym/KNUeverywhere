@@ -153,10 +153,10 @@ public class MainActivity extends AppCompatActivity  {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Boolean rst = (Boolean) documentSnapshot.getData().get("탐방상태");
-
-                        Long now = System.currentTimeMillis();
-                        Long end = Long.parseLong(documentSnapshot.getData().get("탐방종료시간").toString());
                         if(rst) {
+                            Long now = System.currentTimeMillis();
+                            Long end = Long.parseLong(documentSnapshot.getData().get("탐방종료시간").toString());
+
                             if(end >= now) { // 탐방종료시간이 지나지 않음
                                 util.setTravelState(rst);
                                 fg1.startTimer((int) ((end - now) / 60000));
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity  {
                             else { // 타임오버
                                 util.setTravelState(false);
                                 Toast.makeText(MainActivity.this, "탐방 유효 시간이 지났습니다. 다시 시도하세요!", Toast.LENGTH_SHORT).show();
-                                invalidityTravel();
+                                invalidityTravel(MainActivity.this);
                             }
                         }
 
@@ -181,7 +181,10 @@ public class MainActivity extends AppCompatActivity  {
     public void cancelTravel() {
         fg1.cancelTravel();
     }
-    public void invalidityTravel() {
+    public static void invalidityTravel(Context context) {
+        final SharedPreferenceUtil util = new SharedPreferenceUtil(context);
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         final HashMap b = new HashMap();
         b.put("탐방상태", false);
         final String[] aaa = {"경북대학교의 문", "경북대학교의 식당", "경북대학교의 주요 장소", "경북대학교의 단과 대학"};
@@ -223,6 +226,7 @@ public class MainActivity extends AppCompatActivity  {
                 util.setCourseCheckBox(0, false); util.setCourseCheckBox(1, false);
                 util.setCourseCheckBox(2, false); util.setCourseCheckBox(3, false);
                 util.setStdNum("null");
+                util.setTravelState(false);
                 Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();

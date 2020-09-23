@@ -128,7 +128,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public void onFinish() {
                 Toast.makeText(activity, "해당 코스가 무효 처리 되었습니다. 다시 도전하세요!", Toast.LENGTH_SHORT).show();
                 //탐방 코스의 무효화
-                activity.invalidityTravel();
+                activity.invalidityTravel(activity);
                 startButton.setText("탐방 시작하기");
                 selectCourseButton.setPaintFlags(0);
                 timerLayout.setVisibility(View.INVISIBLE);

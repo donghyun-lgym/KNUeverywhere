@@ -42,6 +42,11 @@ class QRcertificationActivity : AppCompatActivity() {
                             return@addOnSuccessListener
                         }
                     }
+                    else {
+                        Toast.makeText(this, "현재 탐방 중이 아닙니다.", Toast.LENGTH_SHORT).show()
+                        finish()
+                        return@addOnSuccessListener
+                    }
                 }
         Handler().postDelayed({
             if(chk) {
@@ -96,7 +101,10 @@ class QRcertificationActivity : AppCompatActivity() {
                 }
 
         //인증버튼
-        findViewById<Button>(R.id.QRActivity_Button).setOnClickListener(View.OnClickListener {
+        val btn:Button = findViewById(R.id.QRActivity_Button);
+        btn.setText("인   증")
+        btn.setOnClickListener(View.OnClickListener {
+            if(btn.text.toString().equals("Loading...")) return@OnClickListener
             if(alreadyCert == true) {
                 Toast.makeText(this, "이미 인증된 장소입니다.", Toast.LENGTH_SHORT).show()
                 finish()

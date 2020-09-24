@@ -209,11 +209,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 }
                 else {
                     //탐방 중지하기
-                    if(timer != null){
-                        timer.onFinish();
-                        timer.cancel();
-                        timer = null;
-                    }
+                    MapFragment_StopButtonDialog dialog = new MapFragment_StopButtonDialog(getContext());
+                    dialog.show();
+                    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
                 }
             }
         });
@@ -238,6 +236,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return root;
     }
 
+    public void stopTravel() {
+        if(timer != null){
+            timer.onFinish();
+            timer.cancel();
+            timer = null;
+        }
+    }
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         mNaverMap = naverMap;

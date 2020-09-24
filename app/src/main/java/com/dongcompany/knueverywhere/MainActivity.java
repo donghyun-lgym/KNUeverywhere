@@ -215,7 +215,9 @@ public class MainActivity extends AppCompatActivity  {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
+    public void stopTravel() {
+        fg1.stopTravel();
+    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         SharedPreferenceUtil util = new SharedPreferenceUtil(MainActivity.this);

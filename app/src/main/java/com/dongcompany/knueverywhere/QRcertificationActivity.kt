@@ -117,8 +117,43 @@ class QRcertificationActivity : AppCompatActivity() {
             db.collection("users").document(userID).collection(collectionArray[course])
                     .document(collectionArray[course]).update(a as Map<String, Any>)
 
-            //모두 체크해서 CLEAR 하기기
-           finish()
+            //모두 체크해서 CLEAR 하기
+            var c = false
+            for(i in 0..3) {
+                if(c == false && util.getCourseCheckBox(i)) {
+                    db.collection("users").document(userID).collection(collectionArray[i]).document(collectionArray[i])
+                            .get()
+                            .addOnSuccessListener { documentSnapshot ->
+                                val map = documentSnapshot.getData()
+
+                                for(key in map!!.keys) {
+                                    if(!(key.equals("CLEAR")) && map.get(key) == false) {
+                                        c = true
+                                        return@addOnSuccessListener
+                                    }
+                                }
+                            }
+                }
+            }
+            Handler().postDelayed({
+                if(!c) {
+                    val aa = hashMapOf("CLEAR" to true)
+                    var bb = hashMapOf("탐방상태" to false)
+                    for(i in 0..3) {
+                        if(util.getCourseCheckBox(i)) {
+                            db.collection("users").document(userID).collection(collectionArray[i]).document(collectionArray[i])
+                                    .update(aa as Map<String, Any>)
+                            bb.put("체크박스_코스" + i.toString(), false)
+                        }
+                    }
+                    Toast.makeText(this, "코스 탐방이 완료되었습니다!", Toast.LENGTH_SHORT).show()
+                    util.setTravelState(false)
+
+                    db.collection("users").document(userID)
+                            .update(bb as Map<String, Any>)
+                }
+            }, 1800)
+            finish()
         })
     }
 }

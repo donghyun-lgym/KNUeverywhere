@@ -19,47 +19,46 @@ class SplashActivity : AppCompatActivity() {
         var util = SharedPreferenceUtil(this)
         val autoLogin = util.getAutoLogin()
 
-            Log.d("DynamicLinks", intent.toString())
-            FirebaseDynamicLinks.getInstance()
-                    .getDynamicLink(intent)
-                    .addOnSuccessListener(this, OnSuccessListener { pendingDynamicLinkData ->
-                        var deepLink: Uri? = null
-                        if (pendingDynamicLinkData != null) {
-                            if (!autoLogin) {
-                                Toast.makeText(this, "자동 로그인으로 로그인 후 시도 해 주세요.", Toast.LENGTH_SHORT).show()
-                            } else {
-                                deepLink = pendingDynamicLinkData.link
-                                Log.d("DynamicLinks", deepLink.toString())
-                                var intent = Intent(applicationContext, QRcertificationActivity::class.java)
-                                intent.putExtra("URL", deepLink.toString())
-                                Handler().postDelayed(
-                                        {
-                                            startActivity(intent)
-                                            finish()
-                                            return@postDelayed
-                                        }, 1900
-                                )
-                                return@OnSuccessListener
-                            }
-                        }
-
-                        Handler().postDelayed(
+        Log.d("DynamicLinks", intent.toString())
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(intent)
+                .addOnSuccessListener(this, OnSuccessListener { pendingDynamicLinkData ->
+                    var deepLink: Uri? = null
+                    if (pendingDynamicLinkData != null) {
+                        if (!autoLogin) {
+                            Toast.makeText(this, "자동 로그인으로 로그인 후 시도 해 주세요.", Toast.LENGTH_SHORT).show()
+                        } else {
+                            deepLink = pendingDynamicLinkData.link
+                            Log.d("DynamicLinks", deepLink.toString())
+                            var intent = Intent(applicationContext, QRcertificationActivity::class.java)
+                            intent.putExtra("URL", deepLink.toString())
+                            Handler().postDelayed(
                                     {
-                                        if (util.getAutoLogin() == false) {
-                                            startActivity(Intent(this, LoginActivity::class.java))
-                                        } else {
-                                            startActivity(Intent(this, MainActivity::class.java))
-                                        }
-                                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                                        startActivity(intent)
                                         finish()
-                                    }, 1900
-                            )
-
-                    })
-                    .addOnFailureListener(this) {
-                        Log.d("DynamicLinks", "Failure")
-                        finish()
+                                        return@postDelayed
+                                    }, 1900)
+                            return@OnSuccessListener
+                        }
                     }
+
+                    Handler().postDelayed(
+                            {
+                                if (util.getAutoLogin() == false) {
+                                    startActivity(Intent(this, LoginActivity::class.java))
+                                } else {
+                                    startActivity(Intent(this, MainActivity::class.java))
+                                }
+                                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                                finish()
+                            }, 1900
+                    )
+
+                })
+                .addOnFailureListener(this) {
+                    Log.d("DynamicLinks", "Failure")
+                    finish()
+                }
     }
 
     override fun onBackPressed() {

@@ -307,11 +307,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             marker0[i].setCaptionColor(Color.BLUE);
             marker0[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
             marker0[i].setCaptionText(c0arr[i]);
-            marker0[i].setWidth(50);
-            marker0[i].setHeight(80);
-            marker0[i].setIcon(MarkerIcons.RED);
             marker0[i].setCaptionMinZoom(15);
             marker0[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
+            if(util.getCourseInfo(0, "CLEAR")) {
+                marker0[i].setWidth(40);
+                marker0[i].setHeight(50);
+                marker0[i].setIcon(OverlayImage.fromResource(R.drawable.flag_icon0));
+            }
+            else {
+                marker0[i].setWidth(50);
+                marker0[i].setHeight(80);
+                marker0[i].setIcon(MarkerIcons.RED);
+            }
         }
 
         for (int i = 0; i < 5; i++) marker1[i] = new Marker();
@@ -327,11 +334,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             marker1[i].setCaptionColor(Color.BLUE);
             marker1[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
             marker1[i].setCaptionText(c1arr[i]);
-            marker1[i].setWidth(50);
-            marker1[i].setHeight(80);
-            marker1[i].setIcon(MarkerIcons.LIGHTBLUE);
             marker1[i].setCaptionMinZoom(15);
             marker1[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
+            if(util.getCourseInfo(1, "CLEAR")) {
+                marker1[i].setWidth(40);
+                marker1[i].setHeight(50);
+                marker1[i].setIcon(OverlayImage.fromResource(R.drawable.flag_icon1));
+            }
+            else {
+                marker1[i].setWidth(50);
+                marker1[i].setHeight(80);
+                marker1[i].setIcon(MarkerIcons.LIGHTBLUE);
+            }
         }
 
         for (int i = 0; i < 11; i++) marker2[i] = new Marker();
@@ -352,11 +366,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             marker2[i].setCaptionColor(Color.BLUE);
             marker2[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
             marker2[i].setCaptionText(c2arr[i]);
-            marker2[i].setWidth(50);
-            marker2[i].setHeight(80);
-            marker2[i].setIcon(MarkerIcons.GREEN);
             marker2[i].setCaptionMinZoom(15);
             marker2[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
+            if(util.getCourseInfo(2, "CLEAR")) {
+                marker2[i].setWidth(40);
+                marker2[i].setHeight(50);
+                marker2[i].setIcon(OverlayImage.fromResource(R.drawable.flag_icon2));
+            }
+            else {
+                marker2[i].setWidth(50);
+                marker2[i].setHeight(80);
+                marker2[i].setIcon(MarkerIcons.GREEN);
+            }
         }
 
         for (int i = 0; i < 12; i++) marker3[i] = new Marker();
@@ -380,11 +401,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             marker3[i].setCaptionColor(Color.BLUE);
             marker3[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
             marker3[i].setCaptionText(c3arr[i]);
-            marker3[i].setWidth(50);
-            marker3[i].setHeight(80);
-            marker3[i].setIcon(MarkerIcons.YELLOW);
             marker3[i].setCaptionMinZoom(15);
             marker3[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
+            if(util.getCourseInfo(3, "CLEAR")) {
+                marker3[i].setWidth(40);
+                marker3[i].setHeight(50);
+                marker3[i].setIcon(OverlayImage.fromResource(R.drawable.flag_icon3));
+            }
+            else {
+                marker3[i].setWidth(50);
+                marker3[i].setHeight(80);
+                marker3[i].setIcon(MarkerIcons.YELLOW);
+            }
         }
     }
 

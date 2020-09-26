@@ -51,7 +51,7 @@ class MapFragment_SelectCourseDialog(context: Context) : Dialog(context) {
         for(i in 0..3) {
             val util = SharedPreferenceUtil(activity)
             if(util.getCourseInfo(i, "CLEAR") == true) {
-                checkBoxArray[i].isChecked = false
+                checkBoxArray[i].isChecked = true
                 checkBoxArray[i].isEnabled = false
                 val string = checkBoxArray[i].text
                 checkBoxArray[i].setText(string.toString() + "  (완료)")

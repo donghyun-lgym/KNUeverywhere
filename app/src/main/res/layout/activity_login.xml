@@ -58,11 +58,19 @@
         app:layout_constraintTop_toBottomOf="@+id/LoginActivity_passwordEditText"
         app:layout_constraintVertical_bias="1.0" />
 
+    <TextView
+        app:layout_constraintTop_toBottomOf="@+id/LoginActivity_autoCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="원활한 탐방을 위해 자동 로그인을 권장합니다."/>
+
     <Button
         android:id="@+id/LoginActivity_LoginButton"
         android:layout_width="333dp"
         android:layout_height="37dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="85dp"
         android:background="@drawable/design_button2"
         android:onClick="on_login"
         android:text="로  그  인"

@@ -1,25 +1,41 @@
 package com.dongcompany.knueverywhere
 
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
+import java.io.InputStream
 import java.util.*
 
 class QRcertificationActivity : AppCompatActivity() {
     private lateinit var db:FirebaseFirestore
+    private lateinit var storage:FirebaseStorage
     private lateinit var util:SharedPreferenceUtil
     private lateinit var userID:String
+
+    private var imageUploaded = false
+    private lateinit var imageView:ImageView
+    private var bitmap: Bitmap? = null
+    private var uri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_q_rcertification)
         db = FirebaseFirestore.getInstance()
+        storage = FirebaseStorage.getInstance()
         util = SharedPreferenceUtil(this)
 
         userID = util.getID()
@@ -56,6 +72,12 @@ class QRcertificationActivity : AppCompatActivity() {
                 doMainFunction()
             }
         }, 1800)
+
+        imageView = findViewById(R.id.QRActivity_ImageView)
+        imageView.setOnClickListener(View.OnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, 1000);
+        })
     }
 
     private fun doMainFunction() {
@@ -105,6 +127,11 @@ class QRcertificationActivity : AppCompatActivity() {
         btn.setText("인   증")
         btn.setOnClickListener(View.OnClickListener {
             if(btn.text.toString().equals("Loading...")) return@OnClickListener
+            if(!imageUploaded) {
+                Toast.makeText(this, "인증샷을 업로드 해 주세요.", Toast.LENGTH_SHORT).show()
+                return@OnClickListener
+            }
+
             if(alreadyCert == true) {
                 Toast.makeText(this, "이미 인증된 장소입니다.", Toast.LENGTH_SHORT).show()
                 finish()
@@ -116,6 +143,17 @@ class QRcertificationActivity : AppCompatActivity() {
             Toast.makeText(this, "인증되었습니다.", Toast.LENGTH_SHORT).show()
             db.collection("users").document(userID).collection(collectionArray[course])
                     .document(collectionArray[course]).update(a as Map<String, Any>)
+
+            //인증샷 업로드
+            if(bitmap != null) {
+                val storageRef = storage.getReferenceFromUrl("gs://knu-everywhere.appspot.com/course" + course + "/" + courseIndex + "/" + util.getID() + ".jpg")
+
+                val uploadTask : UploadTask =storageRef.putFile(uri!!);
+                uploadTask.addOnFailureListener {
+                }.addOnSuccessListener {
+                    //Toast.makeText(this, "업로드 성공", Toast.LENGTH_SHORT).show()
+                }
+            }
 
             //모두 체크해서 CLEAR 하기
             var c = false
@@ -155,5 +193,30 @@ class QRcertificationActivity : AppCompatActivity() {
             }, 1800)
             finish()
         })
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 1000) {
+            if(resultCode == RESULT_OK) {
+                try {
+                    val inputStream : InputStream? = contentResolver.openInputStream(data?.data!!)
+
+                    bitmap= BitmapFactory.decodeStream(inputStream)
+                    inputStream?.close()
+                    imageView.setBackgroundResource(0)
+                    imageView.setImageBitmap(bitmap)
+
+                    uri = data?.data!!
+                    imageUploaded = true
+                }
+                catch (e:Exception){
+                    Toast.makeText(this,"사진 선택 에러",Toast.LENGTH_LONG).show()
+                }
+            }
+            else if(resultCode == RESULT_CANCELED)
+            {
+                //Toast.makeText(this,"사진 선택 취소",Toast.LENGTH_LONG).show()
+            }
+        }
     }
 }

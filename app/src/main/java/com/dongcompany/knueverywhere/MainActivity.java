@@ -19,6 +19,7 @@ import com.dongcompany.knueverywhere.Login.LoginActivity;
 import com.dongcompany.knueverywhere.ui.Awards.AwardsFragment;
 import com.dongcompany.knueverywhere.ui.Gallery.GalleryFragment;
 import com.dongcompany.knueverywhere.ui.Map.MapFragment;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -26,6 +27,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.lang.reflect.Array;
 import java.util.HashMap;
@@ -181,15 +184,18 @@ public class MainActivity extends AppCompatActivity  {
     public void cancelTravel() {
         fg1.cancelTravel();
     }
-    public static void invalidityTravel(Context context) {
+    public static void invalidityTravel(final Context context) {
         final SharedPreferenceUtil util = new SharedPreferenceUtil(context);
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final StorageReference reference = FirebaseStorage.getInstance().getReference();
 
         final HashMap b = new HashMap();
         b.put("탐방상태", false);
         final String[] aaa = {"경북대학교의 문", "경북대학교의 식당", "경북대학교의 주요 장소", "경북대학교의 단과 대학"};
+        final int[] bbb = {11, 5, 11, 12};
         for(int i = 0; i < 4; i++) {
             if(util.getCourseCheckBox(i) == true) {
+                //db 수정
                 final int finalI = i;
                 db.collection("users").document(util.getID()).collection(aaa[finalI]).document(aaa[finalI])
                         .get()
@@ -205,6 +211,22 @@ public class MainActivity extends AppCompatActivity  {
                                         .collection(aaa[finalI]).document(aaa[finalI]).update(t);
                             }
                         });
+                //storage 수정
+                for(int j = 0; j < bbb[i]; j++) {
+                    reference.child("course" + i + "/" + j + "/" + util.getID() + ".jpg").delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("nono", e.toString());
+                                }
+                            });
+                }
+
             }
         }
         db.collection("users").document(util.getID()).update(b);

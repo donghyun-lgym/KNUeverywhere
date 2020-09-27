@@ -291,6 +291,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private void MarkerInit() {
         for (int i = 0; i < 11; i++) marker0[i] = new Marker();
         marker0[0].setPosition(new LatLng(35.892351, 128.609357));//북문
+        marker0[0].setOnClickListener(new Overlay.OnClickListener() {
+            @Override
+            public boolean onClick(@NonNull Overlay overlay) {
+                Toast.makeText(activity, "클릭리스너", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
         marker0[1].setPosition(new LatLng(35.894980, 128.612260));//농장문
         marker0[2].setPosition(new LatLng(35.892572, 128.614822));//텍문
         marker0[3].setPosition(new LatLng(35.888089, 128.616282));//동문

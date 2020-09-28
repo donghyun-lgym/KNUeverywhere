@@ -12,42 +12,52 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/login_logo"/>
-    <TextView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        android:text="경북대학교"
         android:gravity="center"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/QRActivity_CourseTextView"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        android:text="Loading..."
-        android:gravity="center"
-        android:layout_marginTop="10dp"/>
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:text="경북대학교의"
+            android:gravity="center"
+            android:layout_marginHorizontal="5dp"
+            />
+        <TextView
+            android:layout_marginHorizontal="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/QRActivity_CourseTextView"
+            android:textSize="30dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:text="Loading..."
+            android:gravity="center" />
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/QRActivity_CourseDetailTextView"
-        android:textSize="30dp"
+        android:textSize="35dp"
         android:textStyle="bold"
+        android:textColor="@android:color/black"
         android:text="Loading..."
         android:gravity="center"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="20dp"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:text="인증샷 업로드, 이는 갤러리에서 확인 가능"
-        android:gravity="center"
-        android:layout_marginTop="30dp"/>
+    <ImageView
+        android:layout_marginVertical="20dp"
+        android:id="@+id/QRActivity_ImageView"
+        android:layout_gravity="center"
+        android:background="@drawable/qr_certifi_img"
+        android:layout_width="350dp"
+        android:layout_height="210dp"/>
 
     <Button
         android:layout_width="180dp"
@@ -57,7 +67,7 @@
         android:background="@drawable/design_button2"
         android:layout_gravity="center"
         android:textSize="25dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:textColor="@android:color/white"
         />
 </LinearLayout>

@@ -11,14 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".QRcertificationActivity"></activity>
+        <activity android:name=".ui.MapInfo.MapInfoActivity"></activity>
+        <activity android:name=".QRcertificationActivity" />
         <activity android:name=".TestActivity" />
         <activity android:name=".Login.FindPW3Activity" />
         <activity android:name=".Login.FindPW2Activity" />
         <activity android:name=".Login.FindID2Activity" />
         <activity android:name=".Login.FindPWActivity" />
         <activity android:name=".Login.FindIDActivity" />
-        <activity android:name=".ui.MarkerDetail" />
         <activity android:name=".Login.RegistActivity" />
         <activity android:name=".Login.LoginActivity" />
 

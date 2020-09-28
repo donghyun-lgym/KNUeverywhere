@@ -26,6 +26,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.dongcompany.knueverywhere.MainActivity;
 import com.dongcompany.knueverywhere.R;
 import com.dongcompany.knueverywhere.SharedPreferenceUtil;
+import com.dongcompany.knueverywhere.ui.MapInfo.MapInfoActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -291,13 +292,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private void MarkerInit() {
         for (int i = 0; i < 11; i++) marker0[i] = new Marker();
         marker0[0].setPosition(new LatLng(35.892351, 128.609357));//북문
-        marker0[0].setOnClickListener(new Overlay.OnClickListener() {
-            @Override
-            public boolean onClick(@NonNull Overlay overlay) {
-                Toast.makeText(activity, "클릭리스너", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
         marker0[1].setPosition(new LatLng(35.894980, 128.612260));//농장문
         marker0[2].setPosition(new LatLng(35.892572, 128.614822));//텍문
         marker0[3].setPosition(new LatLng(35.888089, 128.616282));//동문
@@ -309,8 +303,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         marker0[9].setPosition(new LatLng(35.888444, 128.603911));//서문
         marker0[10].setPosition(new LatLng(35.890359, 128.605476));//수영장문
 
-        String[] c0arr = {"북문", "농장문", "테크노문", "동문", "정문", "수의대문", "쪽문", "조은문", "솔로문", "서문", "수영장문"};
+        final String[] c0arr = {"북문", "농장문", "테크노문", "동문", "정문", "수의대문", "쪽문", "조은문", "솔로문", "서문", "수영장문"};
         for (int i = 0; i < 11; i++) {
+            final int finalI = i;
+            marker0[i].setOnClickListener(new Overlay.OnClickListener() {
+                @Override
+                public boolean onClick(@NonNull Overlay overlay) {
+                    Intent intent = new Intent(activity, MapInfoActivity.class);
+                    intent.putExtra("장소", c0arr[finalI]);
+                    intent.putExtra("설명", "문");
+                    intent.putExtra("이미지ID", "course0_" + finalI);
+                    startActivity(intent);
+                    return true;
+                }
+            });
             marker0[i].setCaptionColor(Color.BLUE);
             marker0[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
             marker0[i].setCaptionText(c0arr[i]);
@@ -335,9 +341,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         marker1[3].setPosition(new LatLng(35.892290, 128.613229));//종합정보센터
         marker1[4].setPosition(new LatLng(35.888990, 128.614498));//복지관
 
-        String[] c1arr = {"공대식당", "복현회관", "경대리아", "종합정보센터", "복지관"};
+        final String[] c1arr = {"공대식당", "복현회관", "경대리아", "종합정보센터", "복지관"};
 
         for (int i = 0; i < 5; i++) {
+            final int finalI = i;
+            marker1[i].setOnClickListener(new Overlay.OnClickListener() {
+                @Override
+                public boolean onClick(@NonNull Overlay overlay) {
+                    Intent intent = new Intent(activity, MapInfoActivity.class);
+                    intent.putExtra("장소", c1arr[finalI]);
+                    intent.putExtra("설명", "식당");
+                    intent.putExtra("이미지ID", "course1_" + finalI);
+                    startActivity(intent);
+                    return true;
+                }
+            });
             marker1[i].setCaptionColor(Color.BLUE);
             marker1[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
             marker1[i].setCaptionText(c1arr[i]);
@@ -368,8 +386,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         marker2[9].setPosition(new LatLng(35.891860, 128.611268));//글플
         marker2[10].setPosition(new LatLng(35.886325, 128.614835));//센팍
 
-        String[] c2arr = {"대운동장", "백호관", "일청담", "도서관", "본관", "백양로", "박물관", "미술관", "대강당", "글로벌플라자", "센트롤파크"};
+        final String[] c2arr = {"대운동장", "백호관", "일청담", "도서관", "본관", "백양로", "박물관", "미술관", "대강당", "글로벌플라자", "센트럴파크"};
         for (int i = 0; i < 11; i++) {
+            final int finalI = i;
+            marker2[i].setOnClickListener(new Overlay.OnClickListener() {
+                @Override
+                public boolean onClick(@NonNull Overlay overlay) {
+                    Intent intent = new Intent(activity, MapInfoActivity.class);
+                    intent.putExtra("장소", c2arr[finalI]);
+                    intent.putExtra("설명", "주요 장소");
+                    intent.putExtra("이미지ID", "course2_" + finalI);
+                    startActivity(intent);
+                    return true;
+                }
+            });
             marker2[i].setCaptionColor(Color.BLUE);
             marker2[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
             marker2[i].setCaptionText(c2arr[i]);
@@ -401,10 +431,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         marker3[10].setPosition(new LatLng(35.892625, 128.612392));//약대
         marker3[11].setPosition(new LatLng(35.886761, 128.613228));//수의대
 
-        String[] c3arr = {"공과대학 1호관", "IT대학 1호관", "사회과학대학", "경상대학", "생활과학대학", "자연과학대학", "농업생명과학대학"
+        final String[] c3arr = {"공과대학 1호관", "IT대학 1호관", "사회과학대학", "경상대학", "생활과학대학", "자연과학대학", "농업생명과학대학"
                 , "인문대학", "사범대학", "예술대학", "약학대학", "수의과대학"};
 
         for (int i = 0; i < 12; i++) {
+            final int finalI = i;
+            marker3[i].setOnClickListener(new Overlay.OnClickListener() {
+                @Override
+                public boolean onClick(@NonNull Overlay overlay) {
+                    Intent intent = new Intent(activity, MapInfoActivity.class);
+                    intent.putExtra("장소", c3arr[finalI]);
+                    intent.putExtra("설명", "단과대학");
+                    intent.putExtra("이미지ID", "course3_" + finalI);
+                    startActivity(intent);
+                    return true;
+                }
+            });
             marker3[i].setCaptionColor(Color.BLUE);
             marker3[i].setCaptionHaloColor(Color.rgb(165, 255, 130));
             marker3[i].setCaptionText(c3arr[i]);

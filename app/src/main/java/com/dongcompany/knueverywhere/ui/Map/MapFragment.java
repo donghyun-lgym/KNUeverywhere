@@ -312,7 +312,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     Intent intent = new Intent(activity, MapInfoActivity.class);
                     intent.putExtra("장소", c0arr[finalI]);
                     intent.putExtra("설명", "문");
-                    intent.putExtra("이미지ID", "course0_" + finalI);
+                    intent.putExtra("코스명", "course0");
+                    intent.putExtra("코스번호", finalI);
                     startActivity(intent);
                     return true;
                 }
@@ -351,7 +352,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     Intent intent = new Intent(activity, MapInfoActivity.class);
                     intent.putExtra("장소", c1arr[finalI]);
                     intent.putExtra("설명", "식당");
-                    intent.putExtra("이미지ID", "course1_" + finalI);
+                    intent.putExtra("코스명", "course1");
+                    intent.putExtra("코스번호", finalI);
                     startActivity(intent);
                     return true;
                 }
@@ -395,7 +397,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     Intent intent = new Intent(activity, MapInfoActivity.class);
                     intent.putExtra("장소", c2arr[finalI]);
                     intent.putExtra("설명", "주요 장소");
-                    intent.putExtra("이미지ID", "course2_" + finalI);
+                    intent.putExtra("코스명", "course2");
+                    intent.putExtra("코스번호", finalI);
                     startActivity(intent);
                     return true;
                 }
@@ -442,7 +445,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     Intent intent = new Intent(activity, MapInfoActivity.class);
                     intent.putExtra("장소", c3arr[finalI]);
                     intent.putExtra("설명", "단과대학");
-                    intent.putExtra("이미지ID", "course3_" + finalI);
+                    intent.putExtra("코스명", "course3");
+                    intent.putExtra("코스번호", finalI);
                     startActivity(intent);
                     return true;
                 }

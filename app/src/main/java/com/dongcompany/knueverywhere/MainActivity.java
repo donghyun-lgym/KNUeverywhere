@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity  {
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             Map map = documentSnapshot.getData();
                             for(Object key : map.keySet()) {
+                                //(0~3, "북문", true)
                                 util.setCourseInfo(finalI, key.toString(), (Boolean) map.get(key));
                             }
                         }
@@ -211,8 +212,13 @@ public class MainActivity extends AppCompatActivity  {
                                         .collection(aaa[finalI]).document(aaa[finalI]).update(t);
                             }
                         });
-                //storage 수정
+                //storage 수정 //db - picture 관련 제거
                 for(int j = 0; j < bbb[i]; j++) {
+                    final HashMap kkk = new HashMap();
+                    kkk.put(util.getID(), false);
+                    db.collection("picture").document("course" + i).collection(String.valueOf(j))
+                            .document("users").update(kkk);
+
                     reference.child("course" + i + "/" + j + "/" + util.getID() + ".jpg").delete()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

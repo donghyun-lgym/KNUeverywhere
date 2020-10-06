@@ -9,6 +9,7 @@
     <Button
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:id="@+id/ReviewFragment_writeButton"
@@ -16,8 +17,9 @@
         android:layout_width="60dp"
         android:layout_height="60dp"></Button>
 
+
     <androidx.recyclerview.widget.RecyclerView
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ReviewFragment_writeButton"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/ReviewFragment_RecyclerView"

@@ -60,6 +60,7 @@ class RegistActivity : AppCompatActivity() {
                                 if(!tmp) {
                                     Toast.makeText(this, "중복 검사가 완료되었습니다.", Toast.LENGTH_SHORT).show()
                                     IDeditText.isFocusableInTouchMode = false
+                                    IDeditText.clearFocus()
                                     IDcheck = true
                                     IDchkButton.setText("변경하기")
                                 }

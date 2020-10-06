@@ -57,8 +57,10 @@ public class PicFragment extends Fragment {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Map map = documentSnapshot.getData();
                         for(Object key : map.keySet()) {
-                            usersArray.add((String) key);
-                            Log.d("nonono", (String) key);
+                            if((Boolean) (map.get((String) key)) == true) {
+                                usersArray.add((String) key);
+                                Log.d("nonono", (String) key);
+                            }
                         }
                     }
                 });

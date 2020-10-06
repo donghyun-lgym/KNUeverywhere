@@ -189,6 +189,10 @@ class QRcertificationActivity : AppCompatActivity() {
 
                     db.collection("users").document(userID)
                             .update(bb as Map<String, Any>)
+
+                    var bbb = hashMapOf(userID to true)
+                    db.collection("picture").document("course" + course.toString())
+                            .collection(courseIndex.toString()).document("users").update(bbb as Map<String, Any>)
                 }
             }, 1800)
             finish()

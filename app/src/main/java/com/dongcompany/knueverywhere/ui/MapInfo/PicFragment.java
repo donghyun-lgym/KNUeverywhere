@@ -2,25 +2,68 @@ package com.dongcompany.knueverywhere.ui.MapInfo;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.dongcompany.knueverywhere.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.model.Document;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Map;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 public class PicFragment extends Fragment {
-
     private MapInfoActivity activity;
-    public PicFragment(Context context) {
+    private String Course;
+    private int courseNum;
+
+    private ArrayList<String> usersArray = new ArrayList();
+
+
+    //Course는 코스명 (course0, course1, course2, course3) : String
+    //courseNum은 코스 내 지점들 (0, 1, 2, 3, 4, 5, ....) : int
+    //Firebase storage 경로는 Course + "/" + String.valueOf(courseNum) + "아이디명" + ".jpg" 겠지?
+
+    public PicFragment(Context context, String Course, int courseNum) {
         this.activity = (MapInfoActivity) context;
+        this.Course = Course; this.courseNum = courseNum;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pic, container, false);
+        View root = inflater.inflate(R.layout.fragment_pic, container, false);
+        //DB에서 해당 코스에 등록된 아이디들 끌고옴
+        Log.d("nonono", Course + "/" + courseNum);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("picture").document(Course).collection(String.valueOf(courseNum))
+                .document("users")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Map map = documentSnapshot.getData();
+                        for(Object key : map.keySet()) {
+                            usersArray.add((String) key);
+                            Log.d("nonono", (String) key);
+                        }
+                    }
+                });
+
+
+        return root;
     }
 }

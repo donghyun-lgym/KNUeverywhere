@@ -54,7 +54,7 @@ public class MapInfoActivity extends AppCompatActivity {
         });
 
         //프래그먼트 초기화
-        picFragment = new PicFragment(this);
+        picFragment = new PicFragment(this, course, courseNum);
         reviewFragment = new ReviewFragment(this, course, courseNum);
         aroundFragment = new AroundFragment(this);
         getSupportFragmentManager().beginTransaction().add(R.id.MapInfoActivity_FrameLayout, picFragment).commit();

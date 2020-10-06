@@ -164,11 +164,12 @@ class ReviewFragment(val context: MapInfoActivity, val course: String, val Cours
                 val format = SimpleDateFormat("yyyy. MM. dd")
                 val time: String = format.format(Date())
                 val map = hashMapOf("ID" to id, "날짜" to time, "내용" to EditText.text.toString(), "이름" to name)
-                db.collection("review").document(course).collection(CourseNum.toString())
-                        .add(id)
+
+                Log.d("nonono", "리뷰 / " + course + "/ "+ CourseNum)
                 db.collection("review").document(course).collection(CourseNum.toString())
                         .document(id)
-                        .update(map as Map<String, Any>)
+                        .set(map as Map<String, Any>)
+                Toast.makeText(context, "작성되었습니다.", Toast.LENGTH_SHORT).show()
                 dismiss()
             })
             findViewById<Button>(R.id.ReviewDialog_CanBtn).setOnClickListener(View.OnClickListener {

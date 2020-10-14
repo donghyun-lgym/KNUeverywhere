@@ -22,6 +22,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.model.Document;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -60,7 +61,6 @@ public class PicFragment extends Fragment {
 
 
 
-        int cnt=0;
         //DB에서 해당 코스에 등록된 아이디들 끌고옴
         Log.d("nonono", Course + "/" + courseNum);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -71,22 +71,20 @@ public class PicFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Map map = documentSnapshot.getData();
-                        if(map != null) {
-                            for(Object key : map.keySet()) {
-                                if((Boolean) (map.get((String) key)) == true) {
-                                    usersArray.add((String) key);
+                        for(Object key : map.keySet()) {
+                            if((Boolean) (map.get((String) key)) == true) {
+                                usersArray.add((String) key);
 
-                                    Log.d("nonono", (String) key);
-                                }
+                                Log.d("nonono", (String) key);
                             }
                         }
                     }
                 });
         FirebaseStorage mStorage = FirebaseStorage.getInstance("gs://knu-everywhere.appspot.com");
-        int i=0;//그리드뷰처럼 보이게 하려고 이렇게 살짝 할게요
-
+        //Picasso.get().load(URI).placeholder(R.drawable.luggageicon).into(imageView);
         PicGridAdapter picGridAdapter = new PicGridAdapter(usersArray);
         gridView.setAdapter(picGridAdapter);
+
 
 
         return root;

@@ -36,13 +36,13 @@ public class PicGridAdapter extends BaseAdapter {
 
         ImageView imageView1= view.findViewById(R.id.first_ima);
 
-        into(imageView1);
+        //into(imageView1);
 
         arrayList.get(position).toString();
 
 
 
-        imageView1.setImageDrawable();
+        //imageView1.setImageDrawable();
 
         return view;
     }

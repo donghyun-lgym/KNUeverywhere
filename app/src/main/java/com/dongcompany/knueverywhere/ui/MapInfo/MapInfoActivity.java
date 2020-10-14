@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -36,8 +37,10 @@ public class MapInfoActivity extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.MapInfoActivity_ImageView);
         String course = intent.getStringExtra("코스명");
         int courseNum = intent.getIntExtra("코스번호", -1);
-        String img_id2 = "R.drawable." + course + "_" + courseNum;
-        //imageView.setBackgroundResource(Integer.parseInt(img_id2));
+        String img_id2 = "@drawable/" + course + "_" + courseNum;
+        String packName = this.getPackageName();
+        int resID = getResources().getIdentifier(img_id2, "drawable", packName);
+        imageView.setBackgroundResource(resID);
 
         //출발 and 도착 버튼 (경로찾기)
         findViewById(R.id.MapInfoActivity_StartButton).setOnClickListener(new View.OnClickListener() {

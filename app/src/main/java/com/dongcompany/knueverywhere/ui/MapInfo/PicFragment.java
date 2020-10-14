@@ -71,11 +71,13 @@ public class PicFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Map map = documentSnapshot.getData();
-                        for(Object key : map.keySet()) {
-                            if((Boolean) (map.get((String) key)) == true) {
-                                usersArray.add((String) key);
+                        if(map != null) {
+                            for(Object key : map.keySet()) {
+                                if((Boolean) (map.get((String) key)) == true) {
+                                    usersArray.add((String) key);
 
-                                Log.d("nonono", (String) key);
+                                    Log.d("nonono", (String) key);
+                                }
                             }
                         }
                     }

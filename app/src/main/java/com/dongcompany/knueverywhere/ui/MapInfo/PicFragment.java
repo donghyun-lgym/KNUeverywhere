@@ -85,8 +85,6 @@ public class PicFragment extends Fragment {
         PicGridAdapter picGridAdapter = new PicGridAdapter(usersArray);
         gridView.setAdapter(picGridAdapter);
 
-
-
         return root;
     }
 }

@@ -7,6 +7,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class PicGridAdapter extends BaseAdapter {
@@ -35,14 +37,8 @@ public class PicGridAdapter extends BaseAdapter {
         View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.girdview_design,parent,false);
 
         ImageView imageView1= view.findViewById(R.id.first_ima);
-
-        //into(imageView1);
-
         arrayList.get(position).toString();
-
-
-
-        //imageView1.setImageDrawable();
+        Picasso.get().load(String.valueOf(arrayList)).placeholder(R.drawable.app_icon).into(imageView1);
 
         return view;
     }

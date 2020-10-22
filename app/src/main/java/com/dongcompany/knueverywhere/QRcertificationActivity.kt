@@ -90,7 +90,7 @@ class QRcertificationActivity : AppCompatActivity() {
         Log.d("QR인증", course.toString() + "_" + courseIndex.toString())
         if(util.getCourseCheckBox(course) == false) {
             Toast.makeText(this, "현재 탐방 중인 코스가 아닙니다.", Toast.LENGTH_SHORT).show()
-            return
+            this.finish()
         }
 
         val courseArray = arrayOf("문", "식당", "주요 장소", "단과대학")

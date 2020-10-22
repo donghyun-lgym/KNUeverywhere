@@ -225,6 +225,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             }
         });
+        //플로팅 버튼 (카메라 뷰 보기)
+        root.findViewById(R.id.MapFragment_FloatingButton2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(activity, MapFragment_AirViewActivity.class));
+            }
+        });
 //        //플로팅 버튼 (새로고침)
 //        root.findViewById(R.id.MapFragment_RefreshButton).setOnClickListener(new View.OnClickListener() {
 //            @Override

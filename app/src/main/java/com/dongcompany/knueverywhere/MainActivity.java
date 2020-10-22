@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity  {
         util = new SharedPreferenceUtil(this);
 
         db = FirebaseFirestore.getInstance();
-        String id = util.getID();
+        final String id = util.getID();
 
         //탐방정보 초기화
         final String[] aaa = {"경북대학교의 문", "경북대학교의 식당", "경북대학교의 주요 장소", "경북대학교의 단과 대학"};
@@ -100,6 +101,16 @@ public class MainActivity extends AppCompatActivity  {
                                 //(0~3, "북문", true)
                                 util.setCourseInfo(finalI, key.toString(), (Boolean) map.get(key));
                             }
+                            //프래그먼트 추가
+                            fg1 = new MapFragment(MainActivity.this);
+                            fg2 = new GalleryFragment(MainActivity.this);
+                            fg3 = new AwardsFragment(MainActivity.this);
+                            getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg1).commit();
+                            getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg2).commit();
+                            getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg3).commit();
+                            getSupportFragmentManager().beginTransaction().show(fg1).commit();
+                            getSupportFragmentManager().beginTransaction().hide(fg2).commit();
+                            getSupportFragmentManager().beginTransaction().hide(fg3).commit();
                         }
                     });
         }
@@ -112,17 +123,6 @@ public class MainActivity extends AppCompatActivity  {
         stdnumTextView.setText(util.getStdNum());
 
         //네이게이션뷰 아이템 셀렉트
-        //프래그먼트를 교체시켜주는 곳
-        fg1 = new MapFragment(this);
-        fg2 = new GalleryFragment(this);
-        fg3 = new AwardsFragment(this);
-        getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg1).commit();
-        getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg2).commit();
-        getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg3).commit();
-        getSupportFragmentManager().beginTransaction().show(fg1).commit();
-        getSupportFragmentManager().beginTransaction().hide(fg2).commit();
-        getSupportFragmentManager().beginTransaction().hide(fg3).commit();
-
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -152,29 +152,34 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
         //탐방 중인 상태 초기화
-        db.collection("users").document(id)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Boolean rst = (Boolean) documentSnapshot.getData().get("탐방상태");
-                        if(rst) {
-                            Long now = System.currentTimeMillis();
-                            Long end = Long.parseLong(documentSnapshot.getData().get("탐방종료시간").toString());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                db.collection("users").document(id)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                Boolean rst = (Boolean) documentSnapshot.getData().get("탐방상태");
+                                if(rst) {
+                                    Long now = System.currentTimeMillis();
+                                    Long end = Long.parseLong(documentSnapshot.getData().get("탐방종료시간").toString());
 
-                            if(end >= now) { // 탐방종료시간이 지나지 않음
-                                util.setTravelState(rst);
-                                fg1.startTimer((int) ((end - now) / 60000));
-                            }
-                            else { // 타임오버
-                                util.setTravelState(false);
-                                Toast.makeText(MainActivity.this, "탐방 유효 시간이 지났습니다. 다시 시도하세요!", Toast.LENGTH_SHORT).show();
-                                invalidityTravel(MainActivity.this);
-                            }
-                        }
+                                    if(end >= now) { // 탐방종료시간이 지나지 않음
+                                        util.setTravelState(rst);
+                                        fg1.startTimer((int) ((end - now) / 60000));
+                                    }
+                                    else { // 타임오버
+                                        util.setTravelState(false);
+                                        Toast.makeText(MainActivity.this, "탐방 유효 시간이 지났습니다. 다시 시도하세요!", Toast.LENGTH_SHORT).show();
+                                        invalidityTravel(MainActivity.this);
+                                    }
+                                }
 
-                    }
-                });
+                            }
+                        });
+            }
+        }, 1700);
     }
 
     public void startTimer(int time) {

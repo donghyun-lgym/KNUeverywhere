@@ -92,7 +92,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:visibility="invisible"
         android:id="@+id/MapFragment_FloatingButton2"
         android:layout_width="60dp"
         android:layout_height="60dp"

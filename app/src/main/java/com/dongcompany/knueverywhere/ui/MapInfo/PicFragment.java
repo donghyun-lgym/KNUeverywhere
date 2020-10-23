@@ -82,7 +82,7 @@ public class PicFragment extends Fragment {
                 });
         FirebaseStorage mStorage = FirebaseStorage.getInstance("gs://knu-everywhere.appspot.com");
         //Picasso.get().load(URI).placeholder(R.drawable.luggageicon).into(imageView);
-        PicGridAdapter picGridAdapter = new PicGridAdapter(usersArray);
+        PicGridAdapter picGridAdapter = new PicGridAdapter(activity, usersArray, Course, courseNum);
         gridView.setAdapter(picGridAdapter);
 
         return root;

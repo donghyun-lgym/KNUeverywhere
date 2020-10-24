@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,20 +25,15 @@ public class AwardsFragment extends Fragment {
         activity = (Activity) context;
     }
 
-    private AwardsViewModel slideshowViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                ViewModelProviders.of(this).get(AwardsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_awards, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
+        WebView mWebView = root.findViewById(R.id.AwardsFragment_webView);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.loadUrl("https://knupr.knu.ac.kr/content05/campustour/index.html");
+
         return root;
     }
 }

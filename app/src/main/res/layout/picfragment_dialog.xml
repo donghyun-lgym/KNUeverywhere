@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/design_dialog"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ImageView
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/picFragmentDialog_imageview"
+        android:background="@drawable/login_logo"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:fontFamily="@font/myfont"
+        android:textSize="30dp"          android:textStyle="bold"
+        android:layout_margin="10dp"
+        android:text="상세정보"
+         />
+    <LinearLayout
+        android:layout_marginHorizontal="10dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_margin="5dp"
+            android:background="@drawable/picinformation_date_icon"
+            android:layout_width="25dp"
+            android:layout_height="25dp">
+        </Button>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:fontFamily="@font/myfont_r"
+            android:textSize="20dp"
+            android:layout_marginHorizontal="5dp"
+            android:text="2020년 10월 10일 15:34"
+            android:id="@+id/picFragmentDialog_dateText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="10dp"
+
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_margin="5dp"
+            android:background="@drawable/picinformation_name_icon"
+            android:layout_width="25dp"
+            android:layout_height="25dp">
+        </Button>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_marginHorizontal="5dp"
+            android:fontFamily="@font/myfont_r"
+            android:textSize="20dp"
+            android:text="홍길*"
+            android:id="@+id/picFragmentDialog_nameText" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/picFragmentDialog_CanBtn"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/design_button"
+        android:text="확  인"
+        android:fontFamily="@font/myfont"
+        android:textSize="23dp"
+        android:textStyle="bold" />
+
+</LinearLayout>

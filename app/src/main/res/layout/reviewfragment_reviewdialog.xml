@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="리뷰 작성"
-        android:textSize="25dp"
-        android:layout_margin="15dp"
+        android:fontFamily="@font/myfont"
+        android:textSize="38dp"         android:layout_margin="15dp"
         android:textColor="@android:color/black"
         android:gravity="center"
         android:textStyle="bold"/>
@@ -20,8 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="해당 지점의 꿀팁을 공유해 봐!"
-        android:textSize="15dp"
-        android:textColor="@android:color/black"
+        android:fontFamily="@font/myfont_r"
+        android:textSize="19dp"         android:textColor="@android:color/black"
         android:gravity="center"/>
 
     <TextView
@@ -29,8 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="역사, 주변 맛집, 재밌는 썰 등을 적어보자!"
-        android:textSize="15dp"
-        android:textColor="@android:color/black"
+        android:fontFamily="@font/myfont_r"
+        android:textSize="19dp"        android:textColor="@android:color/black"
         android:gravity="center"/>
 
     <EditText
@@ -39,6 +39,8 @@
         android:layout_marginVertical="15dp"
         android:layout_height="wrap_content"
         android:hint="5자 이상 작성해 주세요."
+        android:fontFamily="@font/myfont_r"
+        android:textSize="23dp"
         android:maxLength="50"
         android:id="@+id/ReviewDialog_EditText"
         />
@@ -52,8 +54,8 @@
         <Button
             android:id="@+id/ReviewDialog_Btn"
             android:text="작  성"
-            android:textSize="16dp"
-            android:background="@drawable/design_button"
+            android:fontFamily="@font/myfont"
+            android:textSize="23dp"            android:background="@drawable/design_button"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:layout_width="100dp"
@@ -64,8 +66,8 @@
             android:layout_marginLeft="20dp"
             android:id="@+id/ReviewDialog_CanBtn"
             android:text="취  소"
-            android:textSize="16dp"
-            android:textStyle="bold"
+            android:fontFamily="@font/myfont"
+            android:textSize="23dp"            android:textStyle="bold"
             android:background="@drawable/design_button"
             android:layout_gravity="center"
             android:layout_width="100dp"

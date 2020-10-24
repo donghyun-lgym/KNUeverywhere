@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,6 +21,7 @@ import com.dongcompany.knueverywhere.Login.LoginActivity;
 import com.dongcompany.knueverywhere.ui.Awards.AwardsFragment;
 import com.dongcompany.knueverywhere.ui.Gallery.GalleryFragment;
 import com.dongcompany.knueverywhere.ui.Map.MapFragment;
+import com.dongcompany.knueverywhere.ui.Map.MapFragment_TutorialDialog;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -62,15 +64,16 @@ public class MainActivity extends AppCompatActivity  {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //로딩 다이얼로그
+        final LoadingDialog dialog2 = new LoadingDialog(this);
+        dialog2.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog2.dismiss();
+            }
+        }, 1500);
 
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -87,6 +90,29 @@ public class MainActivity extends AppCompatActivity  {
         db = FirebaseFirestore.getInstance();
         final String id = util.getID();
 
+        //튜토리얼
+        if(util.getTutorial() == false) {
+            util.setTutorial(true);
+            HashMap bbb = new HashMap();
+            bbb.put("튜토리얼", true);
+            db.collection("users").document(id)
+                    .update(bbb);
+
+            MapFragment_TutorialDialog dialog = new MapFragment_TutorialDialog(this);
+            dialog.show();
+        }
+
+        //프래그먼트 추가
+        fg1 = new MapFragment(MainActivity.this);
+        fg2 = new GalleryFragment(MainActivity.this);
+        fg3 = new AwardsFragment(MainActivity.this);
+        getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg1).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg2).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg3).commit();
+        getSupportFragmentManager().beginTransaction().show(fg1).commit();
+        getSupportFragmentManager().beginTransaction().hide(fg2).commit();
+        getSupportFragmentManager().beginTransaction().hide(fg3).commit();
+
         //탐방정보 초기화
         final String[] aaa = {"경북대학교의 문", "경북대학교의 식당", "경북대학교의 주요 장소", "경북대학교의 단과 대학"};
         for(int i = 0; i < 4; i++) {
@@ -101,16 +127,7 @@ public class MainActivity extends AppCompatActivity  {
                                 //(0~3, "북문", true)
                                 util.setCourseInfo(finalI, key.toString(), (Boolean) map.get(key));
                             }
-                            //프래그먼트 추가
-                            fg1 = new MapFragment(MainActivity.this);
-                            fg2 = new GalleryFragment(MainActivity.this);
-                            fg3 = new AwardsFragment(MainActivity.this);
-                            getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg1).commit();
-                            getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg2).commit();
-                            getSupportFragmentManager().beginTransaction().add(R.id.nav_frameLayout, fg3).commit();
-                            getSupportFragmentManager().beginTransaction().show(fg1).commit();
-                            getSupportFragmentManager().beginTransaction().hide(fg2).commit();
-                            getSupportFragmentManager().beginTransaction().hide(fg3).commit();
+                            fg1.MarkingFromDB();
                         }
                     });
         }
@@ -132,19 +149,16 @@ public class MainActivity extends AppCompatActivity  {
                         getSupportFragmentManager().beginTransaction().hide(fg2).commit();
                         getSupportFragmentManager().beginTransaction().hide(fg3).commit();
                         getSupportFragmentManager().beginTransaction().show(fg1).commit();
-                        Toast.makeText(getApplicationContext(), "맵 프래그먼트 선택됨.", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_Gallery:
                         getSupportFragmentManager().beginTransaction().hide(fg1).commit();
                         getSupportFragmentManager().beginTransaction().hide(fg3).commit();
                         getSupportFragmentManager().beginTransaction().show(fg2).commit();
-                        Toast.makeText(getApplicationContext(), "사진첩 프래그먼트 선택됨.", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_Awards:
                         getSupportFragmentManager().beginTransaction().hide(fg2).commit();
                         getSupportFragmentManager().beginTransaction().hide(fg1).commit();
                         getSupportFragmentManager().beginTransaction().show(fg3).commit();
-                        Toast.makeText(getApplicationContext(), "명예의전당 프래그먼트 선택됨.", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 drawer.closeDrawer(GravityCompat.START);
@@ -220,10 +234,8 @@ public class MainActivity extends AppCompatActivity  {
                         });
                 //storage 수정 //db - picture 관련 제거
                 for(int j = 0; j < bbb[i]; j++) {
-                    final HashMap kkk = new HashMap();
-                    kkk.put(util.getID(), false);
                     db.collection("picture").document("course" + i).collection(String.valueOf(j))
-                            .document("users").update(kkk);
+                            .document(util.getID()).delete();
 
                     reference.child("course" + i + "/" + j + "/" + util.getID() + ".jpg").delete()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -263,6 +275,7 @@ public class MainActivity extends AppCompatActivity  {
                 util.setCourseCheckBox(2, false); util.setCourseCheckBox(3, false);
                 util.setStdNum("null");
                 util.setTravelState(false);
+                util.setTutorial(false);
                 Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();

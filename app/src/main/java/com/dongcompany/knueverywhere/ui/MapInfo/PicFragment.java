@@ -2,7 +2,6 @@ package com.dongcompany.knueverywhere.ui.MapInfo;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
-import com.dongcompany.knueverywhere.PicGridAdapter;
 import com.dongcompany.knueverywhere.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -19,12 +17,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.model.Document;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -36,11 +30,8 @@ public class PicFragment extends Fragment {
     private String Course;
     private int courseNum;
     private GridView gridView;
-    private ArrayList<String> arrayList;
 
-    private LinearLayout linearLayout;
-
-    private ArrayList<String> usersArray = new ArrayList();
+    private ArrayList<picInfo> usersArray = new ArrayList();
 
 
     //Course는 코스명 (course0, course1, course2, course3) : String
@@ -65,18 +56,20 @@ public class PicFragment extends Fragment {
         Log.d("nonono", Course + "/" + courseNum);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("picture").document(Course).collection(String.valueOf(courseNum))
-                .document("users")
                 .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Map map = documentSnapshot.getData();
-                        for(Object key : map.keySet()) {
-                            if((Boolean) (map.get((String) key)) == true) {
-                                usersArray.add((String) key);
-
-                                Log.d("nonono", (String) key);
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if((Boolean) (document.getData().get("업로드")) == true) {
+                                    usersArray.add(
+                                            new picInfo(document.getId(), (String) (document.getData().get("날짜")), true, (String) (document.getData().get("이름")))
+                                    );
+                                }
                             }
+                        } else {
+
                         }
                     }
                 });

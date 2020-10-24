@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import java.io.InputStream
+import java.text.SimpleDateFormat
 import java.util.*
 
 class QRcertificationActivity : AppCompatActivity() {
@@ -39,6 +40,10 @@ class QRcertificationActivity : AppCompatActivity() {
         util = SharedPreferenceUtil(this)
 
         userID = util.getID()
+
+        val dialog2 = LoadingDialog(this)
+        dialog2.show()
+        Handler().postDelayed({ dialog2.dismiss() }, 1700)
 
         //탐방 중인 상태 초기화
         var chk =false
@@ -65,10 +70,9 @@ class QRcertificationActivity : AppCompatActivity() {
                     }
                 }
         Handler().postDelayed({
-            if(chk) {
+            if (chk) {
                 finish()
-            }
-            else {
+            } else {
                 doMainFunction()
             }
         }, 1800)
@@ -124,15 +128,13 @@ class QRcertificationActivity : AppCompatActivity() {
 
         //인증버튼
         val btn:Button = findViewById(R.id.QRActivity_Button);
-        btn.setText("인   증")
         btn.setOnClickListener(View.OnClickListener {
-            if(btn.text.toString().equals("Loading...")) return@OnClickListener
-            if(!imageUploaded) {
+            if (!imageUploaded) {
                 Toast.makeText(this, "인증샷을 업로드 해 주세요.", Toast.LENGTH_SHORT).show()
                 return@OnClickListener
             }
 
-            if(alreadyCert == true) {
+            if (alreadyCert == true) {
                 Toast.makeText(this, "이미 인증된 장소입니다.", Toast.LENGTH_SHORT).show()
                 finish()
                 return@OnClickListener
@@ -144,11 +146,21 @@ class QRcertificationActivity : AppCompatActivity() {
             db.collection("users").document(userID).collection(collectionArray[course])
                     .document(collectionArray[course]).update(a as Map<String, Any>)
 
+            val format1 = SimpleDateFormat("yyyy년 MM월dd일 HH:mm")
+            val time = Date();
+            var bbb = hashMapOf("업로드" to true,
+                    "날짜" to format1.format(time),
+                    "이름" to util.getName()
+            )
+            Log.d("nonono", "course" + course.toString() + "-" + courseIndex.toString() + "-" + util.getID())
+            db.collection("picture").document("course" + course.toString())
+                    .collection(courseIndex.toString()).document(util.getID()).set(bbb as Map<String, Any>)
+
             //인증샷 업로드
-            if(bitmap != null) {
+            if (bitmap != null) {
                 val storageRef = storage.getReferenceFromUrl("gs://knu-everywhere.appspot.com/course" + course + "/" + courseIndex + "/" + util.getID() + ".jpg")
 
-                val uploadTask : UploadTask =storageRef.putFile(uri!!);
+                val uploadTask: UploadTask = storageRef.putFile(uri!!);
                 uploadTask.addOnFailureListener {
                 }.addOnSuccessListener {
                     //Toast.makeText(this, "업로드 성공", Toast.LENGTH_SHORT).show()
@@ -157,15 +169,15 @@ class QRcertificationActivity : AppCompatActivity() {
 
             //모두 체크해서 CLEAR 하기
             var c = false
-            for(i in 0..3) {
-                if(c == false && util.getCourseCheckBox(i)) {
+            for (i in 0..3) {
+                if (c == false && util.getCourseCheckBox(i)) {
                     db.collection("users").document(userID).collection(collectionArray[i]).document(collectionArray[i])
                             .get()
                             .addOnSuccessListener { documentSnapshot ->
                                 val map = documentSnapshot.getData()
 
-                                for(key in map!!.keys) {
-                                    if(!(key.equals("CLEAR")) && map.get(key) == false) {
+                                for (key in map!!.keys) {
+                                    if (!(key.equals("CLEAR")) && map.get(key) == false) {
                                         c = true
                                         return@addOnSuccessListener
                                     }
@@ -174,11 +186,11 @@ class QRcertificationActivity : AppCompatActivity() {
                 }
             }
             Handler().postDelayed({
-                if(!c) {
+                if (c == false) {
                     val aa = hashMapOf("CLEAR" to true)
                     var bb = hashMapOf("탐방상태" to false)
-                    for(i in 0..3) {
-                        if(util.getCourseCheckBox(i)) {
+                    for (i in 0..3) {
+                        if (util.getCourseCheckBox(i)) {
                             db.collection("users").document(userID).collection(collectionArray[i]).document(collectionArray[i])
                                     .update(aa as Map<String, Any>)
                             bb.put("체크박스_코스" + i.toString(), false)
@@ -189,12 +201,8 @@ class QRcertificationActivity : AppCompatActivity() {
 
                     db.collection("users").document(userID)
                             .update(bb as Map<String, Any>)
-
-                    var bbb = hashMapOf(userID to true)
-                    db.collection("picture").document("course" + course.toString())
-                            .collection(courseIndex.toString()).document("users").update(bbb as Map<String, Any>)
                 }
-            }, 1800)
+            }, 2000)
             finish()
         })
     }
@@ -213,8 +221,8 @@ class QRcertificationActivity : AppCompatActivity() {
                     uri = data?.data!!
                     imageUploaded = true
                 }
-                catch (e:Exception){
-                    Toast.makeText(this,"사진 선택 에러",Toast.LENGTH_LONG).show()
+                catch (e: Exception){
+                    Toast.makeText(this, "사진 선택 에러", Toast.LENGTH_LONG).show()
                 }
             }
             else if(resultCode == RESULT_CANCELED)

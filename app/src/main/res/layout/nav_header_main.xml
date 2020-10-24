@@ -14,14 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textSize="18dp"
+        android:fontFamily="@font/myfont"
+        android:textSize="23dp"
         android:textColor="@android:color/white"
         android:text="홍 길 동" />
 
     <TextView
         android:id="@+id/nav_header_stdnumTextView"
         android:text="2020112334"
-        android:textSize="15dp"
+        android:fontFamily="@font/myfont_r"
+        android:textSize="23dp"
         android:layout_width="wrap_content"
         android:textColor="@android:color/white"
         android:layout_height="wrap_content" />

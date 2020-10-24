@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="탐방 시작하기"
-        android:textSize="25dp"
-        android:layout_margin="15dp"
+        android:fontFamily="@font/myfont"
+        android:textSize="35dp"        android:layout_margin="15dp"
         android:textColor="@android:color/black"
         android:gravity="center"
         android:textStyle="bold"/>
@@ -21,40 +21,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="선택한 코스대로 학교 탐방을 시작합니다."
-        android:textSize="15dp"
-        android:textColor="@android:color/black"
+        android:fontFamily="@font/myfont"
+        android:textSize="20dp"        android:textColor="@android:color/black"
         android:gravity="center"/>
     <TextView
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="탐방 시작 후 코스 변경은 불가능합니다."
-        android:textSize="15dp"
-        android:textColor="@android:color/black"
+        android:fontFamily="@font/myfont_r"
+        android:textSize="20dp"        android:textColor="@android:color/black"
         android:gravity="center"/>
     <TextView
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="제한 시간 내 탐방을 완료하지 못 하면 무효 처리됩니다."
-        android:textSize="15dp"
-        android:textColor="@android:color/black"
+        android:fontFamily="@font/myfont_r"
+        android:textSize="20dp"        android:textColor="@android:color/black"
         android:gravity="center"/>
     <TextView
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="탐방 취소 시 해당 코스는 무효 처리 됩니다."
-        android:textSize="15dp"
-        android:textColor="@android:color/black"
+        android:fontFamily="@font/myfont_r"
+        android:textSize="20dp"        android:textColor="@android:color/black"
         android:gravity="center"/>
     <TextView
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="신중히 시작하여 탐방을 완료하세요!"
-        android:textSize="15dp"
-        android:textColor="@android:color/black"
+        android:fontFamily="@font/myfont_r"
+        android:textSize="20dp"        android:textColor="@android:color/black"
         android:gravity="center"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,8 +66,8 @@
         <Button
             android:id="@+id/StartDialog_Btn"
             android:text="탐 방  시 작"
-            android:textSize="16dp"
-            android:background="@drawable/design_button"
+            android:fontFamily="@font/myfont"
+            android:textSize="23dp"            android:background="@drawable/design_button"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:layout_width="130dp"
@@ -78,8 +78,8 @@
             android:layout_marginLeft="20dp"
             android:id="@+id/StartDialog_CanBtn"
             android:text="취  소"
-            android:textSize="16dp"
-            android:textStyle="bold"
+            android:fontFamily="@font/myfont"
+            android:textSize="23dp"            android:textStyle="bold"
             android:background="@drawable/design_button"
             android:layout_gravity="center"
             android:layout_width="100dp"

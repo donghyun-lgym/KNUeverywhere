@@ -12,8 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="비밀번호 찾기 결과"
+        android:fontFamily="@font/myfont"
+        android:textSize="50sp"
         android:textColor="#f000"
-        android:textSize="30sp"
         android:textStyle="bold" />
 
     <TextView
@@ -24,7 +25,8 @@
         android:layout_marginTop="60dp"
         android:text="비밀번호 찾기"
         android:textColor="#f000"
-        android:textSize="20sp"
+        android:fontFamily="@font/myfont"
+        android:textSize="25sp"
         />
 
 
@@ -38,6 +40,8 @@
         android:text="확   인"
         android:textColor="#FFFFFF"
         android:layout_gravity="center"
-        android:textSize="20sp" />
+        android:fontFamily="@font/myfont"
+
+        android:textSize="30sp" />
 
 </LinearLayout>

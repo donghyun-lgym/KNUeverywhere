@@ -13,17 +13,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="회원가입"
+        android:fontFamily="@font/myfont"
         android:textColor="#f000"
-        android:textSize="30sp"
+        android:textSize="50sp"
         android:textStyle="bold" />
     <EditText
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/RegistActivity_NameEditText"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@null"
         android:hint="성명"
-        android:textSize="15sp"
+        android:fontFamily="@font/myfont_r"
+        android:textSize="20sp"
         android:inputType="textPersonName" />
 
     <EditText
@@ -32,28 +34,32 @@
         android:layout_height="45dp"
         android:background="@null"
         android:hint="학번"
-        android:textSize="15sp"
-        android:inputType="number" />
+        android:fontFamily="@font/myfont_r"
+        android:textSize="20sp"        android:inputType="number" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" >
         <EditText
             android:id="@+id/RegistActivity_IDEditText"
-            android:layout_width="275dp"
+            android:layout_width="0dp"
+            android:layout_weight="6"
             android:layout_height="45dp"
             android:background="@null"
             android:hint="아이디 (3~10자리)"
-            android:textSize="15sp"
-            android:inputType="textPersonName" />
+            android:fontFamily="@font/myfont_r"
+            android:textSize="20sp"            android:inputType="textPersonName" />
 
         <Button
             android:id="@+id/RegistActivity_IDCheckButton"
-            android:layout_width="74dp"
-            android:layout_height="31dp"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="38dp"
+            android:fontFamily="@font/myfont_r"
+            android:textSize="20sp"
             android:layout_gravity="right|center"
             android:background="@drawable/design_button2"
-            android:text="중복확인"
+            android:text="중 복 확 인"
             android:textColor="#FFFFFF" />
 
     </LinearLayout>
@@ -64,16 +70,16 @@
         android:layout_height="45dp"
         android:background="@null"
         android:hint="비밀번호 (8~12자리, 특수문자 가능)"
-        android:textSize="15sp"
-        android:inputType="textPassword" />
+        android:fontFamily="@font/myfont_r"
+        android:textSize="20sp"        android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/RegistActivity_PWCheckEditText"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@null"
-        android:textSize="15sp"
-        android:hint="비밀번호 확인"
+        android:fontFamily="@font/myfont_r"
+        android:textSize="20sp"        android:hint="비밀번호 확인"
         android:inputType="textPassword" />
 
     <EditText
@@ -81,8 +87,8 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@null"
-        android:textSize="15sp"
-        android:hint="전화번호 ( ' - ' 제외 )"
+        android:fontFamily="@font/myfont_r"
+        android:textSize="20sp"        android:hint="전화번호 ( ' - ' 제외 )"
         android:inputType="number" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -98,12 +104,12 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:background="@null"
-            android:textSize="15sp"
-            android:hint="답변"
+            android:fontFamily="@font/myfont_r"
+            android:textSize="20sp"            android:hint="답변"
             android:inputType="textPersonName" />
     </LinearLayout>
     <ImageView
-        android:layout_marginVertical="10dp"
+        android:layout_marginVertical="7dp"
         android:id="@+id/RegistActivity_ImageView"
         android:layout_gravity="center"
         android:background="@drawable/regist_stdcardimage"
@@ -115,18 +121,20 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginBottom="5dp"
-        android:textSize="11dp"
+        android:fontFamily="@font/myfont"
+        android:textSize="14sp"
         android:text="※ 관리자가 승인해야 이용이 가능하니 기다려 주세요. ※"/>
     <Button
         android:id="@+id/RegistActivity_CompleteButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/design_button2"
         android:padding="10dp"
         android:text="회원가입 완료"
         android:textColor="#FFFFFF"
         android:layout_gravity="center"
-        android:textSize="20sp" />
+        android:fontFamily="@font/myfont"
+        android:textSize="28sp" />
 
 </LinearLayout>

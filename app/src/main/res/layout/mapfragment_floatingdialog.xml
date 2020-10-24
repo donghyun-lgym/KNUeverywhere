@@ -22,7 +22,8 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/design_button"
         android:text="확  인"
-        android:textSize="16dp"
+        android:fontFamily="@font/myfont"
+        android:textSize="23dp"
         android:textStyle="bold" />
 
 </LinearLayout>

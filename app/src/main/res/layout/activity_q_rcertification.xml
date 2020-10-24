@@ -20,8 +20,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30dp"
             android:textStyle="bold"
+            android:fontFamily="@font/myfont"
+            android:textSize="45dp"
             android:textColor="@android:color/black"
             android:text="경북대학교의"
             android:gravity="center"
@@ -32,10 +33,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/QRActivity_CourseTextView"
-            android:textSize="30dp"
+            android:fontFamily="@font/myfont"
+            android:textSize="45dp"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            android:text="Loading..."
             android:gravity="center" />
     </LinearLayout>
 
@@ -44,10 +45,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/QRActivity_CourseDetailTextView"
-        android:textSize="35dp"
+        android:fontFamily="@font/myfont"
+        android:textSize="40dp"
         android:textStyle="bold"
         android:textColor="@android:color/black"
-        android:text="Loading..."
         android:gravity="center"
         android:layout_marginTop="20dp"/>
 
@@ -63,10 +64,11 @@
         android:layout_width="180dp"
         android:layout_height="70dp"
         android:id="@+id/QRActivity_Button"
-        android:text="Loading..."
+        android:text="인   증"
         android:background="@drawable/design_button2"
         android:layout_gravity="center"
-        android:textSize="25dp"
+        android:fontFamily="@font/myfont"
+        android:textSize="35dp"
         android:layout_marginTop="30dp"
         android:textColor="@android:color/white"
         />

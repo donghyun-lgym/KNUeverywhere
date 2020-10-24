@@ -14,7 +14,7 @@
             android:title="갤러리" />
         <item
             android:id="@+id/nav_Awards"
-            android:icon="@drawable/menu3_award_icon"
-            android:title="명예의 전당" />
+            android:icon="@android:drawable/ic_menu_mapmode"
+            android:title="사이버 탐방" />
     </group>
 </menu>

@@ -13,8 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="아이디 찾기 결과"
+        android:fontFamily="@font/myfont"
         android:textColor="#f000"
-        android:textSize="30sp"
+        android:textSize="50sp"
         android:textStyle="bold" />
 
     <TextView
@@ -23,9 +24,10 @@
         android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
+        android:fontFamily="@font/myfont"
         android:text="아이디 찾기"
         android:textColor="#f000"
-        android:textSize="20sp"
+        android:textSize="30sp"
          />
 
     <Button
@@ -35,9 +37,10 @@
         android:layout_marginTop="50dp"
         android:background="@drawable/design_button2"
         android:padding="10dp"
+        android:fontFamily="@font/myfont"
         android:text="확  인"
         android:textColor="#FFFFFF"
         android:layout_gravity="center"
-        android:textSize="20sp" />
+        android:textSize="30sp" />
 
 </LinearLayout>

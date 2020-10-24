@@ -8,6 +8,10 @@ val c0arr = arrayOf("북문", "농장문", "테크노문", "동문", "정문", "
 class SharedPreferenceUtil(context: Context) {
     private val prefs: SharedPreferences =
             context.getSharedPreferences("AppSharedPreference", Context.MODE_PRIVATE)
+    //튜토리얼
+    fun setTutorial(value: Boolean) = prefs.edit().putBoolean("Tutorial", value).apply()
+
+    fun getTutorial(): Boolean = prefs.getBoolean("Tutorial", false)
 
     //학번
     fun setStdNum(value: String) = prefs.edit().putString("StdNum", value).apply()
@@ -25,8 +29,6 @@ class SharedPreferenceUtil(context: Context) {
     fun getName(): String = prefs.getString("Name", "null").toString()
 
     //연락처
-
-    //이름
     fun setPhone(value: String) = prefs.edit().putString("Phone", value).apply()
 
     fun getPhone(): String = prefs.getString("Phone", "null").toString()

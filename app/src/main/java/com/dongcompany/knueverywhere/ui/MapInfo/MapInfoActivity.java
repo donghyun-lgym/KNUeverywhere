@@ -42,19 +42,6 @@ public class MapInfoActivity extends AppCompatActivity {
         int resID = getResources().getIdentifier(img_id2, "drawable", packName);
         imageView.setBackgroundResource(resID);
 
-        //출발 and 도착 버튼 (경로찾기)
-        findViewById(R.id.MapInfoActivity_StartButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        findViewById(R.id.MapInfoActivity_ArrivalButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         //프래그먼트 초기화
         picFragment = new PicFragment(this, course, courseNum);
@@ -72,7 +59,16 @@ public class MapInfoActivity extends AppCompatActivity {
         final TextView aroundButton = findViewById(R.id.MapInfoActivity_aroundButton);
         final TextView reviewButton = findViewById(R.id.MapInfoActivity_reviewButton);
         reviewButton.setTextColor(Color.GREEN);
-        reviewButton.setTypeface(null, Typeface.BOLD);
+        Typeface typeface_r = null;
+        Typeface typeface = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            typeface = getResources().getFont(R.font.myfont);
+            typeface_r = getResources().getFont(R.font.myfont_r);
+        }
+
+        reviewButton.setTypeface(typeface);
+        final Typeface finalTypeface = typeface;
+        final Typeface finalTypeface_r = typeface_r;
         picButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,9 +76,9 @@ public class MapInfoActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().hide(aroundFragment).commit();
                 getSupportFragmentManager().beginTransaction().show(picFragment).commit();
                 aroundButton.setTextColor(Color.BLACK); reviewButton.setTextColor(Color.BLACK);
-                aroundButton.setTypeface(null, Typeface.NORMAL); reviewButton.setTypeface(null, Typeface.NORMAL);
+                aroundButton.setTypeface(finalTypeface_r); reviewButton.setTypeface(finalTypeface_r);
                 picButton.setTextColor(Color.GREEN);
-                picButton.setTypeface(null, Typeface.BOLD);
+                picButton.setTypeface(finalTypeface);
             }
         });
         aroundButton.setOnClickListener(new View.OnClickListener() {
@@ -92,9 +88,9 @@ public class MapInfoActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().hide(picFragment).commit();
                 getSupportFragmentManager().beginTransaction().show(aroundFragment).commit();
                 picButton.setTextColor(Color.BLACK); reviewButton.setTextColor(Color.BLACK);
-                picButton.setTypeface(null, Typeface.NORMAL); reviewButton.setTypeface(null, Typeface.NORMAL);
+                picButton.setTypeface(finalTypeface_r); reviewButton.setTypeface(finalTypeface_r);
                 aroundButton.setTextColor(Color.GREEN);
-                aroundButton.setTypeface(null, Typeface.BOLD);
+                aroundButton.setTypeface(finalTypeface);
             }
         });
         reviewButton.setOnClickListener(new View.OnClickListener() {
@@ -104,9 +100,9 @@ public class MapInfoActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().hide(aroundFragment).commit();
                 getSupportFragmentManager().beginTransaction().show(reviewFragment).commit();
                 picButton.setTextColor(Color.BLACK); aroundButton.setTextColor(Color.BLACK);
-                picButton.setTypeface(null, Typeface.NORMAL); aroundButton.setTypeface(null, Typeface.NORMAL);
+                picButton.setTypeface(finalTypeface_r); aroundButton.setTypeface(finalTypeface_r);
                 reviewButton.setTextColor(Color.GREEN);
-                reviewButton.setTypeface(null, Typeface.BOLD);
+                reviewButton.setTypeface(finalTypeface);
             }
         });
 

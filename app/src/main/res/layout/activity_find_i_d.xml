@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:text="아이디 찾기"
         android:textColor="#f000"
-        android:textSize="30sp"
+        android:textSize="50sp"
+        android:fontFamily="@font/myfont"
         android:textStyle="bold" />
     <EditText
         android:layout_marginTop="50dp"
@@ -23,17 +24,19 @@
         android:layout_height="45dp"
         android:background="@null"
         android:hint="성명"
-        android:textSize="15sp"
+        android:fontFamily="@font/myfont_r"
+        android:textSize="20sp"
         android:inputType="textPersonName" />
 
     <EditText
         android:layout_marginTop="3dp"
         android:id="@+id/FindIDActivity_StdNumEditText"
         android:layout_width="match_parent"
+        android:fontFamily="@font/myfont_r"
         android:layout_height="45dp"
         android:background="@null"
         android:hint="학번"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:inputType="number" />
 
     <Button
@@ -43,9 +46,10 @@
         android:layout_marginTop="40dp"
         android:background="@drawable/design_button2"
         android:padding="10dp"
+        android:fontFamily="@font/myfont"
         android:text="아이디 찾기"
         android:textColor="#FFFFFF"
         android:layout_gravity="center"
-        android:textSize="20sp" />
+        android:textSize="30sp" />
 
 </LinearLayout>

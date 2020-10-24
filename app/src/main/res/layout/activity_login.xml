@@ -25,6 +25,8 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="아이디"
+        android:fontFamily="@font/myfont_r"
+        android:textSize="20dp"
         android:inputType="textEmailAddress"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -37,6 +39,8 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="비밀번호"
+        android:fontFamily="@font/myfont_r"
+        android:textSize="20dp"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -51,7 +55,8 @@
         android:layout_weight="7"
         android:text="자동 로그인"
         android:textColor="#888888"
-        android:textSize="12sp"
+        android:fontFamily="@font/myfont_r"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,6 +68,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:fontFamily="@font/myfont_r"
+        android:textSize="19dp"
         android:layout_marginTop="10dp"
         android:text="원활한 탐방을 위해 자동 로그인을 권장합니다."/>
 
@@ -75,6 +82,8 @@
         android:onClick="on_login"
         android:text="로  그  인"
         android:textColor="#FFFFFF"
+        android:fontFamily="@font/myfont"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +109,8 @@
             android:paddingRight="23dp"
             android:text="회원가입"
             android:textColor="#888888"
-            android:textSize="11sp" />
+            android:fontFamily="@font/myfont_r"
+            android:textSize="15dp" />
 
 
         <Button
@@ -113,7 +123,8 @@
             android:gravity="center"
             android:text="아이디 찾기"
             android:textColor="#888888"
-            android:textSize="11sp" />
+            android:fontFamily="@font/myfont_r"
+            android:textSize="15dp" />
 
 
         <Button
@@ -127,7 +138,8 @@
             android:paddingLeft="23dp"
             android:text="비밀번호 찾기"
             android:textColor="#888888"
-            android:textSize="11sp" />
+            android:fontFamily="@font/myfont_r"
+            android:textSize="15dp" />
 
     </LinearLayout>
 

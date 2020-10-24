@@ -52,6 +52,7 @@ class LoginActivity : AppCompatActivity() {
                                 util.setCourseCheckBox(2, document.data.getValue("체크박스_코스2") as Boolean)
                                 util.setCourseCheckBox(3, document.data.getValue("체크박스_코스3") as Boolean)
                                 util.setTravelState(document.data.getValue("탐방상태") as Boolean)
+                                util.setTutorial(document.data.getValue("튜토리얼") as Boolean)
                                 break
                             }
                             else if(id.equals(inputID) && document.data.getValue("PW").toString().equals(inputPW)

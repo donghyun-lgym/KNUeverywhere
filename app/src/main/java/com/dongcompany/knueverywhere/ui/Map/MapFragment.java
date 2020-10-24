@@ -225,13 +225,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             }
         });
-        //플로팅 버튼 (카메라 뷰 보기)
-        root.findViewById(R.id.MapFragment_FloatingButton2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(activity, MapFragment_AirViewActivity.class));
-            }
-        });
+
 //        //플로팅 버튼 (새로고침)
 //        root.findViewById(R.id.MapFragment_RefreshButton).setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -267,16 +261,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         naverMap.setLocationSource(locationSource);
         naverMap.setLocationTrackingMode(LocationTrackingMode.NoFollow);
 
-        //위치 변경 시 리스너
-//        naverMap.addOnLocationChangeListener(new NaverMap.OnLocationChangeListener() {
-//            @Override
-//            public void onLocationChange(@NonNull Location location) {
-//                Toast.makeText((Activity) getContext(),
-//                        location.getLatitude() + ", " + location.getLongitude(),
-//                        Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
         // 권한확인. 결과는 onRequestPermissionsResult 콜백 매서드 호출
         ActivityCompat.requestPermissions((Activity) getContext(), PERMISSIONS, PERMISSION_REQUEST_CODE);
 
@@ -296,6 +280,61 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    public void MarkingFromDB() {
+        final String[] c0arr = {"북문", "농장문", "테크노문", "동문", "정문", "수의대문", "쪽문", "조은문", "솔로문", "서문", "수영장문"};
+        for (int i = 0; i < 11; i++) {
+            if(util.getCourseInfo(0, c0arr[i])) {
+                marker0[i].setWidth(40);
+                marker0[i].setHeight(50);
+                marker0[i].setIcon(OverlayImage.fromResource(R.drawable.flag_icon0));
+            }
+            else {
+                marker0[i].setWidth(50);
+                marker0[i].setHeight(80);
+                marker0[i].setIcon(MarkerIcons.RED);
+            }
+        }
+        final String[] c1arr = {"공대식당", "복현회관", "경대리아", "종합정보센터", "복지관"};
+        for (int i = 0; i < 5; i++) {
+            if(util.getCourseInfo(1, c1arr[i])) {
+                marker1[i].setWidth(40);
+                marker1[i].setHeight(50);
+                marker1[i].setIcon(OverlayImage.fromResource(R.drawable.flag_icon1));
+            }
+            else {
+                marker1[i].setWidth(50);
+                marker1[i].setHeight(80);
+                marker1[i].setIcon(MarkerIcons.LIGHTBLUE);
+            }
+        }
+        final String[] c2arr = {"대운동장", "백호관", "일청담", "도서관", "본관", "백양로", "박물관", "미술관", "대강당", "글로벌플라자", "센트럴파크"};
+        for (int i = 0; i < 11; i++) {
+            if(util.getCourseInfo(2, c2arr[i])) {
+                marker2[i].setWidth(40);
+                marker2[i].setHeight(50);
+                marker2[i].setIcon(OverlayImage.fromResource(R.drawable.flag_icon2));
+            }
+            else {
+                marker2[i].setWidth(50);
+                marker2[i].setHeight(80);
+                marker2[i].setIcon(MarkerIcons.GREEN);
+            }
+        }
+        final String[] c3arr = {"공과대학 1호관", "IT대학 1호관", "사회과학대학", "경상대학", "생활과학대학", "자연과학대학", "농업생명과학대학"
+                , "인문대학", "사범대학", "예술대학", "약학대학", "수의과대학"};
+        for (int i = 0; i < 12; i++) {
+            if(util.getCourseInfo(3, c3arr[i])) {
+                marker3[i].setWidth(40);
+                marker3[i].setHeight(50);
+                marker3[i].setIcon(OverlayImage.fromResource(R.drawable.flag_icon3));
+            }
+            else {
+                marker3[i].setWidth(50);
+                marker3[i].setHeight(80);
+                marker3[i].setIcon(MarkerIcons.YELLOW);
+            }
+        }
+    }
     private void MarkerInit() {
         for (int i = 0; i < 11; i++) marker0[i] = new Marker();
         marker0[0].setPosition(new LatLng(35.892351, 128.609357));//북문
@@ -330,16 +369,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             marker0[i].setCaptionText(c0arr[i]);
             marker0[i].setCaptionMinZoom(15);
             marker0[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
-            if(util.getCourseInfo(0, "CLEAR")) {
-                marker0[i].setWidth(40);
-                marker0[i].setHeight(50);
-                marker0[i].setIcon(OverlayImage.fromResource(R.drawable.flag_icon0));
-            }
-            else {
-                marker0[i].setWidth(50);
-                marker0[i].setHeight(80);
-                marker0[i].setIcon(MarkerIcons.RED);
-            }
         }
 
         for (int i = 0; i < 5; i++) marker1[i] = new Marker();
@@ -370,16 +399,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             marker1[i].setCaptionText(c1arr[i]);
             marker1[i].setCaptionMinZoom(15);
             marker1[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
-            if(util.getCourseInfo(1, "CLEAR")) {
-                marker1[i].setWidth(40);
-                marker1[i].setHeight(50);
-                marker1[i].setIcon(OverlayImage.fromResource(R.drawable.flag_icon1));
-            }
-            else {
-                marker1[i].setWidth(50);
-                marker1[i].setHeight(80);
-                marker1[i].setIcon(MarkerIcons.LIGHTBLUE);
-            }
         }
 
         for (int i = 0; i < 11; i++) marker2[i] = new Marker();
@@ -415,16 +434,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             marker2[i].setCaptionText(c2arr[i]);
             marker2[i].setCaptionMinZoom(15);
             marker2[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
-            if(util.getCourseInfo(2, "CLEAR")) {
-                marker2[i].setWidth(40);
-                marker2[i].setHeight(50);
-                marker2[i].setIcon(OverlayImage.fromResource(R.drawable.flag_icon2));
-            }
-            else {
-                marker2[i].setWidth(50);
-                marker2[i].setHeight(80);
-                marker2[i].setIcon(MarkerIcons.GREEN);
-            }
         }
 
         for (int i = 0; i < 12; i++) marker3[i] = new Marker();
@@ -463,16 +472,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             marker3[i].setCaptionText(c3arr[i]);
             marker3[i].setCaptionMinZoom(15);
             marker3[i].setCaptionMaxZoom(NaverMap.MAXIMUM_ZOOM);
-            if(util.getCourseInfo(3, "CLEAR")) {
-                marker3[i].setWidth(40);
-                marker3[i].setHeight(50);
-                marker3[i].setIcon(OverlayImage.fromResource(R.drawable.flag_icon3));
-            }
-            else {
-                marker3[i].setWidth(50);
-                marker3[i].setHeight(80);
-                marker3[i].setIcon(MarkerIcons.YELLOW);
-            }
         }
     }
 
@@ -490,4 +489,5 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             marker3[i].setMap(null);
         }
     }
+
 }

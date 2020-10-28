@@ -34,9 +34,6 @@ public class PicFragment extends Fragment {
     private ArrayList<picInfo> usersArray = new ArrayList();
 
 
-    //Course는 코스명 (course0, course1, course2, course3) : String
-    //courseNum은 코스 내 지점들 (0, 1, 2, 3, 4, 5, ....) : int
-    //Firebase storage 경로는 Course + "/" + String.valueOf(courseNum) + "아이디명" + ".jpg" 겠지?
 
     public PicFragment(Context context, String Course, int courseNum) {
         this.activity = (MapInfoActivity) context;

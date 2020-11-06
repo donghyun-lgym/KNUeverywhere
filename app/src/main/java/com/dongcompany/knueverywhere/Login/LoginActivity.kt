@@ -10,9 +10,11 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
+import com.dongcompany.knueverywhere.LoadingDialog
 import com.dongcompany.knueverywhere.MainActivity
 import com.dongcompany.knueverywhere.R
 import com.dongcompany.knueverywhere.SharedPreferenceUtil
+import com.dongcompany.knueverywhere.ui.MapInfo.MapInfoActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -32,6 +34,12 @@ class LoginActivity : AppCompatActivity() {
         val checkBox:CheckBox = findViewById(R.id.LoginActivity_autoCheckBox);
         //로그인 버튼
         findViewById<Button>(R.id.LoginActivity_LoginButton).setOnClickListener(View.OnClickListener {
+            val dialog2 = LoadingDialog(this);
+            dialog2.show()
+            Handler().postDelayed(Runnable {
+                dialog2.dismiss()
+            }, 1700);
+
             var LoginActivity_login = 0
             db.collection("users").get()
                     .addOnSuccessListener { result ->

@@ -1,6 +1,5 @@
 package com.dongcompany.knueverywhere;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,31 +8,23 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dongcompany.knueverywhere.Login.LoginActivity;
-import com.dongcompany.knueverywhere.ui.Awards.AwardsFragment;
+import com.dongcompany.knueverywhere.ui.CyberView.AwardsFragment;
 import com.dongcompany.knueverywhere.ui.Gallery.GalleryFragment;
 import com.dongcompany.knueverywhere.ui.Map.MapFragment;
 import com.dongcompany.knueverywhere.ui.Map.MapFragment_TutorialDialog;
+import com.dongcompany.knueverywhere.ui.MapInfo.PicFragment_Dialog;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,13 +58,6 @@ public class MainActivity extends AppCompatActivity  {
         //로딩 다이얼로그
         final LoadingDialog dialog2 = new LoadingDialog(this);
         dialog2.show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dialog2.dismiss();
-            }
-        }, 1500);
-
 
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -134,10 +118,29 @@ public class MainActivity extends AppCompatActivity  {
 
         //네비게이션 헤더 초기화 및 수정
         View nav_Header = navigationView.getHeaderView(0);
-        TextView nameTextView = nav_Header.findViewById(R.id.nav_header_nameTextView);
-        nameTextView.setText(util.getName());
-        TextView stdnumTextView = nav_Header.findViewById(R.id.nav_header_stdnumTextView);
-        stdnumTextView.setText(util.getStdNum());
+        final TextView nameTextView = nav_Header.findViewById(R.id.nav_header_nameTextView);
+        final TextView stdnumTextView = nav_Header.findViewById(R.id.nav_header_stdnumTextView);
+        final TextView phoneTextView = nav_Header.findViewById(R.id.nav_header_phoneTextView);
+        final TextView travelTextView = nav_Header.findViewById(R.id.nav_header_TravelTextView);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                int k = 0;
+                for(int i = 0; i < 4; i++) {
+                    if(util.getCourseInfo(i, "CLEAR") == true) k++;
+                }
+
+                nameTextView.setText(util.getName() + " (" + util.getID() + ")");
+                stdnumTextView.setText(util.getStdNum());
+                phoneTextView.setText(util.getPhone());
+                travelTextView.setText("탐방 진행 상황 : " + k + "/4");
+                dialog2.dismiss();
+            }
+        }, 3000);
+
+
+
 
         //네이게이션뷰 아이템 셀렉트
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

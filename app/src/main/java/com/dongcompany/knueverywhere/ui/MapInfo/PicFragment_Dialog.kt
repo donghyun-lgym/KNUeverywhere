@@ -1,5 +1,6 @@
 package com.dongcompany.knueverywhere.ui.MapInfo
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Point
@@ -23,7 +24,7 @@ import java.util.*
 
 class PicFragment_Dialog(context: Context, val ref : StorageReference, val info:picInfo) : Dialog(context) {
 
-    private var activity: MapInfoActivity = context as MapInfoActivity
+    private var activity: Activity = context as Activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -46,9 +46,6 @@ public class PicFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_pic, container, false);
         gridView= root.findViewById(R.id.pic_gridview);
 
-
-
-
         //DB에서 해당 코스에 등록된 아이디들 끌고옴
         Log.d("nonono", Course + "/" + courseNum);
         FirebaseFirestore db = FirebaseFirestore.getInstance();

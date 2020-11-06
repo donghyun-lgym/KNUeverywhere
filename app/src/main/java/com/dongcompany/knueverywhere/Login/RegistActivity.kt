@@ -6,11 +6,13 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.NonNull
+import com.dongcompany.knueverywhere.LoadingDialog
 import com.dongcompany.knueverywhere.R
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
@@ -39,12 +41,44 @@ class RegistActivity : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
 
         var NameeditText = findViewById<EditText>(R.id.RegistActivity_NameEditText)
+        var NameWarning = findViewById<ImageView>(R.id.RegistActivity_NameEditText_warning)
+        NameeditText.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
+            if(!hasFocus) {
+                if(NameeditText.text.length == 0)
+                    NameWarning.visibility = View.VISIBLE
+                else
+                    NameWarning.visibility = View.INVISIBLE
+            }
+        })
         var stdnumeditText = findViewById<EditText>(R.id.RegistActivity_StdNumEditText)
+        var stdnumWarning = findViewById<ImageView>(R.id.RegistActivity_StdNumEditText_warning)
+        stdnumeditText.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
+            if(!hasFocus) {
+                if(stdnumeditText.text.length == 0)
+                    stdnumWarning.visibility = View.VISIBLE
+                else
+                    stdnumWarning.visibility = View.INVISIBLE
+            }
+        })
         var IDeditText:EditText = findViewById(R.id.RegistActivity_IDEditText)
+        var IDWarning = findViewById<ImageView>(R.id.RegistActivity_IDEditText_warning)
+        IDeditText.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
+            if(!hasFocus) {
+                if(! (3 <= IDeditText.text.length && IDeditText.text.length <= 10 ) || IDcheck == false)
+                    IDWarning.visibility = View.VISIBLE
+                else
+                    IDWarning.visibility = View.INVISIBLE
+            }
+        })
         var IDchkButton = findViewById<Button>(R.id.RegistActivity_IDCheckButton)
         IDchkButton.setOnClickListener(View.OnClickListener {
             if(!IDcheck) {
                 if(3 <= IDeditText.text.length && IDeditText.text.length <= 10) {
+                    val dialog2 = LoadingDialog(this);
+                    dialog2.show()
+                    Handler().postDelayed(Runnable {
+                        dialog2.dismiss()
+                    }, 1500);
                     db.collection("users")
                             .get()
                             .addOnSuccessListener { result ->
@@ -60,9 +94,10 @@ class RegistActivity : AppCompatActivity() {
                                 if(!tmp) {
                                     Toast.makeText(this, "중복 검사가 완료되었습니다.", Toast.LENGTH_SHORT).show()
                                     IDeditText.isFocusableInTouchMode = false
+                                    IDWarning.visibility = View.INVISIBLE
                                     IDeditText.clearFocus()
                                     IDcheck = true
-                                    IDchkButton.setText("변경하기")
+                                    IDchkButton.setText("변 경 하 기")
                                 }
                             }
                             .addOnFailureListener{ result ->
@@ -75,13 +110,40 @@ class RegistActivity : AppCompatActivity() {
             }
             else {
                 IDeditText.isFocusableInTouchMode = true
-                IDchkButton.setText("중복확인")
+                IDchkButton.setText("중 복 확 인")
                 IDcheck = false
             }
         })
         var pweditText = findViewById<EditText>(R.id.RegistActivity_PWEditText)
+        var pwWarning = findViewById<ImageView>(R.id.RegistActivity_PWEditText_warning)
+        pweditText.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
+            if(!hasFocus) {
+                if(!(8<=pweditText.text.length && pweditText.text.length<=12) )
+                    pwWarning.visibility = View.VISIBLE
+                else
+                    pwWarning.visibility = View.INVISIBLE
+            }
+        })
         var pwchkeditText = findViewById<EditText>(R.id.RegistActivity_PWCheckEditText)
+        var pwchkWarning = findViewById<ImageView>(R.id.RegistActivity_PWCheckEditText_warning)
+        pwchkeditText.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
+            if(!hasFocus) {
+                if(!(pweditText.text.toString().equals(pwchkeditText.text.toString())))
+                    pwchkWarning.visibility = View.VISIBLE
+                else
+                    pwchkWarning.visibility = View.INVISIBLE
+            }
+        })
         var phoneeditText = findViewById<EditText>(R.id.RegistActivity_PhoneEditText)
+        var phoneWarning = findViewById<ImageView>(R.id.RegistActivity_PhoneEditText_warning)
+        phoneeditText.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
+            if(!hasFocus) {
+                if(phoneeditText.text.length == 0)
+                    phoneWarning.visibility = View.VISIBLE
+                else
+                    phoneWarning.visibility = View.INVISIBLE
+            }
+        })
         //스피너 -> 비밀번호 찾는 질답
         var spinner : Spinner = findViewById(R.id.RegistActivity_Spinner)
         val questions = arrayOf("비밀번호 찾기 질답","나의 보물 1호는?","어머니 성함은?","아버지 성함은?",
@@ -89,7 +151,15 @@ class RegistActivity : AppCompatActivity() {
         val adapter : ArrayAdapter<String> = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, questions)
         spinner.setAdapter(adapter);
         var ansEditText : EditText = findViewById(R.id.RegistActivity_AnsEditText)
-
+        var ansWarning = findViewById<ImageView>(R.id.RegistActivity_AnsEditText_warning)
+        ansEditText.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
+            if(!hasFocus) {
+                if(spinner.getSelectedItem().toString().equals("비밀번호 찾기 질답") || ansEditText.text.toString().equals(""))
+                    ansWarning.visibility = View.VISIBLE
+                else
+                    ansWarning.visibility = View.INVISIBLE
+            }
+        })
         //이미지 클릭 시 로컬 저장소로 가서 사진 가져오기
         imageView = findViewById(R.id.RegistActivity_ImageView)
         imageView.setOnClickListener(View.OnClickListener {
@@ -101,7 +171,7 @@ class RegistActivity : AppCompatActivity() {
         //완료 버튼
         findViewById<Button>(R.id.RegistActivity_CompleteButton).setOnClickListener(View.OnClickListener {
             if(NameeditText.text.length == 0) {
-                Toast.makeText(this, "이름을 입력 해 주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "성명을 입력 해 주세요.", Toast.LENGTH_SHORT).show()
                 return@OnClickListener
             }
             if(stdnumeditText.text.length == 0) {
@@ -109,7 +179,7 @@ class RegistActivity : AppCompatActivity() {
                 return@OnClickListener
             }
             if(!IDcheck) {
-                Toast.makeText(this, "ID를 확인 해 주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "ID조건 또는 중복 확인을 확인 해 주세요.", Toast.LENGTH_SHORT).show()
                 return@OnClickListener
             }
             if(!(8<=pweditText.text.length && pweditText.text.length<=12) ||

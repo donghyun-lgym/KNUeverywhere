@@ -10,20 +10,63 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
+        android:layout_margin="3dp"
         android:id="@+id/nav_header_nameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:fontFamily="@font/myfont"
-        android:textSize="23dp"
+        android:textSize="19dp"
         android:textColor="@android:color/white"
         android:text="홍 길 동" />
 
+    <LinearLayout
+        android:layout_margin="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/drawer_icon1"
+            />
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/nav_header_stdnumTextView"
+            android:text="2020112334"
+            android:fontFamily="@font/myfont_r"
+            android:textSize="19dp"
+            android:layout_width="wrap_content"
+            android:textColor="@android:color/white"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/drawer_icon2"
+            />
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/nav_header_phoneTextView"
+            android:text="01072083305"
+            android:fontFamily="@font/myfont_r"
+            android:textSize="19dp"
+            android:layout_width="wrap_content"
+            android:textColor="@android:color/white"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
     <TextView
-        android:id="@+id/nav_header_stdnumTextView"
-        android:text="2020112334"
+        android:layout_marginTop="3dp"
+        android:id="@+id/nav_header_TravelTextView"
+        android:text="탐방 진행 : 1/4"
         android:fontFamily="@font/myfont_r"
-        android:textSize="23dp"
+        android:textSize="19dp"
         android:layout_width="wrap_content"
         android:textColor="@android:color/white"
         android:layout_height="wrap_content" />

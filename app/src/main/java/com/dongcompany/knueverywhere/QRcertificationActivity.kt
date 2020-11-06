@@ -198,7 +198,6 @@ class QRcertificationActivity : AppCompatActivity() {
                     }
                     Toast.makeText(this, "코스 탐방이 완료되었습니다!", Toast.LENGTH_SHORT).show()
                     util.setTravelState(false)
-
                     db.collection("users").document(userID)
                             .update(bb as Map<String, Any>)
                 }

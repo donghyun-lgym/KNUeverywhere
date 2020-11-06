@@ -90,7 +90,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void startTimer(int time) { //time : 분단위
         util.setTravelState(true);
         startButton.setText("탐방 중지하기");
-        selectCourseButton.setPaintFlags(selectCourseButton.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        selectCourseButton.setText("ᕙ(•̀‸•́‶)ᕗ");
+        //selectCourseButton.setPaintFlags(selectCourseButton.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         timerLayout.setVisibility(View.VISIBLE);
 
         long conversionTime = (time / 60) * 1000 * 3600 + (time % 60) * 60 * 1000; // 밀리초로 변환
@@ -131,7 +132,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 //탐방 코스의 무효화
                 activity.invalidityTravel(activity);
                 startButton.setText("탐방 시작하기");
-                selectCourseButton.setPaintFlags(0);
+                //selectCourseButton.setPaintFlags(0);
+                selectCourseButton.setText("코스 선택하기");
                 timerLayout.setVisibility(View.INVISIBLE);
             }
         };
@@ -195,7 +197,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
                 }
-                else Toast.makeText(activity, "탐방 중에는 코스 선택이 불가능합니다.", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(activity, "조금만 더 힘을 내!", Toast.LENGTH_SHORT).show();
             }
         });
         //탐방 시작 버튼

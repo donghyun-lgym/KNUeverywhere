@@ -5,9 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/white"
     android:paddingHorizontal="25dp"
     android:paddingVertical="15dp"
     tools:context=".Login.RegistActivity">
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,38 +19,92 @@
         android:textColor="#f000"
         android:textSize="50sp"
         android:textStyle="bold" />
-    <EditText
-        android:layout_marginTop="10dp"
-        android:id="@+id/RegistActivity_NameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@null"
-        android:hint="성명"
-        android:fontFamily="@font/myfont_r"
-        android:textSize="20sp"
-        android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/RegistActivity_StdNumEditText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@null"
-        android:hint="학번"
-        android:fontFamily="@font/myfont_r"
-        android:textSize="20sp"        android:inputType="number" />
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_marginTop="10dp"
+            android:id="@+id/RegistActivity_NameEditText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="45dp"
+            android:background="@null"
+            android:hint="성명"
+            android:fontFamily="@font/myfont_r"
+            android:textSize="20sp"
+            android:inputType="textPersonName" />
+        <ImageView
+            android:id="@+id/RegistActivity_NameEditText_warning"
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:background="@drawable/warning_icon"
+            android:gravity="center"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/RegistActivity_StdNumEditText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="45dp"
+            android:background="@null"
+            android:hint="학번"
+            android:fontFamily="@font/myfont_r"
+            android:textSize="20sp"
+            android:inputType="number" />
+        <ImageView
+            android:id="@+id/RegistActivity_StdNumEditText_warning"
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:background="@drawable/warning_icon"
+            android:gravity="center"/>
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-        <EditText
-            android:id="@+id/RegistActivity_IDEditText"
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="6"
-            android:layout_height="45dp"
-            android:background="@null"
-            android:hint="아이디 (3~10자리)"
-            android:fontFamily="@font/myfont_r"
-            android:textSize="20sp"            android:inputType="textPersonName" />
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal"
+            android:layout_height="45dp">
+
+            <EditText
+                android:id="@+id/RegistActivity_IDEditText"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="45dp"
+                android:background="@null"
+                android:hint="아이디 (3~10자리)"
+                android:fontFamily="@font/myfont_r"
+                android:textSize="20sp"
+                android:inputType="textPersonName" />
+            <ImageView
+                android:id="@+id/RegistActivity_IDEditText_warning"
+                android:visibility="invisible"
+                android:layout_gravity="center"
+                android:layout_marginRight="20dp"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:background="@drawable/warning_icon"
+                android:gravity="center"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/RegistActivity_IDCheckButton"
@@ -64,49 +120,116 @@
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/RegistActivity_PWEditText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@null"
-        android:hint="비밀번호 (8~12자리, 특수문자 가능)"
-        android:fontFamily="@font/myfont_r"
-        android:textSize="20sp"        android:inputType="textPassword" />
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/RegistActivity_PWEditText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="45dp"
+            android:background="@null"
+            android:hint="비밀번호 (8~12자리, 특수문자 가능)"
+            android:fontFamily="@font/myfont_r"
+            android:textSize="20sp"
+            android:inputType="textPassword" />
+        <ImageView
+            android:id="@+id/RegistActivity_PWEditText_warning"
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:background="@drawable/warning_icon"
+            android:gravity="center"/>
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/RegistActivity_PWCheckEditText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@null"
-        android:fontFamily="@font/myfont_r"
-        android:textSize="20sp"        android:hint="비밀번호 확인"
-        android:inputType="textPassword" />
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/RegistActivity_PWCheckEditText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="45dp"
+            android:background="@null"
+            android:hint="비밀번호 확인"
+            android:fontFamily="@font/myfont_r"
+            android:textSize="20sp"
+            android:inputType="textPassword" />
+        <ImageView
+            android:id="@+id/RegistActivity_PWCheckEditText_warning"
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:background="@drawable/warning_icon"
+            android:gravity="center"/>
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/RegistActivity_PhoneEditText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@null"
-        android:fontFamily="@font/myfont_r"
-        android:textSize="20sp"        android:hint="전화번호 ( ' - ' 제외 )"
-        android:inputType="number" />
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/RegistActivity_PhoneEditText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="45dp"
+            android:background="@null"
+            android:hint="전화번호 ( ' - ' 제외 )"
+            android:fontFamily="@font/myfont_r"
+            android:textSize="20sp"
+            android:inputType="number" />
+        <ImageView
+            android:id="@+id/RegistActivity_PhoneEditText_warning"
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:background="@drawable/warning_icon"
+            android:gravity="center"/>
+    </LinearLayout>
+
+         />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
         <Spinner
+            android:layout_gravity="center"
             android:id="@+id/RegistActivity_Spinner"
             android:layout_weight="5"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/RegistActivity_AnsEditText"
+
+        <LinearLayout
             android:layout_weight="3"
             android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:background="@null"
-            android:fontFamily="@font/myfont_r"
-            android:textSize="20sp"            android:hint="답변"
-            android:inputType="textPersonName" />
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/RegistActivity_AnsEditText"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="45dp"
+                android:background="@null"
+                android:hint="답변"
+                android:fontFamily="@font/myfont_r"
+                android:textSize="20sp"
+                android:inputType="textPersonName" />
+            <ImageView
+                android:id="@+id/RegistActivity_AnsEditText_warning"
+                android:visibility="invisible"
+                android:layout_gravity="center"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:background="@drawable/warning_icon"
+                android:gravity="center"/>
+        </LinearLayout>
     </LinearLayout>
     <ImageView
         android:layout_marginVertical="7dp"

@@ -30,6 +30,7 @@ public class GalleryFragment extends Fragment {
     private String uID;
     private GridView gridView;
     private ArrayList<String> courseArray=new ArrayList<String>();
+    private ArrayList<picInfo> courseArray2=new ArrayList<picInfo>();
 
     public GalleryFragment(Context context) {
         activity = (Activity) context;
@@ -45,7 +46,7 @@ public class GalleryFragment extends Fragment {
         AddCourse("course1", 5);
         AddCourse("course2", 11);
         AddCourse("course3",12);
-        GalleryGridAdapter  galleryGridAdapter= new GalleryGridAdapter(uID, courseArray);
+        GalleryGridAdapter  galleryGridAdapter= new GalleryGridAdapter(activity, uID, courseArray, courseArray2);
         gridView.setAdapter(galleryGridAdapter);
         return root;
     }
@@ -64,6 +65,12 @@ public class GalleryFragment extends Fragment {
                                     if(Name.equals(uID)){
                                         Log.d("갤러리", Name + " - " + Course+"/"+ finalI+"/");
                                         courseArray.add(Course+"/"+ finalI+"/");
+
+                                        courseArray2.add(
+                                                new picInfo(document.getId(),
+                                                        (String) (document.getData().get("날짜")),
+                                                        true, (String) (document.getData().get("이름"))
+                                                ));
                                     }
                                 }
                             } else {

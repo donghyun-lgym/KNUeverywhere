@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dongcompany.knueverywhere.LoadingDialog;
 import com.dongcompany.knueverywhere.R;
 
 public class MapInfoActivity extends AppCompatActivity {
@@ -24,7 +26,6 @@ public class MapInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_info);
-
 
         //이름 세팅
         Intent intent = getIntent();
@@ -72,6 +73,15 @@ public class MapInfoActivity extends AppCompatActivity {
         picButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final LoadingDialog dialog2 = new LoadingDialog(MapInfoActivity.this);
+                dialog2.show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog2.dismiss();
+                    }
+                }, 1200);
+
                 getSupportFragmentManager().beginTransaction().hide(reviewFragment).commit();
                 getSupportFragmentManager().beginTransaction().hide(aroundFragment).commit();
                 getSupportFragmentManager().beginTransaction().show(picFragment).commit();
@@ -96,6 +106,15 @@ public class MapInfoActivity extends AppCompatActivity {
         reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final LoadingDialog dialog2 = new LoadingDialog(MapInfoActivity.this);
+                dialog2.show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog2.dismiss();
+                    }
+                }, 1000);
+
                 getSupportFragmentManager().beginTransaction().hide(picFragment).commit();
                 getSupportFragmentManager().beginTransaction().hide(aroundFragment).commit();
                 getSupportFragmentManager().beginTransaction().show(reviewFragment).commit();

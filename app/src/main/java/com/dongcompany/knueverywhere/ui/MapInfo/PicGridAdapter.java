@@ -74,7 +74,7 @@ public class PicGridAdapter extends BaseAdapter {
                     public void run() {
                         dialog2.dismiss();
                     }
-                }, 1500);
+                }, 800);
             }
         });
         return view;

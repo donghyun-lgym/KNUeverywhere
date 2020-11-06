@@ -12,17 +12,17 @@
         android:layout_height="wrap_content"
         android:text="코스 선택하기"
         android:fontFamily="@font/myfont"
-        android:textSize="35dp"         android:layout_margin="15dp"
+        android:textSize="33dp"         android:layout_margin="15dp"
         android:textColor="@android:color/black"
         android:gravity="center"
-        android:textStyle="bold"/>
+        />
     <CheckBox
         android:id="@+id/MapDialog_CheckBox1_Door"
         android:layout_marginVertical="5dp"
         android:layout_marginHorizontal="50dp"
         android:text="경북대학교의 문"
         android:fontFamily="@font/myfont_r"
-        android:textSize="20dp"         android:gravity="center"
+        android:textSize="17dp"         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </CheckBox>
@@ -32,7 +32,7 @@
         android:layout_marginHorizontal="50dp"
         android:text="경북대학교의 식당"
         android:fontFamily="@font/myfont_r"
-        android:textSize="20dp"        android:gravity="center"
+        android:textSize="17dp"        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </CheckBox>
@@ -42,7 +42,7 @@
         android:layout_marginHorizontal="50dp"
         android:text="경북대학교의 주요 장소"
         android:fontFamily="@font/myfont_r"
-        android:textSize="20dp"        android:gravity="center"
+        android:textSize="17dp"        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </CheckBox>
@@ -52,7 +52,7 @@
         android:layout_marginHorizontal="50dp"
         android:text="경북대학교의 단과대학"
         android:fontFamily="@font/myfont_r"
-        android:textSize="20dp"        android:gravity="center"
+        android:textSize="17dp"        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </CheckBox>
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:text="선택한 코스의 탐방 유효 시간  :  "
             android:fontFamily="@font/myfont_r"
-            android:textSize="20dp"            android:textStyle="bold"
+            android:textSize="17dp"            android:textStyle="bold"
             android:textColor="@android:color/black"
             android:gravity="center"/>
         <TextView
@@ -89,7 +89,7 @@
         android:layout_gravity="center"
         android:text="시간 내 탐방을 완료해야 유효 처리됩니다."
         android:fontFamily="@font/myfont"
-        android:textSize="20dp"
+        android:textSize="17dp"
         android:textColor="@android:color/darker_gray"
         android:gravity="center"/>
     <LinearLayout
@@ -102,24 +102,24 @@
         <Button
             android:id="@+id/MapDialog_Btn"
             android:text="확  인"
-            android:fontFamily="@font/myfont"
-            android:textSize="23dp"            android:background="@drawable/design_button"
+            android:fontFamily="@font/myfont_r"
+            android:textSize="20dp"            android:background="@drawable/design_button"
             android:textStyle="bold"
             android:layout_gravity="center"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:layout_height="55dp"
             android:layout_marginRight="20dp"
             />
         <Button
             android:layout_marginLeft="20dp"
             android:id="@+id/Mapdialog_CanBtn"
             android:text="취  소"
-            android:fontFamily="@font/myfont"
-            android:textSize="23dp"            android:textStyle="bold"
+            android:fontFamily="@font/myfont_r"
+            android:textSize="20dp"            android:textStyle="bold"
             android:background="@drawable/design_button"
             android:layout_gravity="center"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:layout_height="55dp"
             />
     </LinearLayout>
 

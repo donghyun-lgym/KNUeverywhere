@@ -17,7 +17,7 @@
         android:text="회원가입"
         android:fontFamily="@font/myfont"
         android:textColor="#f000"
-        android:textSize="50sp"
+        android:textSize="40sp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -33,7 +33,7 @@
             android:background="@null"
             android:hint="성명"
             android:fontFamily="@font/myfont_r"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:inputType="textPersonName" />
         <ImageView
             android:id="@+id/RegistActivity_NameEditText_warning"
@@ -59,7 +59,7 @@
             android:background="@null"
             android:hint="학번"
             android:fontFamily="@font/myfont_r"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:inputType="number" />
         <ImageView
             android:id="@+id/RegistActivity_StdNumEditText_warning"
@@ -93,7 +93,7 @@
                 android:background="@null"
                 android:hint="아이디 (3~10자리)"
                 android:fontFamily="@font/myfont_r"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:inputType="textPersonName" />
             <ImageView
                 android:id="@+id/RegistActivity_IDEditText_warning"
@@ -132,7 +132,7 @@
             android:background="@null"
             android:hint="비밀번호 (8~12자리, 특수문자 가능)"
             android:fontFamily="@font/myfont_r"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:inputType="textPassword" />
         <ImageView
             android:id="@+id/RegistActivity_PWEditText_warning"
@@ -157,7 +157,7 @@
             android:background="@null"
             android:hint="비밀번호 확인"
             android:fontFamily="@font/myfont_r"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:inputType="textPassword" />
         <ImageView
             android:id="@+id/RegistActivity_PWCheckEditText_warning"
@@ -182,7 +182,7 @@
             android:background="@null"
             android:hint="전화번호 ( ' - ' 제외 )"
             android:fontFamily="@font/myfont_r"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:inputType="number" />
         <ImageView
             android:id="@+id/RegistActivity_PhoneEditText_warning"
@@ -219,7 +219,7 @@
                 android:background="@null"
                 android:hint="답변"
                 android:fontFamily="@font/myfont_r"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:inputType="textPersonName" />
             <ImageView
                 android:id="@+id/RegistActivity_AnsEditText_warning"
@@ -245,7 +245,7 @@
         android:gravity="center"
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/myfont"
-        android:textSize="14sp"
+        android:textSize="13sp"
         android:text="※ 관리자가 승인해야 이용이 가능하니 기다려 주세요. ※"/>
     <Button
         android:id="@+id/RegistActivity_CompleteButton"
@@ -257,7 +257,7 @@
         android:text="회원가입 완료"
         android:textColor="#FFFFFF"
         android:layout_gravity="center"
-        android:fontFamily="@font/myfont"
-        android:textSize="28sp" />
+        android:fontFamily="@font/myfont_r"
+        android:textSize="24sp" />
 
 </LinearLayout>

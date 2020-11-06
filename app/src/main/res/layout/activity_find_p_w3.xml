@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:text="비밀번호 찾기 결과"
         android:fontFamily="@font/myfont"
-        android:textSize="50sp"
+        android:textSize="40sp"
         android:textColor="#f000"
-        android:textStyle="bold" />
+        />
 
     <TextView
         android:id="@+id/FindPW3Activity_TextView"
@@ -40,8 +40,8 @@
         android:text="확   인"
         android:textColor="#FFFFFF"
         android:layout_gravity="center"
-        android:fontFamily="@font/myfont"
+        android:fontFamily="@font/myfont_r"
 
-        android:textSize="30sp" />
+        android:textSize="25sp" />
 
 </LinearLayout>

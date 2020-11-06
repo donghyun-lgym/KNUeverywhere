@@ -24,9 +24,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:background="@drawable/tutorial1"
-        android:layout_width="301dp"
+        android:layout_width="350dp"
         android:id="@+id/Tutorial_iv"
-        android:layout_height="525dp">
+        android:layout_height="610dp">
     </ImageView>
     <Button
         android:id="@+id/Tutorial_Button"

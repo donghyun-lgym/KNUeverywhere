@@ -15,15 +15,15 @@
 
     <Button
         android:id="@+id/Floatingicon_Dialog_Btn"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="110dp"
+        android:layout_height="55dp"
         android:layout_gravity="center"
         android:layout_margin="3dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/design_button"
         android:text="확  인"
-        android:fontFamily="@font/myfont"
-        android:textSize="23dp"
-        android:textStyle="bold" />
+        android:fontFamily="@font/myfont_r"
+        android:textSize="20dp"
+        />
 
 </LinearLayout>

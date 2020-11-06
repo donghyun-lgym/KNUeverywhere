@@ -12,7 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/picFragmentDialog_imageview"
-        android:background="@drawable/login_logo"
         />
 
     <TextView
@@ -74,14 +73,14 @@
 
     <Button
         android:id="@+id/picFragmentDialog_CanBtn"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="110dp"
+        android:layout_height="55dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
         android:background="@drawable/design_button"
         android:text="확  인"
-        android:fontFamily="@font/myfont"
-        android:textSize="23dp"
-        android:textStyle="bold" />
+        android:fontFamily="@font/myfont_r"
+        android:textSize="20dp"
+       />
 
 </LinearLayout>

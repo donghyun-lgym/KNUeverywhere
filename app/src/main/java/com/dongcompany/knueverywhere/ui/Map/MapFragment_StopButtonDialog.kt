@@ -25,11 +25,11 @@ class MapFragment_StopButtonDialog(context: Context) : Dialog(context) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mapfragment_stopbuttondialog)
         setCancelable(false)
-        this.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-        this.window?.setFlags(
-            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
-            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-        )
+//        this.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+//        this.window?.setFlags(
+//            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+//            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+//        )
 
         val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = windowManager.defaultDisplay

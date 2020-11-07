@@ -1,8 +1,10 @@
 package com.dongcompany.knueverywhere
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -13,6 +15,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -32,19 +35,30 @@ class QRcertificationActivity : AppCompatActivity() {
     private var bitmap: Bitmap? = null
     private var uri: Uri? = null
 
+    private lateinit var builder:AlertDialog.Builder
+    private lateinit var alertDialog : AlertDialog
+    private lateinit var dialog2 : LoadingDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_q_rcertification)
         db = FirebaseFirestore.getInstance()
         storage = FirebaseStorage.getInstance()
         util = SharedPreferenceUtil(this)
-
         userID = util.getID()
 
-        val dialog2 = LoadingDialog(this)
+        dialog2 = LoadingDialog(this)
         dialog2.show()
-        Handler().postDelayed({ dialog2.dismiss() }, 1700)
+        Handler().postDelayed({ dialog2.dismiss() }, 2000)
 
+        builder = AlertDialog.Builder(this)
+        builder.setTitle("오류").setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+                    dialog.dismiss()
+                    this.finish()
+                })
+                .setCancelable(false)
+        alertDialog = builder.create()
         //탐방 중인 상태 초기화
         var chk =false
         db.collection("users").document(userID)
@@ -57,22 +71,22 @@ class QRcertificationActivity : AppCompatActivity() {
                         if (end < now)  // 타임오버
                         {
                             util.setTravelState(false)
-                            Toast.makeText(this, "탐방 유효 시간이 지났습니다. 재도전 하세요!", Toast.LENGTH_SHORT).show()
+                            //Toast.makeText(this, "탐방 유효 시간이 지났습니다. 재도전 하세요!", Toast.LENGTH_SHORT).show()
                             MainActivity.invalidityTravel(this)
                             chk = true
+                            alertDialog.setMessage("탐방 유효 시간이 지났습니다. 재도전 하세요!\n앱이 종료됩니다.")
+                            alertDialog.show()
                             return@addOnSuccessListener
                         }
                     }
                     else {
-                        Toast.makeText(this, "현재 탐방 중이 아닙니다.", Toast.LENGTH_SHORT).show()
-                        finish()
+                        alertDialog.setMessage("현재 탐방 중이 아닙니다.\n앱이 종료됩니다.")
+                        alertDialog.show()
                         return@addOnSuccessListener
                     }
                 }
         Handler().postDelayed({
-            if (chk) {
-                finish()
-            } else {
+            if (!chk) {
                 doMainFunction()
             }
         }, 1800)
@@ -93,9 +107,11 @@ class QRcertificationActivity : AppCompatActivity() {
 
         Log.d("QR인증", course.toString() + "_" + courseIndex.toString())
         if(util.getCourseCheckBox(course) == false) {
-            Toast.makeText(this, "현재 탐방 중인 코스가 아닙니다.", Toast.LENGTH_SHORT).show()
-            this.finish()
+            alertDialog.setMessage("현재 탐방 중인 코스가 아닙니다.\n앱이 종료됩니다.")
+            alertDialog.show()
+            return
         }
+
 
         val courseArray = arrayOf("문", "식당", "주요 장소", "단과대학")
         val courseTextView:TextView = findViewById(R.id.QRActivity_CourseTextView);
@@ -135,14 +151,17 @@ class QRcertificationActivity : AppCompatActivity() {
             }
 
             if (alreadyCert == true) {
-                Toast.makeText(this, "이미 인증된 장소입니다.", Toast.LENGTH_SHORT).show()
-                finish()
+                alertDialog.setMessage("이미 인증된 장소입니다.\n앱이 종료됩니다.")
+                alertDialog.show()
                 return@OnClickListener
             }
+
+            dialog2.show()
+
             val a = hashMapOf(
                     courseDetailTextView.text.toString() to true
             )
-            Toast.makeText(this, "인증되었습니다.", Toast.LENGTH_SHORT).show()
+
             db.collection("users").document(userID).collection(collectionArray[course])
                     .document(collectionArray[course]).update(a as Map<String, Any>)
 
@@ -185,7 +204,10 @@ class QRcertificationActivity : AppCompatActivity() {
                             }
                 }
             }
+
             Handler().postDelayed({
+                Toast.makeText(this, "인증되었습니다.", Toast.LENGTH_SHORT).show()
+                dialog2.dismiss()
                 if (c == false) {
                     val aa = hashMapOf("CLEAR" to true)
                     var bb = hashMapOf("탐방상태" to false)
@@ -196,13 +218,13 @@ class QRcertificationActivity : AppCompatActivity() {
                             bb.put("체크박스_코스" + i.toString(), false)
                         }
                     }
-                    Toast.makeText(this, "코스 탐방이 완료되었습니다!", Toast.LENGTH_SHORT).show()
                     util.setTravelState(false)
                     db.collection("users").document(userID)
                             .update(bb as Map<String, Any>)
+                    startActivity(Intent(this, CourseCompleteActivity::class.java))
                 }
-            }, 2000)
-            finish()
+                finish()
+            }, 2100)
         })
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

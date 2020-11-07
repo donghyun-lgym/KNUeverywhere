@@ -30,11 +30,11 @@ class PicFragment_Dialog(context: Context, val ref : StorageReference, val info:
         super.onCreate(savedInstanceState)
         setContentView(R.layout.picfragment_dialog)
         setCancelable(false)
-        this.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-        this.window?.setFlags(
-            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
-            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-        )
+//        this.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+//        this.window?.setFlags(
+//            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+//            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+//        )
 
         val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = windowManager.defaultDisplay

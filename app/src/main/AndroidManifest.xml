@@ -8,15 +8,13 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_round"
-        android:label="경북대학교 구석구석"
+        android:label="KNU TRiP"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".CourseCompleteActivity"></activity>
-        <activity android:name=".ui.Map.MapFragment_AirViewActivity" />
         <activity android:name=".ui.MapInfo.MapInfoActivity" />
         <activity android:name=".QRcertificationActivity" />
-        <activity android:name=".TestActivity" />
         <activity android:name=".Login.FindPW3Activity" />
         <activity android:name=".Login.FindPW2Activity" />
         <activity android:name=".Login.FindID2Activity" />
@@ -38,19 +36,12 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data
                     android:host="t1"
                     android:scheme="tt111://" />

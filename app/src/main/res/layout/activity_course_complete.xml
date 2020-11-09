@@ -4,6 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".CourseCompleteActivity">
+
+    <ImageView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_gravity="center"
+        android:layout_width="392dp"
+        android:layout_height="200dp"
+        android:background="@drawable/login_logo"/>
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/CourseCompleteActivity_t1"
+        android:layout_marginTop="210dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/myfont"
+        android:textSize="40dp"
+        android:textColor="@android:color/black"
+        android:text="축하합니다!"
+        />
+    <ImageView
+        app:layout_constraintTop_toBottomOf="@+id/CourseCompleteActivity_t1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/CourseCompleteActivity_Imageview"/>
+    <TextView
+        app:layout_constraintTop_toBottomOf="@+id/CourseCompleteActivity_Imageview"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/myfont"
+        android:textSize="30dp"
+        android:textColor="@android:color/black"
+        android:text="코스 탐방이 완료되었습니다!"
+        />
+    <Button
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="50dp"
+        android:layout_width="180dp"
+        android:layout_height="70dp"
+        android:id="@+id/CourseCompleteActivity_Button"
+        android:text="확   인"
+        android:background="@drawable/design_button2"
+        android:fontFamily="@font/myfont_r"
+        android:textSize="30dp"
+        android:layout_marginTop="30dp"
+        android:textColor="@android:color/white"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

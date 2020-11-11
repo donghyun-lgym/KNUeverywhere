@@ -35,6 +35,7 @@ public class PicGridAdapter extends BaseAdapter {
 
     public void addItem(picInfo item) {
         arrayList.add(item);
+        Log.d("nonono-addItem", item.getId() + "/ 리스트 사이즈 : " + arrayList.size());
         notifyDataSetChanged();
     }
 
@@ -61,6 +62,7 @@ public class PicGridAdapter extends BaseAdapter {
         FirebaseStorage mStorage = FirebaseStorage.getInstance("gs://knu-everywhere.appspot.com");
         final StorageReference ref = mStorage.getReference().child("/" + Course + "/" + courseNum + "/" + arrayList.get(position).getId() + ".jpg");
         Log.d("nonono", ref.toString());
+
         Glide.with(activity)
                 .using(new FirebaseImageLoader())
                 .load(ref)

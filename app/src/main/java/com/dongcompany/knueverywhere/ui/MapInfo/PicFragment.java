@@ -31,9 +31,6 @@ public class PicFragment extends Fragment {
     private int courseNum;
     private GridView gridView;
 
-    private ArrayList<picInfo> usersArray = new ArrayList();
-
-
 
     public PicFragment(Context context, String Course, int courseNum) {
         this.activity = (MapInfoActivity) context;
@@ -45,9 +42,10 @@ public class PicFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_pic, container, false);
         gridView= root.findViewById(R.id.pic_gridview);
+        final PicGridAdapter picGridAdapter = new PicGridAdapter(activity, Course, courseNum);
+        gridView.setAdapter(picGridAdapter);
 
         //DB에서 해당 코스에 등록된 아이디들 끌고옴
-        Log.d("nonono", Course + "/" + courseNum);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("picture").document(Course).collection(String.valueOf(courseNum))
                 .get()
@@ -57,7 +55,7 @@ public class PicFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if((Boolean) (document.getData().get("업로드")) == true) {
-                                    usersArray.add(
+                                    picGridAdapter.addItem(
                                             new picInfo(document.getId(), (String) (document.getData().get("날짜")), true, (String) (document.getData().get("이름")))
                                     );
                                 }
@@ -67,10 +65,6 @@ public class PicFragment extends Fragment {
                         }
                     }
                 });
-        FirebaseStorage mStorage = FirebaseStorage.getInstance("gs://knu-everywhere.appspot.com");
-        //Picasso.get().load(URI).placeholder(R.drawable.luggageicon).into(imageView);
-        PicGridAdapter picGridAdapter = new PicGridAdapter(activity, usersArray, Course, courseNum);
-        gridView.setAdapter(picGridAdapter);
 
         return root;
     }

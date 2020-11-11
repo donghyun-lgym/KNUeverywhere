@@ -23,15 +23,19 @@ import java.util.ArrayList;
 
 public class PicGridAdapter extends BaseAdapter {
     private MapInfoActivity activity;
-    private ArrayList<picInfo> arrayList;
+    private ArrayList<picInfo> arrayList = new ArrayList<>();
     private String Course;
     private int courseNum;
 
-    public PicGridAdapter(Context context, ArrayList<picInfo> arrayList, String Course, int courseNum) {
+    public PicGridAdapter(Context context, String Course, int courseNum) {
         this.activity = (MapInfoActivity) context;
-        this.arrayList=arrayList;
         this.Course = Course;
         this.courseNum = courseNum;
+    }
+
+    public void addItem(picInfo item) {
+        arrayList.add(item);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -40,7 +44,7 @@ public class PicGridAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public picInfo getItem(int position) {
         return arrayList.get(position);
     }
 
@@ -56,7 +60,7 @@ public class PicGridAdapter extends BaseAdapter {
         ImageView imageView1= view.findViewById(R.id.first_ima);
         FirebaseStorage mStorage = FirebaseStorage.getInstance("gs://knu-everywhere.appspot.com");
         final StorageReference ref = mStorage.getReference().child("/" + Course + "/" + courseNum + "/" + arrayList.get(position).getId() + ".jpg");
-
+        Log.d("nonono", ref.toString());
         Glide.with(activity)
                 .using(new FirebaseImageLoader())
                 .load(ref)

@@ -7,9 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,7 +45,7 @@ public class MapInfoActivity extends AppCompatActivity {
         //프래그먼트 초기화
         picFragment = new PicFragment(this, course, courseNum);
         reviewFragment = new ReviewFragment(this, course, courseNum);
-        aroundFragment = new AroundFragment(this);
+        aroundFragment = new AroundFragment(this, course, courseNum);
         getSupportFragmentManager().beginTransaction().add(R.id.MapInfoActivity_FrameLayout, picFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.MapInfoActivity_FrameLayout, reviewFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.MapInfoActivity_FrameLayout, aroundFragment).commit();

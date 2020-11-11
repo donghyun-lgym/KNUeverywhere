@@ -33,14 +33,13 @@ class AroundFragment(val context: MapInfoActivity, val course: String, val Cours
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_around, container, false)
-        adapter = Around_rvAdapter(context)
+        adapter = Around_rvAdapter(context, course, CourseNum)
         val recyclerView:RecyclerView = root.findViewById(R.id.AroundFragment_RecyclerView)
         val manager: LinearLayoutManager = LinearLayoutManager(context);
         manager.setOrientation(
                 LinearLayoutManager.VERTICAL
         );
         recyclerView.setLayoutManager(manager);
-
         recyclerView.adapter = adapter
         //db로부터 로드
         db.collection("picture").document(course).collection(CourseNum.toString())
@@ -59,7 +58,6 @@ class AroundFragment(val context: MapInfoActivity, val course: String, val Cours
                 .addOnFailureListener{ result ->
                     Log.e("AroundFragment 데이터로드 에러", "data load error")
                 }
-
         return root
     }
 }

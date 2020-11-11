@@ -68,17 +68,18 @@ public class MapInfoActivity extends AppCompatActivity {
         reviewButton.setTypeface(typeface);
         final Typeface finalTypeface = typeface;
         final Typeface finalTypeface_r = typeface_r;
+        final LoadingDialog dialog2 = new LoadingDialog(MapInfoActivity.this);
+
         picButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final LoadingDialog dialog2 = new LoadingDialog(MapInfoActivity.this);
                 dialog2.show();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         dialog2.dismiss();
                     }
-                }, 1200);
+                }, 1500);
 
                 getSupportFragmentManager().beginTransaction().hide(reviewFragment).commit();
                 getSupportFragmentManager().beginTransaction().hide(aroundFragment).commit();
@@ -92,6 +93,14 @@ public class MapInfoActivity extends AppCompatActivity {
         aroundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog2.show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog2.dismiss();
+                    }
+                }, 1500);
+
                 getSupportFragmentManager().beginTransaction().hide(reviewFragment).commit();
                 getSupportFragmentManager().beginTransaction().hide(picFragment).commit();
                 getSupportFragmentManager().beginTransaction().show(aroundFragment).commit();

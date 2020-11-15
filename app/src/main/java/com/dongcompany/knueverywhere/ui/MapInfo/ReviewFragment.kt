@@ -20,16 +20,12 @@ import com.dongcompany.knueverywhere.SharedPreferenceUtil
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class ReviewFragment(val context: MapInfoActivity, val course: String, val CourseNum: Int) : Fragment() {
     private lateinit var adapter: Review_rvAdapter
     val db = FirebaseFirestore.getInstance()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -122,6 +118,15 @@ class ReviewFragment(val context: MapInfoActivity, val course: String, val Cours
     }
 
 
+    fun addReview(info: HashMap<Any, Any>) {
+        val name:String = info.get("이름") as String
+        val date:String = info.get("날짜") as String
+        val id:String = info.get("ID") as String
+        val content:String = info.get("내용") as String
+        adapter.addItem(Info(name, id, date, content))
+        adapter.setListSort();
+    }
+
     class ReviewWrite_Dialog(context: Context, val course: String, val CourseNum: Int) : Dialog(context) {
 
         private var activity: MapInfoActivity = context as MapInfoActivity
@@ -170,6 +175,7 @@ class ReviewFragment(val context: MapInfoActivity, val course: String, val Cours
                         .document(id)
                         .set(map as Map<String, Any>)
                 Toast.makeText(context, "작성되었습니다.", Toast.LENGTH_SHORT).show()
+                activity.addReview(map)
                 dismiss()
             })
             findViewById<Button>(R.id.ReviewDialog_CanBtn).setOnClickListener(View.OnClickListener {

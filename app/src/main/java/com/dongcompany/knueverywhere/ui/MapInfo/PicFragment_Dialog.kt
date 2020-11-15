@@ -22,7 +22,7 @@ import com.google.firebase.storage.StorageReference
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PicFragment_Dialog(context: Context, val ref : StorageReference, val info:picInfo) : Dialog(context) {
+class PicFragment_Dialog(context: Context, val ref : StorageReference, val info:picInfo, val area : String) : Dialog(context) {
 
     private var activity: Activity = context as Activity
 
@@ -47,15 +47,16 @@ class PicFragment_Dialog(context: Context, val ref : StorageReference, val info:
         this.window?.attributes = params as WindowManager.LayoutParams
         this.window?.setBackgroundDrawableResource(R.color.TRANSPARENT)
 
-
-        val imageView:ImageView = findViewById(R.id.picFragmentDialog_imageview);
+        val placename:TextView = findViewById(R.id.picFragmentDialog_areaText)
+        placename.setText(area)
+        val imageView:ImageView = findViewById(R.id.picFragmentDialog_imageview)
         Glide.with(activity)
                 .using(FirebaseImageLoader())
                 .load(ref)
                 .into(imageView);
-        val dateText:TextView = findViewById(R.id.picFragmentDialog_dateText);
+        val dateText:TextView = findViewById(R.id.picFragmentDialog_dateText)
         dateText.setText(info.date)
-        val nameText:TextView = findViewById(R.id.picFragmentDialog_nameText);
+        val nameText:TextView = findViewById(R.id.picFragmentDialog_nameText)
         val name2 = info.name.substring(0, info.name.length - 1)
         nameText.setText(name2 + "*")
 

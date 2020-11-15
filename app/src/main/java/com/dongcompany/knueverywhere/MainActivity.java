@@ -205,9 +205,7 @@ public class MainActivity extends AppCompatActivity  {
     public void setCourse_MapMarking(Boolean course0, Boolean course1, Boolean course2, Boolean course3) {
         fg1.MapMarking(course0, course1, course2, course3);
     }
-    public void cancelTravel() {
-        fg1.cancelTravel();
-    }
+
     public static void invalidityTravel(final Context context) {
         final SharedPreferenceUtil util = new SharedPreferenceUtil(context);
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -218,7 +216,7 @@ public class MainActivity extends AppCompatActivity  {
         final String[] aaa = {"경북대학교의 문", "경북대학교의 식당", "경북대학교의 주요 장소", "경북대학교의 단과 대학"};
         final int[] bbb = {11, 5, 11, 12};
         for(int i = 0; i < 4; i++) {
-            if(util.getCourseCheckBox(i) == true) {
+            if(util.getCourseCheckBox(i) == true && util.getCourseInfo(i, "CLEAR") == false) {
                 //db 수정
                 final int finalI = i;
                 db.collection("users").document(util.getID()).collection(aaa[finalI]).document(aaa[finalI])

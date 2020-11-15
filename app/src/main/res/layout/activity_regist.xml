@@ -112,7 +112,7 @@
             android:layout_weight="2"
             android:layout_height="38dp"
             android:fontFamily="@font/myfont_r"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:layout_gravity="right|center"
             android:background="@drawable/design_button2"
             android:text="중 복 확 인"

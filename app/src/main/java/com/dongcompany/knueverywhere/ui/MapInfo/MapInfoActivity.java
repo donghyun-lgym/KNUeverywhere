@@ -14,12 +14,17 @@ import android.widget.TextView;
 import com.dongcompany.knueverywhere.LoadingDialog;
 import com.dongcompany.knueverywhere.R;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MapInfoActivity extends AppCompatActivity {
     private PicFragment picFragment;
     private ReviewFragment reviewFragment;
     private AroundFragment aroundFragment;
 
-
+    public void addReview(HashMap info) {
+        reviewFragment.addReview(info);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -63,8 +63,8 @@ public class GalleryFragment extends Fragment {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     String Name = (String) document.getId();
                                     if(Name.equals(uID)){
-                                        Log.d("갤러리", Name + " - " + Course+"/"+ finalI+"/");
-                                        courseArray.add(Course+"/"+ finalI+"/");
+                                        Log.d("갤러리", Name + " - " + Course+"/"+ finalI);
+                                        courseArray.add(Course+"/"+ finalI);
 
                                         courseArray2.add(
                                                 new picInfo(document.getId(),
